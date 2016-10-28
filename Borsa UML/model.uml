@@ -6,8 +6,6 @@
   <packagedElement xmi:type="uml:Class" xmi:id="_oIrhkJzsEea0oYboj7DG5w" name="Stock">
     <ownedAttribute xmi:id="_NHEbwJz0Eea0oYboj7DG5w" name="Name" visibility="public" isReadOnly="true">
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_NHJ7UJz0Eea0oYboj7DG5w"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_NHKiYJz0Eea0oYboj7DG5w" value="1"/>
     </ownedAttribute>
     <ownedOperation xmi:id="_n_BVoJz0Eea0oYboj7DG5w" name="Operation_1"/>
   </packagedElement>
