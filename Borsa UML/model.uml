@@ -9,6 +9,17 @@
     </ownedAttribute>
     <ownedOperation xmi:id="_n_BVoJz0Eea0oYboj7DG5w" name="Operation_1"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:Class" xmi:id="_ZegdEJz1Eea0oYboj7DG5w" name="Strategy"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_ZegdEJz1Eea0oYboj7DG5w" name="Strategy">
+    <ownedAttribute xmi:id="_40XKAJ0TEeaTl9OJ1ZTCRA" name="Name" visibility="public" isReadOnly="true">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_40ZmQJ0TEeaTl9OJ1ZTCRA"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_40aNUJ0TEeaTl9OJ1ZTCRA" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_N-51IJ0UEeaTl9OJ1ZTCRA" name="Parameters" visibility="public" aggregation="composite">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_N-6cMJ0UEeaTl9OJ1ZTCRA"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_N-6cMZ0UEeaTl9OJ1ZTCRA" value="1"/>
+    </ownedAttribute>
+  </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_crU-YJz1Eea0oYboj7DG5w" name="Backtest"/>
 </uml:Model>
