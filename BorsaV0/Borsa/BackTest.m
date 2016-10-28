@@ -1,6 +1,6 @@
 (* Mathematica Package *)
 
-BeginPackage["BackTest`",{"StockData`","Strategy`"}]
+BeginPackage["BackTest`",{"Stock`","Strategy`"}]
 (* Exported symbols added here with SymbolName::usage *)  
 
 BackTest::usage = "BackTest[Stock, Strategy, Options] returns a BackTest Object with a list of all the trades done with the strategy

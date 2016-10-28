@@ -2,7 +2,7 @@
 
 (* Created by the Wolfram Workbench 05/09/2014 *)
 
-BeginPackage["Borsa`",{"StockData`","BackTest`","EmbeddingAnalysis`","Strategy`"}]
+BeginPackage["Borsa`",{"Stock`","BackTest`","EmbeddingAnalysis`","Strategy`"}]
  
 
 (* ::Section:: *)

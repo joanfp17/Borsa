@@ -1,6 +1,6 @@
 (* Mathematica Package *)
 
-BeginPackage["Strategy`" , { "StockData`"} ]
+BeginPackage["Strategy`" , { "Stock`"} ]
 (* Exported symbols added here with SymbolName::usage *) 
 
 Strategy::usage="Strategy[strategyName,strategyParameters] returns the Strategy Object"

@@ -1,6 +1,6 @@
 (* Mathematica Package *)
 
-BeginPackage["StockData`",{"RLink`"}]
+BeginPackage["Stock`",{"RLink`"}]
 (* Exported symbols added here with SymbolName::usage *)  
 
 connectDB::usage = "connectDB[] runs R to connect to yahoo"
