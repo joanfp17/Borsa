@@ -7,6 +7,15 @@
     <ownedAttribute xmi:id="_NHEbwJz0Eea0oYboj7DG5w" name="Name" visibility="public" isReadOnly="true">
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
     </ownedAttribute>
+    <ownedAttribute xmi:id="_oAH5cJ4TEeaFiZq1ubw71A" name="{&quot;Open&quot;,&quot;Close&quot;,&quot;High&quot;,&quot;Low&quot;,&quot;Volume&quot;,&quot;OHLCV&quot;,&quot;Median Price&quot;,&quot;Intraday Range&quot;,&quot;Interday Range&quot;,&quot;Dividends&quot;,&quot;Splits&quot;,&quot;Adjusted&quot;}" visibility="public">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_oAQcUJ4TEeaFiZq1ubw71A"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_oARDYJ4TEeaFiZq1ubw71A" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_6XDNcJ4TEeaFiZq1ubw71A" name="Date" visibility="public" isReadOnly="true">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_6XDNcZ4TEeaFiZq1ubw71A"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_6XD0gJ4TEeaFiZq1ubw71A" value="1"/>
+    </ownedAttribute>
     <ownedOperation xmi:id="_n_BVoJz0Eea0oYboj7DG5w" name="Operation_1"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_ZegdEJz1Eea0oYboj7DG5w" name="Strategy">
@@ -22,4 +31,20 @@
     </ownedAttribute>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_crU-YJz1Eea0oYboj7DG5w" name="Backtest"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_n3HR8J4UEeaFiZq1ubw71A" name="A_backtests_stock" memberEnd="_n3HR9J4UEeaFiZq1ubw71A" navigableOwnedEnd="_n3HR9J4UEeaFiZq1ubw71A">
+    <ownedEnd xmi:id="_n3HR9J4UEeaFiZq1ubw71A" name="stocks" type="_oIrhkJzsEea0oYboj7DG5w" association="_n3HR8J4UEeaFiZq1ubw71A">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_n3HR9Z4UEeaFiZq1ubw71A" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_n3HR9p4UEeaFiZq1ubw71A" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_FApXcJ4WEeaFiZq1ubw71A" memberEnd="_FApXcZ4WEeaFiZq1ubw71A _FApXdJ4WEeaFiZq1ubw71A" navigableOwnedEnd="_FApXcZ4WEeaFiZq1ubw71A _FApXdJ4WEeaFiZq1ubw71A">
+    <ownedEnd xmi:id="_FApXcZ4WEeaFiZq1ubw71A" name="backtests" type="_crU-YJz1Eea0oYboj7DG5w" association="_FApXcJ4WEeaFiZq1ubw71A">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_FApXcp4WEeaFiZq1ubw71A"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_FApXc54WEeaFiZq1ubw71A" value="*"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_FApXdJ4WEeaFiZq1ubw71A" name="strategys" type="_ZegdEJz1Eea0oYboj7DG5w" association="_FApXcJ4WEeaFiZq1ubw71A">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_FApXdZ4WEeaFiZq1ubw71A"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_FApXdp4WEeaFiZq1ubw71A" value="*"/>
+    </ownedEnd>
+  </packagedElement>
 </uml:Model>
