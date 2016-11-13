@@ -1,0 +1,1451 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.4' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     55704,       1443]
+NotebookOptionsPosition[     54204,       1387]
+NotebookOutlinePosition[     54548,       1402]
+CellTagsIndexPosition[     54505,       1399]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"selldate", "=", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"2010", ",", "1", ",", "15"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"2010", ",", "2", ",", "18"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"2010", ",", "5", ",", "4"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"2010", ",", "5", ",", "12"}], "}"}]}], "}"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.6876848327594967`*^9, 3.6876848400290966`*^9}, {
+  3.6876849406646967`*^9, 3.6876849753902965`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"net", " ", "=", 
+   RowBox[{"{", 
+    RowBox[{"100", ",", "150", ",", "175", ",", "140"}], "}"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.6876849846098967`*^9, 3.6876850305362964`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"trades", "=", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"2010", ",", "1", ",", "14"}], "}"}], ",", 
+        "28.69286157666046`"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"2010", ",", "1", ",", "15"}], "}"}], ",", 
+        "28.802756276404608`"}], "}"}]}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"2010", ",", "2", ",", "10"}], "}"}], ",", 
+        "26.745129151291515`"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"2010", ",", "2", ",", "18"}], "}"}], ",", 
+        "27.532485586162714`"}], "}"}]}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"2010", ",", "2", ",", "22"}], "}"}], ",", 
+        "27.632201377108075`"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"2010", ",", "5", ",", "4"}], "}"}], ",", 
+        "35.894830678830985`"}], "}"}]}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"2010", ",", "5", ",", "6"}], "}"}], ",", 
+        "34.65488162436548`"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"2010", ",", "5", ",", "12"}], "}"}], ",", 
+        "35.400814987218126`"}], "}"}]}], "}"}]}], "}"}]}]], "Input",
+ CellChangeTimes->{{3.6876855546112967`*^9, 3.6876855570136967`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2010", ",", "1", ",", "14"}], "}"}], ",", 
+       "28.69286157666046`"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2010", ",", "1", ",", "15"}], "}"}], ",", 
+       "28.802756276404608`"}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2010", ",", "2", ",", "10"}], "}"}], ",", 
+       "26.745129151291515`"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2010", ",", "2", ",", "18"}], "}"}], ",", 
+       "27.532485586162714`"}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2010", ",", "2", ",", "22"}], "}"}], ",", 
+       "27.632201377108075`"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2010", ",", "5", ",", "4"}], "}"}], ",", 
+       "35.894830678830985`"}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2010", ",", "5", ",", "6"}], "}"}], ",", 
+       "34.65488162436548`"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2010", ",", "5", ",", "12"}], "}"}], ",", 
+       "35.400814987218126`"}], "}"}]}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{3.6876855591976967`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"selldate", " ", "=", " ", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Transpose", "[", "trades", "]"}], "[", 
+    RowBox[{"[", "2", "]"}], "]"}], "[", 
+   RowBox[{"[", 
+    RowBox[{"All", ",", "1"}], "]"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.687685624858096*^9, 3.6876856376344967`*^9}, {
+  3.6876858233680964`*^9, 3.6876858575944967`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"2010", ",", "1", ",", "15"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"2010", ",", "2", ",", "18"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"2010", ",", "5", ",", "4"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"2010", ",", "5", ",", "12"}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{3.6876856386484966`*^9, 3.6876858588424964`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"buydate", "=", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Transpose", "[", "trades", "]"}], "[", 
+    RowBox[{"[", "1", "]"}], "]"}], "[", 
+   RowBox[{"[", 
+    RowBox[{"All", ",", "1"}], "]"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.687685881493696*^9, 3.6876859030372963`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"2010", ",", "1", ",", "14"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"2010", ",", "2", ",", "10"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"2010", ",", "2", ",", "22"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"2010", ",", "5", ",", "6"}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{3.6876859047376966`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"buyprice", "=", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Transpose", "[", "trades", "]"}], "[", 
+    RowBox[{"[", "1", "]"}], "]"}], "[", 
+   RowBox[{"[", 
+    RowBox[{"All", ",", "2"}], "]"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.6876859173268967`*^9, 3.6876859368892965`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "28.69286157666046`", ",", "26.745129151291515`", ",", 
+   "27.632201377108075`", ",", "34.65488162436548`"}], "}"}]], "Output",
+ CellChangeTimes->{3.6876859382776966`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"sellprice", "=", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Transpose", "[", "trades", "]"}], "[", 
+    RowBox[{"[", "2", "]"}], "]"}], "[", 
+   RowBox[{"[", 
+    RowBox[{"All", ",", "2"}], "]"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.687685940492896*^9, 3.6876859584328966`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "28.802756276404608`", ",", "27.532485586162714`", ",", 
+   "35.894830678830985`", ",", "35.400814987218126`"}], "}"}]], "Output",
+ CellChangeTimes->{3.687685959556096*^9}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"grosProfit", "=", "30000"}], ";", 
+  RowBox[{"grosLoss", "=", "23100"}], ";", 
+  RowBox[{"maxDD", "=", "1200"}], ";", 
+  RowBox[{"netReturn", "=", "8.53"}], ";"}]], "Input",
+ CellChangeTimes->{{3.6876908860242963`*^9, 3.6876909240388966`*^9}, 
+   3.6876909716056967`*^9, {3.687692082776696*^9, 3.6876920843834963`*^9}, {
+   3.6876926771128964`*^9, 3.6876926812322965`*^9}, {3.687846216299079*^9, 
+   3.687846253177479*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"aar", "=", "8"}], ";"}]], "Input",
+ CellChangeTimes->{{3.6876912183638964`*^9, 3.6876912258558965`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"performance", "=", "\[IndentingNewLine]", 
+   RowBox[{"Column", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"Style", "[", 
+        RowBox[{"\"\<Performance\>\"", ",", 
+         RowBox[{"FontSize", "\[Rule]", "14"}], ",", "Bold"}], "]"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Grid", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"{", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"{", "\[IndentingNewLine]", 
+            RowBox[{
+            "\"\<Net Profit\>\"", ",", "\[IndentingNewLine]", 
+             "\"\<Gros Profit\>\"", ",", "\[IndentingNewLine]", 
+             "\"\<Gros Loss\>\"", ",", "\[IndentingNewLine]", 
+             "\"\<Maximum Drawdown\>\"", ",", "\[IndentingNewLine]", 
+             "\"\<Profit Factor\>\"", ",", "\[IndentingNewLine]", 
+             "\"\<Recovery Factor\>\""}], "\[IndentingNewLine]", "}"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"{", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"Row", "[", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"Quantity", "[", 
+                 RowBox[{
+                  RowBox[{"grosProfit", "-", "grosLoss"}], ",", 
+                  "\"\<Euros\>\""}], "]"}], ",", "\"\<(\>\"", ",", 
+                "netReturn", ",", "\"\<%)\>\""}], "}"}], "]"}], ",", 
+             "\[IndentingNewLine]", 
+             RowBox[{"Quantity", "[", 
+              RowBox[{"grosProfit", ",", "\"\<Euros\>\""}], "]"}], ",", 
+             "\[IndentingNewLine]", 
+             RowBox[{"Quantity", "[", 
+              RowBox[{"grosLoss", ",", "\"\<Euros\>\""}], "]"}], ",", 
+             "\[IndentingNewLine]", 
+             RowBox[{"Quantity", "[", 
+              RowBox[{"maxDD", ",", "\"\<Euros\>\""}], "]"}], ",", 
+             "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{"N", "@", "grosProfit"}], "/", "grosLoss"}], ",", 
+             "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{"N", "@", 
+               RowBox[{"(", 
+                RowBox[{"grosProfit", "-", "grosLoss"}], ")"}]}], "/", 
+              "maxDD"}]}], "\[IndentingNewLine]", "}"}]}], 
+          "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+         RowBox[{"Background", "\[Rule]", 
+          RowBox[{"Lighter", "[", 
+           RowBox[{"Gray", ",", " ", "0.9"}], "]"}]}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"Frame", "->", "All"}]}], "\[IndentingNewLine]", "]"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Grid", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"{", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"{", "\[IndentingNewLine]", 
+            RowBox[{
+            "\"\<Annual Average Return\>\"", ",", "\[IndentingNewLine]", 
+             "\"\<Days in Market\>\"", ",", "\[IndentingNewLine]", 
+             "\"\<Risc Adjusted Return\>\"", ",", "\[IndentingNewLine]", 
+             "\"\<Calmar Ratio\>\""}], "\[IndentingNewLine]", "}"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"{", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"StringJoin", "[", 
+              RowBox[{
+               RowBox[{"ToString", "[", "80.08", "]"}], ",", "\"\<%\>\""}], 
+              "]"}], ",", "\[IndentingNewLine]", 
+             RowBox[{"StringJoin", "[", 
+              RowBox[{
+               RowBox[{"ToString", "[", 
+                RowBox[{
+                 RowBox[{"31.", "/", "127"}], " ", "100"}], "]"}], ",", 
+               "\"\<%\>\""}], "]"}], ",", "\[IndentingNewLine]", 
+             RowBox[{"StringJoin", "[", 
+              RowBox[{
+               RowBox[{"ToString", "[", "85.08", "]"}], ",", "\"\<%\>\""}], 
+              "]"}], ",", "\[IndentingNewLine]", 
+             RowBox[{"StringJoin", "[", 
+              RowBox[{
+               RowBox[{"ToString", "[", "15.08", "]"}], ",", "\"\<%\>\""}], 
+              "]"}]}], "}"}]}], "\[IndentingNewLine]", "}"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"Background", "\[Rule]", 
+          RowBox[{"Lighter", "[", 
+           RowBox[{"Gray", ",", " ", "0.9"}], "]"}]}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"Frame", "->", "All"}]}], "\[IndentingNewLine]", "]"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Grid", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"{", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"{", "\[IndentingNewLine]", 
+            RowBox[{
+            "\"\<Buy & Hold Profit\>\"", ",", "\[IndentingNewLine]", 
+             "\"\<Anual Average Buy & Hold\>\"", ",", "\[IndentingNewLine]", 
+             "\"\<Buy & Hold Index\>\""}], "\[IndentingNewLine]", "}"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"{", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"StringJoin", "[", 
+              RowBox[{
+               RowBox[{"ToString", "[", "80.08", "]"}], ",", "\"\<%\>\""}], 
+              "]"}], ",", "\[IndentingNewLine]", 
+             RowBox[{"StringJoin", "[", 
+              RowBox[{
+               RowBox[{"ToString", "[", 
+                RowBox[{
+                 RowBox[{"31.", "/", "127"}], " ", "100"}], "]"}], ",", 
+               "\"\<%\>\""}], "]"}], ",", "\[IndentingNewLine]", 
+             RowBox[{"StringJoin", "[", 
+              RowBox[{
+               RowBox[{"ToString", "[", "85.08", "]"}], ",", "\"\<%\>\""}], 
+              "]"}]}], "\[IndentingNewLine]", "}"}]}], "\[IndentingNewLine]", 
+          "}"}], ",", "\[IndentingNewLine]", 
+         RowBox[{"Background", "\[Rule]", 
+          RowBox[{"Lighter", "[", 
+           RowBox[{"Gray", ",", " ", "0.9"}], "]"}]}], ",", 
+         RowBox[{"Frame", "->", "All"}]}], "\[IndentingNewLine]", "]"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Grid", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"{", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"{", "\[IndentingNewLine]", 
+            RowBox[{
+            "\"\<Total comissions\>\"", ",", "\[IndentingNewLine]", 
+             "\"\<Total slippage\>\"", ",", "\[IndentingNewLine]", 
+             "\"\<Comissions Index\>\""}], "\[IndentingNewLine]", "}"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"{", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"StringJoin", "[", 
+              RowBox[{
+               RowBox[{"ToString", "[", "80.08", "]"}], ",", "\"\<%\>\""}], 
+              "]"}], ",", "\[IndentingNewLine]", 
+             RowBox[{"StringJoin", "[", 
+              RowBox[{
+               RowBox[{"ToString", "[", 
+                RowBox[{
+                 RowBox[{"31.", "/", "127"}], " ", "100"}], "]"}], ",", 
+               "\"\<%\>\""}], "]"}], ",", "\[IndentingNewLine]", 
+             RowBox[{"StringJoin", "[", 
+              RowBox[{
+               RowBox[{"ToString", "[", "85.08", "]"}], ",", "\"\<%\>\""}], 
+              "]"}]}], "\[IndentingNewLine]", "}"}]}], "\[IndentingNewLine]", 
+          "}"}], ",", "\[IndentingNewLine]", 
+         RowBox[{"Background", "\[Rule]", 
+          RowBox[{"Lighter", "[", 
+           RowBox[{"Gray", ",", " ", "0.9"}], "]"}]}], ",", 
+         RowBox[{"Frame", "->", "All"}]}], "\[IndentingNewLine]", "]"}]}], 
+      "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"Frame", "\[Rule]", "True"}], ",", " ", 
+     RowBox[{"Alignment", "\[Rule]", "Center"}], ",", 
+     RowBox[{"Background", "\[Rule]", 
+      RowBox[{"Lighter", "[", 
+       RowBox[{"Gray", ",", " ", "0.5"}], "]"}]}], ",", 
+     RowBox[{"BaseStyle", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"FontFamily", "\[Rule]", "\"\<Arial\>\""}], "}"}]}]}], 
+    "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]"}]], "Input",
+ CellChangeTimes->{{3.6876905592496967`*^9, 3.6876905871358967`*^9}, {
+   3.6876906264014964`*^9, 3.687690679300496*^9}, {3.6876907977488966`*^9, 
+   3.6876908691244965`*^9}, {3.6876909532334967`*^9, 
+   3.6876910373202963`*^9}, {3.6876911034666967`*^9, 3.687691145459296*^9}, {
+   3.6876912330972967`*^9, 3.6876912954980965`*^9}, {3.6876919658604965`*^9, 
+   3.6876920707118964`*^9}, {3.6876921212406964`*^9, 
+   3.6876921521552963`*^9}, {3.6876922876700964`*^9, 3.687692296051296*^9}, {
+   3.6876924043782964`*^9, 3.6876924133512964`*^9}, 3.6876924783452964`*^9, {
+   3.6876925309996967`*^9, 3.6876926005980964`*^9}, {3.6876930202824965`*^9, 
+   3.6876930640116963`*^9}, {3.6876931037608967`*^9, 
+   3.6876931319126964`*^9}, {3.6876932604520965`*^9, 
+   3.6876933495122967`*^9}, {3.687693481709296*^9, 3.6876935027626963`*^9}, {
+   3.6876936884178963`*^9, 3.6876937147356963`*^9}, {3.687693793302696*^9, 
+   3.6876938461280966`*^9}, {3.687693907499296*^9, 3.6876939949350967`*^9}, {
+   3.687694342028696*^9, 3.6876943935110965`*^9}, {3.6876946595206966`*^9, 
+   3.6876946930584965`*^9}, {3.687694749410096*^9, 3.6876947589884963`*^9}, {
+   3.6876947899498963`*^9, 3.687694791931096*^9}, {3.6876948252626963`*^9, 
+   3.6876948867728963`*^9}, 3.6876949184090967`*^9, {3.6876951322922964`*^9, 
+   3.6876952315306964`*^9}, {3.687695278282296*^9, 3.6876953688662963`*^9}, {
+   3.687695685522496*^9, 3.6876957252334967`*^9}, {3.687695757676896*^9, 
+   3.6876958690330963`*^9}, {3.6876959429658966`*^9, 
+   3.6876959713794966`*^9}, {3.6876991441092963`*^9, 
+   3.6876991691316967`*^9}, {3.687699289938096*^9, 3.6876993608556967`*^9}, {
+   3.6876997553192964`*^9, 3.687699815878496*^9}, {3.6876999671048965`*^9, 
+   3.6876999991160965`*^9}, {3.6877001108276963`*^9, 
+   3.6877001884688964`*^9}, {3.6877002294968967`*^9, 
+   3.6877002807740965`*^9}, {3.6877005702390966`*^9, 3.687700622392496*^9}, {
+   3.687700662777296*^9, 3.6877006693654966`*^9}, {3.687701818728896*^9, 
+   3.687702040152296*^9}, {3.6877025570066967`*^9, 3.6877025741736965`*^9}, {
+   3.687702676127096*^9, 3.687702679980296*^9}, {3.687702793520296*^9, 
+   3.6877027985122967`*^9}, {3.687845439762279*^9, 3.687845586012279*^9}, 
+   3.687845625932679*^9, {3.6878458140530787`*^9, 3.687845856734679*^9}, {
+   3.687846092060679*^9, 3.687846099798279*^9}, {3.687846134149479*^9, 
+   3.6878461965650787`*^9}, 3.687846311022279*^9, {3.687864524688079*^9, 
+   3.687864641828079*^9}, {3.687864673420079*^9, 3.687864756448079*^9}, {
+   3.6878647899910793`*^9, 3.687864906869079*^9}, 3.687864950021079*^9, 
+   3.6878649915380793`*^9, {3.6878650245050793`*^9, 3.687865026041079*^9}}],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     StyleBox["\<\"Performance\"\>",
+      StripOnInput->False,
+      FontSize->14,
+      FontWeight->Bold]},
+    {
+     TagBox[GridBox[{
+        {"\<\"Net Profit\"\>", "\<\"Gros Profit\"\>", "\<\"Gros Loss\"\>", \
+"\<\"Maximum Drawdown\"\>", "\<\"Profit Factor\"\>", "\<\"Recovery \
+Factor\"\>"},
+        {
+         TemplateBox[{TemplateBox[{"6900", 
+             RowBox[{
+               FormBox["\"\[Euro]\"", TraditionalForm], "\[VeryThinSpace]"}], 
+             "euros", "\"Euros\""}, "QuantityPrefix", SyntaxForm -> Mod],
+           "\"(\"","8.53`","\"%)\""},
+          "RowDefault"], 
+         TemplateBox[{"30000",RowBox[{
+             FormBox["\"\[Euro]\"", TraditionalForm], "\[VeryThinSpace]"}],
+           "euros","\"Euros\""},
+          "QuantityPrefix"], 
+         TemplateBox[{"23100",RowBox[{
+             FormBox["\"\[Euro]\"", TraditionalForm], "\[VeryThinSpace]"}],
+           "euros","\"Euros\""},
+          "QuantityPrefix"], 
+         TemplateBox[{"1200",RowBox[{
+             FormBox["\"\[Euro]\"", TraditionalForm], "\[VeryThinSpace]"}],
+           "euros","\"Euros\""},
+          "QuantityPrefix"], "1.2987012987012987`", "5.75`"}
+       },
+       AutoDelete->False,
+       GridBoxBackground->{"Columns" -> {{
+            RGBColor[0.95, 0.95, 0.95]}}},
+       GridBoxFrame->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+       GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+      "Grid"]},
+    {
+     TagBox[GridBox[{
+        {"\<\"Annual Average Return\"\>", "\<\"Days in Market\"\>", "\<\"Risc \
+Adjusted Return\"\>", "\<\"Calmar Ratio\"\>"},
+        {"\<\"80.08%\"\>", "\<\"24.4094%\"\>", "\<\"85.08%\"\>", \
+"\<\"15.08%\"\>"}
+       },
+       AutoDelete->False,
+       GridBoxBackground->{"Columns" -> {{
+            RGBColor[0.95, 0.95, 0.95]}}},
+       GridBoxFrame->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+       GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+      "Grid"]},
+    {
+     TagBox[GridBox[{
+        {"\<\"Buy & Hold Profit\"\>", "\<\"Anual Average Buy & Hold\"\>", "\<\
+\"Buy & Hold Index\"\>"},
+        {"\<\"80.08%\"\>", "\<\"24.4094%\"\>", "\<\"85.08%\"\>"}
+       },
+       AutoDelete->False,
+       GridBoxBackground->{"Columns" -> {{
+            RGBColor[0.95, 0.95, 0.95]}}},
+       GridBoxFrame->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+       GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+      "Grid"]},
+    {
+     TagBox[GridBox[{
+        {"\<\"Total comissions\"\>", "\<\"Total slippage\"\>", \
+"\<\"Comissions Index\"\>"},
+        {"\<\"80.08%\"\>", "\<\"24.4094%\"\>", "\<\"85.08%\"\>"}
+       },
+       AutoDelete->False,
+       GridBoxBackground->{"Columns" -> {{
+            RGBColor[0.95, 0.95, 0.95]}}},
+       GridBoxFrame->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+       GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+      "Grid"]}
+   },
+   BaseStyle->{FontFamily -> "Arial"},
+   DefaultBaseStyle->"Column",
+   GridBoxAlignment->{"Columns" -> {{Center}}},
+   GridBoxBackground->{"Columns" -> {{
+        RGBColor[0.75, 0.75, 0.75]}}},
+   GridBoxFrame->{"ColumnsIndexed" -> {{{1, -1}, {1, -1}} -> True}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Column"]], "Output",
+ CellChangeTimes->{3.687864607842079*^9, 3.6878646477040787`*^9, 
+  3.687864758911079*^9, 3.687864915253079*^9, 3.6878649579390793`*^9, 
+  3.687864993000079*^9, 3.687865027703079*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["performance"], "Input",
+ CellChangeTimes->{{3.687846445853079*^9, 3.6878464483646793`*^9}}],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     StyleBox["\<\"Performance\"\>",
+      StripOnInput->False,
+      FontFamily->"Arial",
+      FontSize->14]},
+    {
+     TagBox[GridBox[{
+        {
+         StyleBox["\<\"Net Profit\"\>",
+          StripOnInput->False,
+          FontFamily->"Arial"], 
+         StyleBox["\<\"Gros Profit\"\>",
+          StripOnInput->False,
+          FontFamily->"Arial"], 
+         StyleBox["\<\"Gros Loss\"\>",
+          StripOnInput->False,
+          FontFamily->"Arial"], 
+         StyleBox["\<\"Maximum Drawdown\"\>",
+          StripOnInput->False,
+          FontFamily->"Arial"], 
+         StyleBox["\<\"Profit Factor\"\>",
+          StripOnInput->False,
+          FontFamily->"Arial"], 
+         StyleBox["\<\"Recovery Factor\"\>",
+          StripOnInput->False,
+          FontFamily->"Arial"]},
+        {
+         StyleBox[
+          TemplateBox[{TemplateBox[{"6900", 
+              RowBox[{
+                FormBox["\"\[Euro]\"", TraditionalForm], "\[VeryThinSpace]"}],
+               "euros", "\"Euros\""}, "QuantityPrefix", SyntaxForm -> Mod],
+            "\"(\"","8.53`","\"%)\""},
+           "RowDefault"],
+          StripOnInput->False,
+          FontWeight->Bold], 
+         StyleBox[
+          TemplateBox[{"30000",RowBox[{
+              FormBox["\"\[Euro]\"", TraditionalForm], "\[VeryThinSpace]"}],
+            "euros","\"Euros\""},
+           "QuantityPrefix"],
+          StripOnInput->False,
+          FontWeight->Bold], 
+         StyleBox[
+          TemplateBox[{"23100",RowBox[{
+              FormBox["\"\[Euro]\"", TraditionalForm], "\[VeryThinSpace]"}],
+            "euros","\"Euros\""},
+           "QuantityPrefix"],
+          StripOnInput->False,
+          FontWeight->Bold], 
+         StyleBox[
+          TemplateBox[{"1200",RowBox[{
+              FormBox["\"\[Euro]\"", TraditionalForm], "\[VeryThinSpace]"}],
+            "euros","\"Euros\""},
+           "QuantityPrefix"],
+          StripOnInput->False,
+          FontWeight->Bold], 
+         StyleBox["1.2987012987012987`",
+          StripOnInput->False,
+          FontWeight->Bold], 
+         StyleBox["5.75`",
+          StripOnInput->False,
+          FontWeight->Bold]}
+       },
+       AutoDelete->False,
+       GridBoxBackground->{"Columns" -> {{
+            RGBColor[0.95, 0.95, 0.95]}}},
+       GridBoxFrame->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+       GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+      "Grid"]},
+    {
+     TagBox[GridBox[{
+        {
+         StyleBox["\<\"Annual Average Return\"\>",
+          StripOnInput->False,
+          FontFamily->"Arial"], 
+         StyleBox["\<\"Days in Market\"\>",
+          StripOnInput->False,
+          FontFamily->"Arial"], 
+         StyleBox["\<\"Risc Adjusted Return\"\>",
+          StripOnInput->False,
+          FontFamily->"Arial"], 
+         StyleBox["\<\"Calmar Ratio\"\>",
+          StripOnInput->False,
+          FontFamily->"Arial"]},
+        {"\<\"80.08%\"\>", "\<\"24.4094%\"\>", "\<\"85.08%\"\>", \
+"\<\"15.08%\"\>"}
+       },
+       AutoDelete->False,
+       GridBoxBackground->{"Columns" -> {{
+            RGBColor[0.95, 0.95, 0.95]}}},
+       GridBoxFrame->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+       GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+      "Grid"]},
+    {
+     TagBox[GridBox[{
+        {
+         StyleBox["\<\"Buy & Hold Profit\"\>",
+          StripOnInput->False,
+          FontFamily->"Arial"], 
+         StyleBox["\<\"Anual Average Buy & Hold\"\>",
+          StripOnInput->False,
+          FontFamily->"Arial"], 
+         StyleBox["\<\"Buy & Hold Index\"\>",
+          StripOnInput->False,
+          FontFamily->"Arial"]},
+        {"\<\"80.08%\"\>", "\<\"24.4094%\"\>", "\<\"85.08%\"\>"}
+       },
+       AutoDelete->False,
+       GridBoxBackground->{"Columns" -> {{
+            RGBColor[0.95, 0.95, 0.95]}}},
+       GridBoxFrame->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+       GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+      "Grid"]},
+    {
+     TagBox[GridBox[{
+        {
+         StyleBox["\<\"Total comissions\"\>",
+          StripOnInput->False,
+          FontFamily->"Arial"], 
+         StyleBox["\<\"Total slippage\"\>",
+          StripOnInput->False,
+          FontFamily->"Arial"], 
+         StyleBox["\<\"Comissions Index\"\>",
+          StripOnInput->False,
+          FontFamily->"Arial"]},
+        {"\<\"80.08%\"\>", "\<\"24.4094%\"\>", "\<\"85.08%\"\>"}
+       },
+       AutoDelete->False,
+       GridBoxBackground->{"Columns" -> {{
+            RGBColor[0.95, 0.95, 0.95]}}},
+       GridBoxFrame->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+       GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+      "Grid"]}
+   },
+   DefaultBaseStyle->"Column",
+   GridBoxAlignment->{"Columns" -> {{Center}}},
+   GridBoxBackground->{"Columns" -> {{
+        RGBColor[0.75, 0.75, 0.75]}}},
+   GridBoxFrame->{"ColumnsIndexed" -> {{{1, -1}, {1, -1}} -> True}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Column"]], "Output",
+ CellChangeTimes->{3.687846449690679*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"plt", "=", 
+  RowBox[{"Grid", "[", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"Style", "[", 
+       RowBox[{"\"\<Equity plot:\>\"", ",", 
+        RowBox[{"FontFamily", "\[Rule]", "\"\<Arial\>\""}]}], "]"}], "}"}], 
+     ",", "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{"DateListPlot", "[", 
+       RowBox[{
+        RowBox[{"Transpose", "[", 
+         RowBox[{"{", 
+          RowBox[{"selldate", ",", "net"}], "}"}], "]"}], ",", 
+        RowBox[{"Joined", "\[Rule]", "True"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"Filling", "\[Rule]", "0"}], ",", 
+        RowBox[{"ImageSize", "->", "Large"}], ",", 
+        RowBox[{"PlotRange", "\[Rule]", "Full"}]}], "]"}], "}"}]}], "}"}], 
+   "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellChangeTimes->{{3.687684728520296*^9, 3.6876847311722965`*^9}, {
+   3.6876851340472965`*^9, 3.6876851550292964`*^9}, {3.6876853941184964`*^9, 
+   3.6876854017468967`*^9}, {3.6876854360044966`*^9, 3.6876854370964966`*^9}, 
+   3.6876860640292964`*^9, {3.6876945665060964`*^9, 3.6876945767396965`*^9}}],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     StyleBox["\<\"Equity plot:\"\>",
+      StripOnInput->False,
+      FontFamily->"Arial"]},
+    {
+     GraphicsBox[{{}, 
+       GraphicsComplexBox[{{3.4725024*^9, 100.}, {3.47544*^9, 150.}, {
+        3.48192*^9, 175.}, {3.4826112*^9, 140.}, {3.4725024*^9, 0.}, {
+        3.4826112*^9, 0.}}, {{{}, 
+          {RGBColor[0.368417, 0.506779, 0.709798], Opacity[0.2], EdgeForm[
+           None], GraphicsGroupBox[
+            PolygonBox[{{1, 5, 6, 4, 3, 2}}]]}, {}, {}}, {{}, {}, 
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.012833333333333334`], AbsoluteThickness[1.6], 
+           LineBox[{1, 2, 3, 4}]}}}], {}},
+      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+      Axes->{False, False},
+      AxesLabel->{None, None},
+      AxesOrigin->{3.4723444500000005`*^9, 96.25000000000001},
+      DisplayFunction->Identity,
+      Frame->{{True, True}, {True, True}},
+      FrameLabel->{{None, None}, {None, None}},
+      FrameTicks->
+       FrontEndValueCache[{{Automatic, Automatic}, {Charting`FindScaledTicks[
+           (Charting`getDateTicks[Automatic, {Automatic}, 
+            (Map[DateList, {
+              SlotSequence[1]}]& )[
+             SlotSequence[1]], None, 5, {{0.0125, 0}, {0.0075, 0}}, 
+            Automatic]& )[
+            SlotSequence[1]], {Identity, Identity}]& , 
+          Charting`ScaledFrameTicks[
+           (Charting`getDateTicks[
+           Charting`getDateTicks[Automatic, {Automatic}, 
+             (Map[DateList, {
+               SlotSequence[1]}]& )[
+              SlotSequence[1]], None, 5, {{0.0125, 0}, {0.0075, 0}}, 
+             Automatic]& , {Automatic}, 
+            (Map[DateList, {
+              SlotSequence[1]}]& )[
+             SlotSequence[1]], None, 5, {{0.0125, 0}, {0.0075, 0}}, None]& )[
+            SlotSequence[1]], {Identity, Identity}]& }}, {{
+         Automatic, Automatic}, {{{3.4739712*^9, 
+            FormBox["\"Feb\"", TraditionalForm], {0.0125, 0.}}, {3.4763904*^9, 
+            FormBox["\"Mar\"", TraditionalForm], {0.0125, 0.}}, {3.4790688*^9, 
+            FormBox["\"Apr\"", TraditionalForm], {0.0125, 0.}}, {3.4816608*^9, 
+            FormBox["\"May\"", TraditionalForm], {0.0125, 0.}}, {3.4725024*^9, 
+            FormBox[
+             InterpretationBox[
+              StyleBox[
+               
+               GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+                Baseline], "CacheGraphics" -> False], 
+              Spacer[{0., 0.}]], TraditionalForm], {0.0075, 0.}}, {
+           3.4751808*^9, 
+            FormBox[
+             InterpretationBox[
+              StyleBox[
+               
+               GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+                Baseline], "CacheGraphics" -> False], 
+              Spacer[{0., 0.}]], TraditionalForm], {0.0075, 0.}}, {3.4776*^9, 
+            FormBox[
+             InterpretationBox[
+              StyleBox[
+               
+               GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+                Baseline], "CacheGraphics" -> False], 
+              Spacer[{0., 0.}]], TraditionalForm], {0.0075, 0.}}, {
+           3.4802784*^9, 
+            FormBox[
+             InterpretationBox[
+              StyleBox[
+               
+               GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+                Baseline], "CacheGraphics" -> False], 
+              Spacer[{0., 0.}]], TraditionalForm], {0.0075, 0.}}}, {{
+           3.4739712*^9, 
+            FormBox[
+             InterpretationBox[
+              StyleBox[
+               
+               GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+                Baseline], "CacheGraphics" -> False], 
+              Spacer[{0., 0.}]], TraditionalForm], {0.0125, 0.}}, {
+           3.4763904*^9, 
+            FormBox[
+             InterpretationBox[
+              StyleBox[
+               
+               GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+                Baseline], "CacheGraphics" -> False], 
+              Spacer[{0., 0.}]], TraditionalForm], {0.0125, 0.}}, {
+           3.4790688*^9, 
+            FormBox[
+             InterpretationBox[
+              StyleBox[
+               
+               GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+                Baseline], "CacheGraphics" -> False], 
+              Spacer[{0., 0.}]], TraditionalForm], {0.0125, 0.}}, {
+           3.4816608*^9, 
+            FormBox[
+             InterpretationBox[
+              StyleBox[
+               
+               GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+                Baseline], "CacheGraphics" -> False], 
+              Spacer[{0., 0.}]], TraditionalForm], {0.0125, 0.}}, {
+           3.4725024*^9, 
+            FormBox[
+             InterpretationBox[
+              StyleBox[
+               
+               GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+                Baseline], "CacheGraphics" -> False], 
+              Spacer[{0., 0.}]], TraditionalForm], {0.0075, 0.}}, {
+           3.4751808*^9, 
+            FormBox[
+             InterpretationBox[
+              StyleBox[
+               
+               GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+                Baseline], "CacheGraphics" -> False], 
+              Spacer[{0., 0.}]], TraditionalForm], {0.0075, 0.}}, {3.4776*^9, 
+            FormBox[
+             InterpretationBox[
+              StyleBox[
+               
+               GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+                Baseline], "CacheGraphics" -> False], 
+              Spacer[{0., 0.}]], TraditionalForm], {0.0075, 0.}}, {
+           3.4802784*^9, 
+            FormBox[
+             InterpretationBox[
+              StyleBox[
+               
+               GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+                Baseline], "CacheGraphics" -> False], 
+              Spacer[{0., 0.}]], TraditionalForm], {0.0075, 0.}}}}}],
+      GridLines->{None, None},
+      GridLinesStyle->Directive[
+        GrayLevel[0.5, 0.4]],
+      ImagePadding->All,
+      ImageSize->Large,
+      Method->{"CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+            (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+             Part[#, 1]], 
+            (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+             Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+            (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+             Part[#, 1]], 
+            (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+             Part[#, 2]]}& )}},
+      PlotRange->{{3.4725024*^9, 3.4826112*^9}, {100., 175.}},
+      PlotRangeClipping->True,
+      PlotRangePadding->{{
+         Scaled[0.02], 
+         Scaled[0.02]}, {
+         Scaled[0.05], 
+         Scaled[0.05]}},
+      Ticks->{None, Automatic}]}
+   },
+   AutoDelete->False,
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Output",
+ CellChangeTimes->{3.6876860647156963`*^9, 3.6876945785024967`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"table", "=", "\[IndentingNewLine]", 
+  RowBox[{"Transpose", "[", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"Join", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"Style", "[", 
+         RowBox[{"\"\<BuyDate\>\"", ",", 
+          RowBox[{"FontFamily", "\[Rule]", "\"\<Arial\>\""}]}], "]"}], "}"}], 
+       ",", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"DateString", "[", 
+          RowBox[{"#", ",", "\"\<ISODate\>\""}], "]"}], "&"}], "/@", 
+        "buydate"}]}], "]"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"Join", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"Style", "[", 
+         RowBox[{"\"\<BuyPrice\>\"", ",", 
+          RowBox[{"FontFamily", "\[Rule]", "\"\<Arial\>\""}]}], "]"}], "}"}], 
+       ",", "buyprice"}], "]"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"Join", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"Style", "[", 
+         RowBox[{"\"\<SellDate\>\"", ",", 
+          RowBox[{"FontFamily", "\[Rule]", "\"\<Arial\>\""}]}], "]"}], "}"}], 
+       ",", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"DateString", "[", 
+          RowBox[{"#", ",", "\"\<ISODate\>\""}], "]"}], "&"}], "/@", 
+        "selldate"}]}], "]"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"Join", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"Style", "[", 
+         RowBox[{"\"\<SellPrice\>\"", ",", 
+          RowBox[{"FontFamily", "\[Rule]", "\"\<Arial\>\""}]}], "]"}], "}"}], 
+       ",", "sellprice"}], "]"}]}], "}"}], "\[IndentingNewLine]", 
+   "]"}]}]], "Input",
+ CellChangeTimes->{
+  3.6876854423224964`*^9, {3.6876860473528967`*^9, 3.6876860486008964`*^9}, {
+   3.6876861324196963`*^9, 3.6876861496732965`*^9}, {3.6876862215580964`*^9, 
+   3.687686281898896*^9}, {3.6876863446420965`*^9, 3.6876863462020965`*^9}, {
+   3.687691517782296*^9, 3.687691549679696*^9}, {3.687691669553296*^9, 
+   3.6876916700992966`*^9}, {3.687691757783696*^9, 3.6876917588444967`*^9}, {
+   3.6876918191434965`*^9, 3.6876918311126966`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     StyleBox["\<\"BuyDate\"\>",
+      StripOnInput->False,
+      FontFamily->"Arial"], ",", 
+     StyleBox["\<\"BuyPrice\"\>",
+      StripOnInput->False,
+      FontFamily->"Arial"], ",", 
+     StyleBox["\<\"SellDate\"\>",
+      StripOnInput->False,
+      FontFamily->"Arial"], ",", 
+     StyleBox["\<\"SellPrice\"\>",
+      StripOnInput->False,
+      FontFamily->"Arial"]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"2010-01-14\"\>", ",", "28.69286157666046`", 
+     ",", "\<\"2010-01-15\"\>", ",", "28.802756276404608`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"2010-02-10\"\>", ",", "26.745129151291515`", 
+     ",", "\<\"2010-02-18\"\>", ",", "27.532485586162714`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"2010-02-22\"\>", ",", "27.632201377108075`", 
+     ",", "\<\"2010-05-04\"\>", ",", "35.894830678830985`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"2010-05-06\"\>", ",", "34.65488162436548`", 
+     ",", "\<\"2010-05-12\"\>", ",", "35.400814987218126`"}], "}"}]}], 
+  "}"}]], "Output",
+ CellChangeTimes->{
+  3.6876860512996964`*^9, {3.6876861387376966`*^9, 3.6876861509836965`*^9}, 
+   3.6876862293892965`*^9, 3.6876862841140966`*^9, 3.6876863484328966`*^9, 
+   3.6876915533788967`*^9, 3.6876916712068963`*^9, 3.6876917604356966`*^9, 
+   3.6876918337802963`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Column", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+    "plt", ",", "performance", ",", "cost", ",", "com", ",", "lwt", ",", 
+     "llt", ",", "pos", ",", "neg", ",", "eq", ",", "curr", ",", 
+     RowBox[{"TableForm", "[", "table", "]"}]}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"Frame", "\[Rule]", "All"}]}], "]"}]], "Input",
+ CellChangeTimes->{
+  3.6876854110288963`*^9, {3.687686170202896*^9, 3.6876861802804966`*^9}, {
+   3.6876921856428967`*^9, 3.6876921876552963`*^9}}],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     TagBox[GridBox[{
+        {
+         StyleBox["\<\"Equity plot:\"\>",
+          StripOnInput->False,
+          FontFamily->"Arial"]},
+        {
+         GraphicsBox[{{}, 
+           GraphicsComplexBox[{{3.4725024*^9, 100.}, {3.47544*^9, 150.}, {
+            3.48192*^9, 175.}, {3.4826112*^9, 140.}, {3.4725024*^9, 0.}, {
+            3.4826112*^9, 0.}}, {{{}, 
+              {RGBColor[0.368417, 0.506779, 0.709798], Opacity[0.2], EdgeForm[
+               None], GraphicsGroupBox[
+                PolygonBox[{{1, 5, 6, 4, 3, 2}}]]}, {}, {}}, {{}, {}, 
+              {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+               0.012833333333333334`], AbsoluteThickness[1.6], 
+               LineBox[{1, 2, 3, 4}]}}}], {}},
+          AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+          Axes->{False, False},
+          AxesLabel->{None, None},
+          AxesOrigin->{3.4723444500000005`*^9, 96.25000000000001},
+          DisplayFunction->Identity,
+          Frame->{{True, True}, {True, True}},
+          FrameLabel->{{None, None}, {None, None}},
+          
+          FrameTicks->
+           FrontEndValueCache[{{Automatic, Automatic}, {
+             Charting`FindScaledTicks[
+               (Charting`getDateTicks[Automatic, {Automatic}, 
+                (Map[DateList, {
+                  SlotSequence[1]}]& )[
+                 SlotSequence[1]], None, 5, {{0.0125, 0}, {0.0075, 0}}, 
+                Automatic]& )[
+                SlotSequence[1]], {Identity, Identity}]& , 
+              Charting`ScaledFrameTicks[
+               (Charting`getDateTicks[
+               Charting`getDateTicks[Automatic, {Automatic}, 
+                 (Map[DateList, {
+                   SlotSequence[1]}]& )[
+                  SlotSequence[1]], None, 5, {{0.0125, 0}, {0.0075, 0}}, 
+                 Automatic]& , {Automatic}, 
+                (Map[DateList, {
+                  SlotSequence[1]}]& )[
+                 SlotSequence[1]], None, 5, {{0.0125, 0}, {0.0075, 0}}, 
+                None]& )[
+                SlotSequence[1]], {Identity, Identity}]& }}, {{
+             Automatic, Automatic}, {{{3.4739712*^9, 
+                FormBox["\"Feb\"", TraditionalForm], {0.0125, 0.}}, {
+               3.4763904*^9, 
+                FormBox["\"Mar\"", TraditionalForm], {0.0125, 0.}}, {
+               3.4790688*^9, 
+                FormBox["\"Apr\"", TraditionalForm], {0.0125, 0.}}, {
+               3.4816608*^9, 
+                FormBox["\"May\"", TraditionalForm], {0.0125, 0.}}, {
+               3.4725024*^9, 
+                FormBox[
+                 InterpretationBox[
+                  StyleBox[
+                   
+                   GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+                    Baseline], "CacheGraphics" -> False], 
+                  Spacer[{0., 0.}]], TraditionalForm], {0.0075, 0.}}, {
+               3.4751808*^9, 
+                FormBox[
+                 InterpretationBox[
+                  StyleBox[
+                   
+                   GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+                    Baseline], "CacheGraphics" -> False], 
+                  Spacer[{0., 0.}]], TraditionalForm], {0.0075, 0.}}, {
+               3.4776*^9, 
+                FormBox[
+                 InterpretationBox[
+                  StyleBox[
+                   
+                   GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+                    Baseline], "CacheGraphics" -> False], 
+                  Spacer[{0., 0.}]], TraditionalForm], {0.0075, 0.}}, {
+               3.4802784*^9, 
+                FormBox[
+                 InterpretationBox[
+                  StyleBox[
+                   
+                   GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+                    Baseline], "CacheGraphics" -> False], 
+                  Spacer[{0., 0.}]], TraditionalForm], {0.0075, 0.}}}, {{
+               3.4739712*^9, 
+                FormBox[
+                 InterpretationBox[
+                  StyleBox[
+                   
+                   GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+                    Baseline], "CacheGraphics" -> False], 
+                  Spacer[{0., 0.}]], TraditionalForm], {0.0125, 0.}}, {
+               3.4763904*^9, 
+                FormBox[
+                 InterpretationBox[
+                  StyleBox[
+                   
+                   GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+                    Baseline], "CacheGraphics" -> False], 
+                  Spacer[{0., 0.}]], TraditionalForm], {0.0125, 0.}}, {
+               3.4790688*^9, 
+                FormBox[
+                 InterpretationBox[
+                  StyleBox[
+                   
+                   GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+                    Baseline], "CacheGraphics" -> False], 
+                  Spacer[{0., 0.}]], TraditionalForm], {0.0125, 0.}}, {
+               3.4816608*^9, 
+                FormBox[
+                 InterpretationBox[
+                  StyleBox[
+                   
+                   GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+                    Baseline], "CacheGraphics" -> False], 
+                  Spacer[{0., 0.}]], TraditionalForm], {0.0125, 0.}}, {
+               3.4725024*^9, 
+                FormBox[
+                 InterpretationBox[
+                  StyleBox[
+                   
+                   GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+                    Baseline], "CacheGraphics" -> False], 
+                  Spacer[{0., 0.}]], TraditionalForm], {0.0075, 0.}}, {
+               3.4751808*^9, 
+                FormBox[
+                 InterpretationBox[
+                  StyleBox[
+                   
+                   GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+                    Baseline], "CacheGraphics" -> False], 
+                  Spacer[{0., 0.}]], TraditionalForm], {0.0075, 0.}}, {
+               3.4776*^9, 
+                FormBox[
+                 InterpretationBox[
+                  StyleBox[
+                   
+                   GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+                    Baseline], "CacheGraphics" -> False], 
+                  Spacer[{0., 0.}]], TraditionalForm], {0.0075, 0.}}, {
+               3.4802784*^9, 
+                FormBox[
+                 InterpretationBox[
+                  StyleBox[
+                   
+                   GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+                    Baseline], "CacheGraphics" -> False], 
+                  Spacer[{0., 0.}]], TraditionalForm], {0.0075, 0.}}}}}],
+          GridLines->{None, None},
+          GridLinesStyle->Directive[
+            GrayLevel[0.5, 0.4]],
+          ImagePadding->All,
+          ImageSize->Large,
+          Method->{"CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+                (
+                Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+                 Part[#, 1]], 
+                (
+                Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+                 Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+                (
+                Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+                 Part[#, 1]], 
+                (
+                Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+                 Part[#, 2]]}& )}},
+          PlotRange->{{3.4725024*^9, 3.4826112*^9}, {100., 175.}},
+          PlotRangeClipping->True,
+          PlotRangePadding->{{
+             Scaled[0.02], 
+             Scaled[0.02]}, {
+             Scaled[0.05], 
+             Scaled[0.05]}},
+          Ticks->{None, Automatic}]}
+       },
+       AutoDelete->False,
+       GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+      "Grid"]},
+    {
+     TagBox[GridBox[{
+        {
+         StyleBox["\<\"Performance\"\>",
+          StripOnInput->False,
+          FontFamily->"Arial",
+          FontSize->14]},
+        {
+         TagBox[GridBox[{
+            {
+             StyleBox["\<\"Net Profit\"\>",
+              StripOnInput->False,
+              FontFamily->"Arial"], 
+             StyleBox["\<\"Gros Profit\"\>",
+              StripOnInput->False,
+              FontFamily->"Arial"], 
+             StyleBox["\<\"Gros Loss\"\>",
+              StripOnInput->False,
+              FontFamily->"Arial"], 
+             StyleBox["\<\"Maximum Drawdown\"\>",
+              StripOnInput->False,
+              FontFamily->"Arial"], 
+             StyleBox["\<\"Profit Factor\"\>",
+              StripOnInput->False,
+              FontFamily->"Arial"], 
+             StyleBox["\<\"Recovery Factor\"\>",
+              StripOnInput->False,
+              FontFamily->"Arial"]},
+            {
+             StyleBox[
+              TemplateBox[{"6900",RowBox[{
+                  FormBox["\"\[Euro]\"", TraditionalForm], 
+                  "\[VeryThinSpace]"}],"euros","\"Euros\""},
+               "QuantityPrefix"],
+              StripOnInput->False,
+              FontWeight->Bold], 
+             StyleBox[
+              TemplateBox[{"30000",RowBox[{
+                  FormBox["\"\[Euro]\"", TraditionalForm], 
+                  "\[VeryThinSpace]"}],"euros","\"Euros\""},
+               "QuantityPrefix"],
+              StripOnInput->False,
+              FontWeight->Bold], 
+             StyleBox[
+              TemplateBox[{"23100",RowBox[{
+                  FormBox["\"\[Euro]\"", TraditionalForm], 
+                  "\[VeryThinSpace]"}],"euros","\"Euros\""},
+               "QuantityPrefix"],
+              StripOnInput->False,
+              FontWeight->Bold], 
+             StyleBox[
+              TemplateBox[{"23100",RowBox[{
+                  FormBox["\"\[Euro]\"", TraditionalForm], 
+                  "\[VeryThinSpace]"}],"euros","\"Euros\""},
+               "QuantityPrefix"],
+              StripOnInput->False,
+              FontWeight->Bold], 
+             StyleBox["1.2987012987012987`",
+              StripOnInput->False,
+              FontWeight->Bold], 
+             StyleBox["1.2987012987012987`",
+              StripOnInput->False,
+              FontWeight->Bold]}
+           },
+           AutoDelete->False,
+           GridBoxBackground->{"Columns" -> {{
+                RGBColor[0.95, 0.95, 0.95]}}},
+           GridBoxFrame->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+           
+           GridBoxItemSize->{
+            "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+          "Grid"]},
+        {
+         TagBox[GridBox[{
+            {
+             StyleBox["\<\"Annual Average Return\"\>",
+              StripOnInput->False,
+              FontFamily->"Arial"], 
+             StyleBox["\<\"Days in Market\"\>",
+              StripOnInput->False,
+              FontFamily->"Arial"], 
+             StyleBox["\<\"Risc Adjusted Return\"\>",
+              StripOnInput->False,
+              FontFamily->"Arial"], 
+             StyleBox["\<\"Calmar Ratio\"\>",
+              StripOnInput->False,
+              FontFamily->"Arial"]},
+            {"\<\"80.08%\"\>", "\<\"24.4094%\"\>", "\<\"85.08%\"\>", \
+"\<\"15.08%\"\>"}
+           },
+           AutoDelete->False,
+           GridBoxBackground->{"Columns" -> {{
+                RGBColor[0.95, 0.95, 0.95]}}},
+           GridBoxFrame->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+           
+           GridBoxItemSize->{
+            "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+          "Grid"]},
+        {
+         TagBox[GridBox[{
+            {
+             StyleBox["\<\"Buy & Hold Profit\"\>",
+              StripOnInput->False,
+              FontFamily->"Arial"], 
+             StyleBox["\<\"Anual Average Buy & Hold\"\>",
+              StripOnInput->False,
+              FontFamily->"Arial"], 
+             StyleBox["\<\"Buy & Hold Index\"\>",
+              StripOnInput->False,
+              FontFamily->"Arial"]},
+            {"\<\"80.08%\"\>", "\<\"24.4094%\"\>", "\<\"85.08%\"\>"}
+           },
+           AutoDelete->False,
+           GridBoxBackground->{"Columns" -> {{
+                RGBColor[0.95, 0.95, 0.95]}}},
+           GridBoxFrame->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+           
+           GridBoxItemSize->{
+            "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+          "Grid"]}
+       },
+       DefaultBaseStyle->"Column",
+       GridBoxAlignment->{"Columns" -> {{Center}}},
+       GridBoxBackground->{"Columns" -> {{
+            RGBColor[0.75, 0.75, 0.75]}}},
+       GridBoxFrame->{"ColumnsIndexed" -> {{{1, -1}, {1, -1}} -> True}},
+       GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+      "Column"]},
+    {"cost"},
+    {"com"},
+    {"lwt"},
+    {"llt"},
+    {"pos"},
+    {"neg"},
+    {"eq"},
+    {"curr"},
+    {
+     TagBox[GridBox[{
+        {
+         StyleBox["\<\"BuyDate\"\>",
+          StripOnInput->False,
+          FontFamily->"Arial"], 
+         StyleBox["\<\"BuyPrice\"\>",
+          StripOnInput->False,
+          FontFamily->"Arial"], 
+         StyleBox["\<\"SellDate\"\>",
+          StripOnInput->False,
+          FontFamily->"Arial"], 
+         StyleBox["\<\"SellPrice\"\>",
+          StripOnInput->False,
+          FontFamily->"Arial"]},
+        {"\<\"2010-01-14\"\>", "28.69286157666046`", "\<\"2010-01-15\"\>", 
+         "28.802756276404608`"},
+        {"\<\"2010-02-10\"\>", "26.745129151291515`", "\<\"2010-02-18\"\>", 
+         "27.532485586162714`"},
+        {"\<\"2010-02-22\"\>", "27.632201377108075`", "\<\"2010-05-04\"\>", 
+         "35.894830678830985`"},
+        {"\<\"2010-05-06\"\>", "34.65488162436548`", "\<\"2010-05-12\"\>", 
+         "35.400814987218126`"}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[2.0999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      Function[BoxForm`e$, 
+       TableForm[BoxForm`e$]]]}
+   },
+   DefaultBaseStyle->"Column",
+   GridBoxAlignment->{"Columns" -> {{Left}}},
+   GridBoxFrame->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Column"]], "Output",
+ CellChangeTimes->{
+  3.6876850423298965`*^9, {3.6876851380408964`*^9, 3.687685156433296*^9}, 
+   3.6876860859160967`*^9, 3.6876861838528967`*^9, 3.6876863609440966`*^9, 
+   3.6876917989178963`*^9, 3.6876918386630964`*^9, 3.6876921894492965`*^9, 
+   3.6876942422930965`*^9, 3.687694521627096*^9, 3.687694586802696*^9, 
+   3.687702364697296*^9}]
+}, Open  ]]
+},
+WindowSize->{906, 842},
+WindowMargins->{{489, Automatic}, {Automatic, 44}},
+FrontEndVersion->"10.4 for Microsoft Windows (64-bit) (April 11, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 538, 14, 31, "Input"],
+Cell[1099, 36, 224, 6, 31, "Input"],
+Cell[CellGroupData[{
+Cell[1348, 46, 1631, 52, 92, "Input"],
+Cell[2982, 100, 1529, 51, 92, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4548, 156, 363, 9, 31, "Input"],
+Cell[4914, 167, 412, 11, 31, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5363, 183, 299, 8, 31, "Input"],
+Cell[5665, 193, 388, 11, 31, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6090, 209, 302, 8, 31, "Input"],
+Cell[6395, 219, 214, 5, 31, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6646, 229, 301, 8, 31, "Input"],
+Cell[6950, 239, 214, 5, 31, "Output"]
+}, Open  ]],
+Cell[7179, 247, 458, 9, 31, "Input"],
+Cell[7640, 258, 139, 3, 31, "Input"],
+Cell[CellGroupData[{
+Cell[7804, 265, 10508, 206, 1572, "Input"],
+Cell[18315, 473, 3507, 86, 233, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[21859, 564, 105, 1, 31, "Input"],
+Cell[21967, 567, 5123, 144, 224, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[27127, 716, 1113, 24, 112, "Input"],
+Cell[28243, 742, 7107, 167, 398, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[35387, 914, 2039, 50, 152, "Input"],
+Cell[37429, 966, 1370, 34, 72, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[38836, 1005, 516, 12, 52, "Input"],
+Cell[39355, 1019, 14833, 365, 783, "Output"]
+}, Open  ]]
+}
+]
+*)
+

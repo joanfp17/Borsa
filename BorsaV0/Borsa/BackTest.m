@@ -59,7 +59,7 @@ BackTest[stock_Stock, strategy_Strategy, o : OptionsPattern[]] :=
         dividend=Plus @@ (If[AbsoluteTime[#[[1]]] > AbsoluteTime[dateStock[[1]]] &&
         	AbsoluteTime[#[[1]]] < AbsoluteTime[dateStock[[-1]]], #[[2]],0] & /@ div);
         period={dateStock[[1]],buyPrice,buyPriceSlip,dateStock[[-1]],sellPrice,sellPriceSlip,Length[dateStock],
-        	dividend,Max[high],Min[low]}; (* TODO modify period, like positions *)
+        	dividend,Max[high],Min[low]};
         (* Compute the trades with the signals, prices and options *)    
         MapIndexed[
          Which[
@@ -137,94 +137,136 @@ Format[BackTest[stock_Stock,strategy_Strategy,entryPrices_List,exitPrices_List,p
 	Panel[Column[{Row[{stock["Name"],"  with  ",strategy["Name"]}],Row[{ "from  ", DateObject[period[[1]]], "  to  ", DateObject[period[[4]]]}], Length[positionList] " trades"}],Style["BackTest Object",16]];
 
 Options[Performance] = {
-  "Slippage" -> False, (* True or False *)
-  "Brokerage" -> 0, (* % comission *)
-  "Deposit" -> "Simple", (* "Simple"/"Compound" *)
-  "RiscFreeRate" -> 0} 
+  "Brokerage" -> 0, (* % commission *)
+  "Deposit" -> {"Simple",100} (* "Simple"/"Compound" *)
+  } 
 
 Performance[period_List,positions_List, o : OptionsPattern[]] :=
 (* calculated for a fixed investment on each trade, simple interest rate *)
     Module[ {
     (* --- Local variables --- *)
-    slippage = OptionValue["Slippage"],
     commission = OptionValue["Brokerage"]/100,
-    deposit = OptionValue["Deposit"],
-    riscFree = OptionValue["RiscFreeRate"],
-    numberOfTrades, totalNumberDays, daysInMarket,
-    numberDaysTrade, avgNumberOfDaysPerTrade, 
+    deposit = OptionValue["Deposit"][[1]],
+    principal = OptionValue["Deposit"][[2]],
+    numberOfTrades, totalNumberOfDays, daysInMarket,
+    numberOfDaysTrade, avgNumberOfDaysPerTrade, 
 	netTradeReturns, percentWinTrades, netReturn, 
     annualizedNetReturn,
     avgTrade, profitFactor, recoveryFactor,
     drawDownsList, maxDrawDown,trades,
-    netBH, winTrades, lossTrades, avrgProfitTrade, avrgLossTrade,
-    payoffRatio, buyHoldIndex, calmarRatio, indexBH, sharpeRatio
+    netBHReturn, winTrades, lossTrades, avrgProfitTrade, avrgLossTrade,
+    payoffRatio, buyHoldIndex, calmarRatio, indexBH, sharpeRatio,
+    daysTradeReturns,commissionTrade,netTradeReturnsSlip,percentWinTradesSlip,
+    grossProfit,grossLoss,performance, equity,
+    numForm = NumberForm[#,{8,2}]&
     },
     (* Eliminate the last trade if not closed *)
-        If[ positions[[-1]][[4]] === Null,
-            trades = Delete[positions, -1],
-            trades = positions
-        ];
-        (* ---- Begin common calculations --- *)
-        numberOfTrades = Length[trades];
-        (* List with the number of days of each trade *)
-        numberDaysTrade = 
-          Map[(DayCount[#[[1]], #[[4]]]+1) &, trades];
-        totalNumberDays = DayCount[period[[1]], 
-            trades[[numberOfTrades, 4]]]+1;
-        daysInMarket = N@(Plus@@numberDaysTrade/totalNumberDays*100);
-        If[slippage,
-        	netBH = (period[[6]] (1-commission)+ period[[8]])/(period[[3]] (1+commission))-1,
-        	netBH = (period[[5]] (1-commission)+ period[[8]])/(period[[2]] (1+commission))-1
-        ];
-        If[slippage,
-        	netTradeReturns = Map[((#[[6]] (1-commission)+#[[8]])/(#[[3]] (1+commission))-1) &, trades],
-        	netTradeReturns = Map[((#[[5]] (1-commission)+#[[8]])/(#[[2]] (1+commission))-1) &, trades]
-        ];
-        percentWinTrades = N@(Count[netTradeReturns, x_ /; x > 0]/numberOfTrades*100);
-        winTrades = Count[netTradeReturns, x_ /; x > 0];
-        lossTrades = Count[netTradeReturns, x_ /; x < 0];
-        avgNumberOfDaysPerTrade = N[Mean[numberDaysTrade]];
-        Which[
-	    	deposit === "Simple",(* TODO repasar i contar correctament *)
-		        netReturn = Plus@@netTradeReturns;
-		        annualizedNetReturn = 100 netReturn 365/totalNumberDays;
-		        avgTrade = netReturn/numberOfTrades;
-		        avrgProfitTrade = Plus@@Select[netTradeReturns, # > 0 &]/winTrades;
-		        avrgLossTrade = -Plus@@Select[netTradeReturns,# < 0 &]/lossTrades;
-		        payoffRatio = avrgProfitTrade/avrgLossTrade;
-		        buyHoldIndex = netReturn/netBH;
-		        profitFactor = (Plus@@Select[netTradeReturns, # > 0 &])/(-Plus@@Select[netTradeReturns,# < 0 &]);
-		        drawDownsList = drawDowns[netTradeReturns];
-		        maxDrawDown = Min[drawDownsList];
-		        recoveryFactor = netReturn/(-maxDrawDown);
-		        indexBH = netReturn/netBH;
-		        (*weights = 
-		        variance = *)
-		        sharpeRatio = (annualizedNetReturn - riscFree);
-		        calmarRatio = annualizedNetReturn/(-100 maxDrawDown);
-                {{"Trades/year",N[numberOfTrades 365/totalNumberDays],StringForm["(`1`,`2`)", numberOfTrades,totalNumberDays/365.]}, 
-                {"Exposure (% in Market)",daysInMarket},
-                {"Return Average Trade",100 avgTrade}, 
-                {"% Winning Trades",percentWinTrades},
-                {"Annualized Return",annualizedNetReturn},
-                {"Maximum percent Drawdown",-100 maxDrawDown}, 
-                {"Payoff Ratio",payoffRatio}, 
-                {"Profit Factor",profitFactor},
-                {"Recovery Factor",recoveryFactor},
-                {"B&H Index", indexBH,StringForm["(`1`,`2`)",netReturn,netBH]},
-                {"Sharpe Ratio", sharpeRatio},
-                {"Calmar Ratio",calmarRatio} 
-                },
-   			deposit === "Compound", (* TODO repasar i contar correctament *)
-   				netReturn = Times@@(netTradeReturns+1)-1;
-   				annualizedNetReturn = 100 ((netReturn+1)^(365/totalNumberDays)-1) ;
-   				avgTrade = netReturn/numberOfTrades;
-		        profitFactor = (Plus@@Select[netTradeReturns, # > 0 &])/(-Plus@@Select[netTradeReturns,# < 0 &]);
-		        drawDownsList = drawDowns[netTradeReturns];
-		        maxDrawDown = Min[drawDownsList];
-		        recoveryFactor = netReturn/(-maxDrawDown);
-                {numberOfTrades,daysInMarket,percentWinTrades,avgNumberOfDaysPerTrade,
-                	avgTrade,annualizedNetReturn,profitFactor,maxDrawDown,recoveryFactor}
+    If[ positions[[-1]][[4]] === Null,
+        trades = Delete[positions, -1],
+        trades = positions
+    ];
+    (* ---- Begin common calculations --- *)
+    numberOfTrades = Length[trades];
+    numberOfDaysTrade = Map[(DayCount[#[[1]], #[[4]]]+1) &, trades];
+    totalNumberOfDays = DayCount[period[[1]],trades[[numberOfTrades, 4]]]+1;
+    daysInMarket = N@(Plus@@numberOfDaysTrade/totalNumberOfDays*100);
+   	netBHReturn = (period[[5]] (1-commission)+ period[[8]])/(period[[2]] (1+commission))-1;
+    netTradeReturns = Map[((#[[5]] (1-commission)+#[[8]])/(#[[2]] (1+commission))-1) &, trades];
+    daysTradeReturns = #[[4]]&/@trades;
+    commissionTrade = Map[commission/(commission+1)(1+#[[5]]/#[[2]])&,trades];
+    percentWinTrades = N@(Count[netTradeReturns, x_ /; x > 0]/numberOfTrades*100);
+    netTradeReturnsSlip = Map[((#[[6]] (1-commission)+#[[8]])/(#[[3]] (1+commission))-1) &, trades];
+    percentWinTradesSlip = N@(Count[netTradeReturnsSlip, x_ /; x > 0]/numberOfTrades*100);
+    winTrades = Count[netTradeReturns, x_ /; x > 0];
+    lossTrades = Count[netTradeReturns, x_ /; x < 0];
+    avgNumberOfDaysPerTrade = N[Mean[numberOfDaysTrade]];
+    Which[
+    	deposit === "Simple",(* TODO repasar i contar correctament *)
+    		netReturn = Plus@@netTradeReturns;
+    		grossProfit = Plus@@Select[netTradeReturns, # > 0 &];
+    		grossLoss = -Plus@@Select[netTradeReturns,# < 0 &];
+    		drawDownsList = drawDowns[netTradeReturns];
+	        maxDrawDown = Min[drawDownsList];
+	        profitFactor = grossProfit/grossLoss;
+	        recoveryFactor = netReturn/(-maxDrawDown);
+	        annualizedNetReturn = 100 netReturn 365/totalNumberOfDays;
+	        calmarRatio = annualizedNetReturn/(-100 maxDrawDown);
+    		performance = {
+    			{
+	    			{"Net Profit",Row[{numForm[netReturn principal],"(",numForm[100 netReturn],"%)"}]},
+	    			{"Gross Profit",Row[{numForm[principal grossProfit],"(",numForm[100 grossProfit],"%)"}]},
+	    			{"Gross Loss",Row[{numForm[principal grossLoss],"(",numForm[100 grossLoss],"%)"}]},
+	    			{"Maximum Drawdown",Row[{numForm[principal maxDrawDown],"(",numForm[100 maxDrawDown],"%)"}]},
+	    			{"Profit Factor",numForm[profitFactor]},
+	    			{"Recovery Factor",numForm[recoveryFactor]}
+    			},
+    			{
+    				{"Annual Average Return",Row[{numForm[annualizedNetReturn],"%"}]},
+    				{"Days in Market",Row[{numForm[daysInMarket],"%"}]},
+    				{"Risc Adjusted Return",Row[{numForm[100 annualizedNetReturn/daysInMarket],"%"}]},
+    				{"Calmar Ratio",numForm[calmarRatio]}
+    			}
+    			
+    		};
+
+	        avgTrade = netReturn/numberOfTrades;
+	        avrgProfitTrade = Plus@@Select[netTradeReturns, # > 0 &]/winTrades;
+	        avrgLossTrade = -Plus@@Select[netTradeReturns,# < 0 &]/lossTrades;
+	        payoffRatio = avrgProfitTrade/avrgLossTrade;
+	        buyHoldIndex = netReturn/netBHReturn;
+	        indexBH = netReturn/netBHReturn;
+	        (*weights = 
+	        variance = *)
+	        sharpeRatio = (annualizedNetReturn);
+	        
+           (* {{"Trades/year",N[numberOfTrades 365/totalNumberOfDays],StringForm["(`1`,`2`)", numberOfTrades,totalNumberOfDays/365.]}, 
+            {"Exposure (% in Market)",daysInMarket},
+            {"Return Average Trade",100 avgTrade}, 
+            {"% Winning Trades",percentWinTrades},
+            {"Annualized Return",annualizedNetReturn},
+            {"Maximum percent Drawdown",-100 maxDrawDown}, 
+            {"Payoff Ratio",payoffRatio}, 
+            {"Profit Factor",profitFactor},
+            {"Recovery Factor",recoveryFactor},
+            {"B&H Index", indexBH,StringForm["(`1`,`2`)",netReturn,netBHReturn]},
+            {"Sharpe Ratio", sharpeRatio},
+            {"Calmar Ratio",calmarRatio} 
+            },*)
+            {performance,Transpose@{daysTradeReturns,principal Accumulate[netTradeReturns]}},
+   		deposit === "Compound", (* TODO repasar i contar correctament *)
+   		    netReturn = Times@@(netTradeReturns+1)-1;
+   		    equity = principal FoldList[Times,netTradeReturns+1];
+    		grossProfit = Plus@@Select[netTradeReturns, # > 0 &];
+    		grossLoss = -Plus@@Select[netTradeReturns,# < 0 &];
+    		drawDownsList = drawDowns[equity];
+	        maxDrawDown = Min[drawDownsList];
+	        profitFactor = grossProfit/grossLoss;
+	        recoveryFactor = netReturn/(-maxDrawDown);
+	        annualizedNetReturn = 100 ((netReturn+1)^(365/totalNumberOfDays)-1) ;
+	        calmarRatio = annualizedNetReturn/(-100 maxDrawDown);
+    		performance = {
+    			{
+	    			{"Net Profit",Row[{numForm[netReturn principal],"(",numForm[100 netReturn],"%)"}]},
+	    			{"Gross Profit",Row[{numForm[principal grossProfit],"(",numForm[100 grossProfit],"%)"}]},
+	    			{"Gross Loss",Row[{numForm[principal grossLoss],"(",numForm[100 grossLoss],"%)"}]},
+	    			{"Maximum Drawdown",Row[{numForm[principal maxDrawDown],"(",numForm[100 maxDrawDown],"%)"}]},
+	    			{"Profit Factor",numForm[profitFactor]},
+	    			{"Recovery Factor",numForm[recoveryFactor]}
+    			},
+    			{
+    				{"Annual Average Return",Row[{numForm[annualizedNetReturn],"%"}]},
+    				{"Days in Market",Row[{numForm[daysInMarket],"%"}]},
+    				{"Risc Adjusted Return",Row[{numForm[100 annualizedNetReturn/daysInMarket],"%"}]},
+    				{"Calmar Ratio",numForm[calmarRatio]}
+    			}
+    			
+    		};
+   			{performance,Transpose@{daysTradeReturns,principal FoldList[Times,netTradeReturns+1]}}
+   			
+   			(*avgTrade = netReturn/numberOfTrades;
+
+            {numberOfTrades,daysInMarket,percentWinTrades,avgNumberOfDaysPerTrade,
+               avgTrade,annualizedNetReturn,profitFactor,maxDrawDown,recoveryFactor}*)
         ]
     ]
     
