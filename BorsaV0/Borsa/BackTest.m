@@ -138,7 +138,7 @@ Format[BackTest[stock_Stock,strategy_Strategy,entryPrices_List,exitPrices_List,p
 
 Options[Performance] = {
   "Brokerage" -> 0, (* % commission *)
-  "Deposit" -> {"Simple",100} (* "Simple"/"Compound" *)
+  "Deposit" -> {"Compound",5000} (* "Simple"/"Compound" *)
   } 
 
 Performance[period_List,positions_List, o : OptionsPattern[]] :=
@@ -151,14 +151,14 @@ Performance[period_List,positions_List, o : OptionsPattern[]] :=
     numberOfTrades, totalNumberOfDays, daysInMarket,
     numberOfDaysTrade, avgNumberOfDaysPerTrade, 
 	netTradeReturns, percentWinTrades, netReturn, 
-    annualizedNetReturn,
+    annualizedNetReturn,ddPath,
     avgTrade, profitFactor, recoveryFactor,
-    drawDownsList, maxDrawDown,trades,
+    drawDownsList, mDD, mDDp,trades,
     netBHReturn, winTrades, lossTrades, avrgProfitTrade, avrgLossTrade,
-    payoffRatio, buyHoldIndex, calmarRatio, indexBH, sharpeRatio,
+    payoffRatio, buyHoldIndex, marRatio, indexBH, sharpeRatio,
     daysTradeReturns,commissionTrade,netTradeReturnsSlip,percentWinTradesSlip,
-    grossProfit,grossLoss,performance, equity,
-    numForm = NumberForm[#,{8,2}]&
+    netProfit,grossProfit,grossLoss,performance, equity, daysEquity,
+    numForm = NumberForm[#,{10,2},ExponentFunction -> (If[-10 < # < 10, Null, #] &)]&
     },
     (* Eliminate the last trade if not closed *)
     If[ positions[[-1]][[4]] === Null,
@@ -185,18 +185,18 @@ Performance[period_List,positions_List, o : OptionsPattern[]] :=
     		netReturn = Plus@@netTradeReturns;
     		grossProfit = Plus@@Select[netTradeReturns, # > 0 &];
     		grossLoss = -Plus@@Select[netTradeReturns,# < 0 &];
-    		drawDownsList = drawDowns[netTradeReturns];
-	        maxDrawDown = Min[drawDownsList];
+    		drawDownsList = drawDown[netTradeReturns];
+	        mDD = Min[drawDownsList];
 	        profitFactor = grossProfit/grossLoss;
-	        recoveryFactor = netReturn/(-maxDrawDown);
+	        recoveryFactor = netReturn/(-mDD);
 	        annualizedNetReturn = 100 netReturn 365/totalNumberOfDays;
-	        calmarRatio = annualizedNetReturn/(-100 maxDrawDown);
+	        marRatio = annualizedNetReturn/(-100 mDD);
     		performance = {
     			{
 	    			{"Net Profit",Row[{numForm[netReturn principal],"(",numForm[100 netReturn],"%)"}]},
 	    			{"Gross Profit",Row[{numForm[principal grossProfit],"(",numForm[100 grossProfit],"%)"}]},
 	    			{"Gross Loss",Row[{numForm[principal grossLoss],"(",numForm[100 grossLoss],"%)"}]},
-	    			{"Maximum Drawdown",Row[{numForm[principal maxDrawDown],"(",numForm[100 maxDrawDown],"%)"}]},
+	    			{"Maximum Drawdown",Row[{numForm[principal mDD],"(",numForm[100 mDDp],"%)"}]},
 	    			{"Profit Factor",numForm[profitFactor]},
 	    			{"Recovery Factor",numForm[recoveryFactor]}
     			},
@@ -204,7 +204,7 @@ Performance[period_List,positions_List, o : OptionsPattern[]] :=
     				{"Annual Average Return",Row[{numForm[annualizedNetReturn],"%"}]},
     				{"Days in Market",Row[{numForm[daysInMarket],"%"}]},
     				{"Risc Adjusted Return",Row[{numForm[100 annualizedNetReturn/daysInMarket],"%"}]},
-    				{"Calmar Ratio",numForm[calmarRatio]}
+    				{"Calmar Ratio",numForm[marRatio]}
     			}
     			
     		};
@@ -235,21 +235,23 @@ Performance[period_List,positions_List, o : OptionsPattern[]] :=
             {performance,Transpose@{daysTradeReturns,principal Accumulate[netTradeReturns]}},
    		deposit === "Compound", (* TODO repasar i contar correctament *)
    		    netReturn = Times@@(netTradeReturns+1)-1;
-   		    equity = principal FoldList[Times,netTradeReturns+1];
-    		grossProfit = Plus@@Select[netTradeReturns, # > 0 &];
-    		grossLoss = -Plus@@Select[netTradeReturns,# < 0 &];
-    		drawDownsList = drawDowns[equity];
-	        maxDrawDown = Min[drawDownsList];
+   		    equity = principal FoldList[Times,1,netTradeReturns+1];
+   		    equity = Delete[Riffle[equity,equity],-1];
+   		    daysEquity = Join[{period[[1]]},Flatten[{#[[1]],#[[4]]}&/@trades,1]];
+   		    netProfit = principal netReturn;
+    		grossProfit = Plus@@Select[Differences[equity], # > 0 &];
+    		grossLoss = -Plus@@Select[Differences[equity],# < 0 &];
+	        {mDD, mDDp,ddPath}= drawDown[equity];
 	        profitFactor = grossProfit/grossLoss;
-	        recoveryFactor = netReturn/(-maxDrawDown);
+	        recoveryFactor = netProfit/mDD;
 	        annualizedNetReturn = 100 ((netReturn+1)^(365/totalNumberOfDays)-1) ;
-	        calmarRatio = annualizedNetReturn/(-100 maxDrawDown);
+	        marRatio = annualizedNetReturn/mDDp;
     		performance = {
     			{
-	    			{"Net Profit",Row[{numForm[netReturn principal],"(",numForm[100 netReturn],"%)"}]},
-	    			{"Gross Profit",Row[{numForm[principal grossProfit],"(",numForm[100 grossProfit],"%)"}]},
-	    			{"Gross Loss",Row[{numForm[principal grossLoss],"(",numForm[100 grossLoss],"%)"}]},
-	    			{"Maximum Drawdown",Row[{numForm[principal maxDrawDown],"(",numForm[100 maxDrawDown],"%)"}]},
+	    			{"Net Profit",Row[{numForm[netProfit],"(",numForm[100 netReturn],"%)"}]},
+	    			{"Gross Profit",Row[{numForm[grossProfit],"(",numForm[100 grossProfit/principal],"%)"}]},
+	    			{"Gross Loss",Row[{numForm[grossLoss],"(",numForm[100 grossLoss/principal],"%)"}]},
+	    			{"Maximum Drawdown",Row[{numForm[mDD],"(",numForm[mDDp],"%)"}]},
 	    			{"Profit Factor",numForm[profitFactor]},
 	    			{"Recovery Factor",numForm[recoveryFactor]}
     			},
@@ -257,11 +259,11 @@ Performance[period_List,positions_List, o : OptionsPattern[]] :=
     				{"Annual Average Return",Row[{numForm[annualizedNetReturn],"%"}]},
     				{"Days in Market",Row[{numForm[daysInMarket],"%"}]},
     				{"Risc Adjusted Return",Row[{numForm[100 annualizedNetReturn/daysInMarket],"%"}]},
-    				{"Calmar Ratio",numForm[calmarRatio]}
+    				{"Mar Ratio",numForm[marRatio]}
     			}
     			
     		};
-   			{performance,Transpose@{daysTradeReturns,principal FoldList[Times,netTradeReturns+1]}}
+   			{performance,Transpose@{daysEquity,equity}}
    			
    			(*avgTrade = netReturn/numberOfTrades;
 
@@ -270,28 +272,14 @@ Performance[period_List,positions_List, o : OptionsPattern[]] :=
         ]
     ]
     
-drawDowns[ratios_List] :=
-    Module[ {i, logics, down, downs},
-        logics = Prepend[Map[# < 0 &, ratios], False];
-        downs = {};
-        MapIndexed[If[ #1 && ! logics[[First[#2]]],
-                       i = First[#2];
-                       down = 0;
-                       While[i + 1 <= Length[logics] && logics[[i + 1]], 
-                        down = down + ratios[[i]];
-                        i++];
-                       downs = Append[downs, down]
-                   ] &, Rest[logics]];
-        downs
-    ]
-
-maxDrawDown[equity_List] :=
-    Module[ {maxPath, ddPath, posMax},
-        maxPath = Drop[FoldList[Max, 0, equity], 1];
-        ddPath = maxPath - equity;
-        posMax = First@First@Position[ddPath, Max[ddPath]];
-        {Max[ddPath],posMax - First@First@Position[maxPath, maxPath[[posMax]]]}
-    ]
+drawDown[equity_List]:=Module[{maxPath,ddPath,maxdd,pos,maxddpc},
+	maxPath = Drop[FoldList[Max, 0, equity], 1];
+	ddPath = maxPath - equity;
+	maxdd = Max[ddPath];
+	pos = Flatten@Position[ddPath, maxdd];
+	maxddpc = 100 Max[(maxdd/maxPath[[#]]) & /@ pos];
+	{maxdd,maxddpc,ddPath}
+	]
 
 Options[Report] = {
   "Brokerage" -> {0, 0.00}, (* minimum commission, % comission *)
