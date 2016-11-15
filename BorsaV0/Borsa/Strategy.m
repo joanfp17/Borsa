@@ -53,7 +53,7 @@ emaUpDown[s_Stock, p_List] :=
 
 stochasticK[s_Stock, p_List] := Module[
   {PSAR = (Transpose@
-       FinancialIndicator["ParabolicStopAndReversal"][s["OHLCV"]]
+       FinancialIndicator["ParabolicStopAndReversal",p[[1]],p[[2]]][s["OHLCV"]]
         ["Path"])[[2]],
    opens = s["Open"][[All,2]],
    closes = s["Close"][[All, 2]],

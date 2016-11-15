@@ -59,7 +59,7 @@ emd::usage = "emd[ts] computes the Empirical Mode Decomposition of ts."
 
 Begin["`Private`"]
 (* To eliminate in definitive version*)
-<<"StockData`"
+<<"Stock`"
 <<"BackTest`"
 <<"Strategy`"
 <<"EmbeddingAnalysis`"
