@@ -126,7 +126,7 @@ BackTest[stock_Stock,strategy_Strategy,entryPrices_List,exitPrices_List,period_L
      p === "Positions",
      positions,
      p == "Performance",
-     Performance[period,positions,o],
+     Performance[stock,strategy,period,positions,o],
      p == "Report",
      Report[period,positions,o],
      True,
@@ -141,7 +141,7 @@ Options[Performance] = {
   "Deposit" -> {"Compound",5000} (* "Simple"/"Compound" *)
   } 
 
-Performance[period_List,positions_List, o : OptionsPattern[]] :=
+Performance[stock_Stock,strategy_Strategy,period_List,positions_List, o : OptionsPattern[]] :=
 (* calculated for a fixed investment on each trade, simple interest rate *)
     Module[ {
     (* --- Local variables --- *)
@@ -155,12 +155,14 @@ Performance[period_List,positions_List, o : OptionsPattern[]] :=
     tradesPerformance,winningTrades, lossingTrades,avgTradeReturn,avgProfitTradeReturn,avgLossTradeReturn,
     avgTrade, profitFactor, recoveryFactor,
     drawDownsList, mDD, mDDp,trades,netReturnSlip,equitySlip,netProfitSlip,mDDSlip, mDDpSlip,ddPathSlip,grossProfitSlip,grossLossSlip,profitFactorSlip,recoveryFactorSlip,
-    netBHReturn, BHProfit,  avgProfitTrade, avgLossTrade,
-    payoffRatio, buyHoldIndex, marRatio, indexBH, sharpeRatio,
+    netBHReturn, BHProfit,  avgProfitTrade, avgLossTrade,avgDaysTrade,avgDaysProfitTrade,avgDaysLossTrade,
+    avgMFE,avgProfitMFE,avgLossMFE,avgMAE,avgProfitMAE,avgLossMAE,avgEficiency,avgEficiencySlip,
+    payoffRatio, marRatio, sharpeTrades,
     daysTradeReturns,commissionTrade,netTradeReturnsSlip,
     netProfit,grossProfit,grossLoss,performance, equity, daysEquity,
     slippage,winningTradesSlip,avgTradeSlip,avgTradeReturnSlip,lossingTradesSlip,payoffRatioSlip,
-    numForm = NumberForm[#,{10,2},ExponentFunction -> (If[-10 < # < 10, Null, #] &)]&
+    mfe,mae,win,
+    numForm = ToString@NumberForm[#,{10,2},ExponentFunction -> (If[-10 < # < 10, Null, #] &)]&
     },
     (* Eliminate the last trade if not closed *)
     If[ positions[[-1]][[4]] === Null,
@@ -180,10 +182,6 @@ Performance[period_List,positions_List, o : OptionsPattern[]] :=
     lossingTrades = Count[netTradeReturns, x_ /; x < 0];
     percentWinTrades = N@(Count[netTradeReturns, x_ /; x > 0]/numberOfTrades*100);
     avgNumberOfDaysPerTrade = N[Mean[numberOfDaysTrade]];
-    avgTrade = netReturn/numberOfTrades;
-	avgProfitTrade = grossProfit/winningTrades;
-	avgLossTrade = -grossLoss/lossingTrades;
-	payoffRatio = avgProfitTrade/avgLossTrade;
 	
     Which[
     	deposit === "Simple",(* TODO repasar i contar correctament *)
@@ -214,13 +212,6 @@ Performance[period_List,positions_List, o : OptionsPattern[]] :=
     			
     		};
 
-	        
-	        
-	        buyHoldIndex = netReturn/netBHReturn;
-	        indexBH = netReturn/netBHReturn;
-	        (*weights = 
-	        variance = *)
-	        sharpeRatio = (annualizedNetReturn);
 	        
            (* {{"Trades/year",N[numberOfTrades 365/totalNumberOfDays],StringForm["(`1`,`2`)", numberOfTrades,totalNumberOfDays/365.]}, 
             {"Exposure (% in Market)",daysInMarket},
@@ -272,7 +263,7 @@ Performance[period_List,positions_List, o : OptionsPattern[]] :=
     			{
     				{"Buy & Hold Profit", Row[{numForm[BHProfit],"(",numForm[100 netBHReturn],"%)"}]},
     				{"Annual Average BH Return", Row[{numForm[100 ((netBHReturn+1)^(365/totalNumberOfDays)-1)],"%"}]},
-    				{"Buy & Hold Index", numForm[annualizedNetReturn/(100 ((netBHReturn+1)^(365/totalNumberOfDays)-1))]}
+    				{"Buy & Hold Index", numForm[(annualizedNetReturn-100 ((netBHReturn+1)^(365/totalNumberOfDays)-1))/Abs[100 ((netBHReturn+1)^(365/totalNumberOfDays)-1)]]}
     			}
     		};
     		
@@ -283,12 +274,24 @@ Performance[period_List,positions_List, o : OptionsPattern[]] :=
 			avgLossTradeReturn = (Times@@(Select[netTradeReturns, # < 0 &]+1))^(1/lossingTrades)-1;
 			avgLossTrade = grossLoss/lossingTrades;
 			payoffRatio = avgProfitTrade/avgLossTrade;
+			avgDaysTrade = N[Mean[numberOfDaysTrade]];
+			avgDaysProfitTrade = N@Mean[Extract[numberOfDaysTrade, Position[netTradeReturns, x_ /; x > 0]]];
+			avgDaysLossTrade = N@Mean[Extract[numberOfDaysTrade, Position[netTradeReturns, x_ /; x < 0]]];
+			avgMFE = 100 Mean[(#[[9]]/#[[2]]-1)&/@trades];
+			avgProfitMFE = 100 Mean[(#[[9]]/#[[2]]-1)&/@Extract[trades, Position[netTradeReturns, x_ /; x > 0]]];
+			avgLossMFE = 100 Mean[(#[[9]]/#[[2]]-1)&/@Extract[trades, Position[netTradeReturns, x_ /; x < 0]]];
+			avgMAE = 100 Mean[(#[[10]]/#[[2]]-1)&/@trades];
+			avgProfitMAE = 100 Mean[(#[[10]]/#[[2]]-1)&/@Extract[trades, Position[netTradeReturns, x_ /; x > 0]]];
+			avgLossMAE = 100 Mean[(#[[10]]/#[[2]]-1)&/@Extract[trades, Position[netTradeReturns, x_ /; x < 0]]];
+			avgEficiency = 100 Mean[(#[[5]]-#[[2]])/(#[[9]]-#[[10]])&/@trades];
+			sharpeTrades = Mean[netTradeReturns]/StandardDeviation[netTradeReturns];
     		tradesPerformance = {
     			{
 	    			{"Number of Trades",numberOfTrades},
 	    			{"Winning Trades",Row[{winningTrades,"(",numForm[100. winningTrades/numberOfTrades],"%)"}]},
 	    			{"Lossing Trades",Row[{lossingTrades,"(",numForm[100. lossingTrades/numberOfTrades],"%)"}]},
-	    			{"Average Trades/Year",numForm[365. numberOfTrades/totalNumberOfDays]}
+	    			{"Average Trades/Year",numForm[365. numberOfTrades/totalNumberOfDays]},
+	    			{"Sharpe Ratio of Trades",numForm[sharpeTrades]}
     			},
     			{
 	    			{"Average Trade", Row[{numForm[avgTrade],"(",numForm[100 avgTradeReturn],"%)"}]},
@@ -297,6 +300,20 @@ Performance[period_List,positions_List, o : OptionsPattern[]] :=
 	    			{"Average Loss Trade",Row[{avgLossTrade,"(",numForm[- 100. avgLossTradeReturn],"%)"}]},
 	    			{"Largest Loss Trade Return",Row[{numForm[-100. Min[netTradeReturns]],"%"}]},
 	    			{"Payoff Ratio",numForm[payoffRatio]}
+    			},
+    			{
+    				{"Average Days Trade",numForm[avgDaysTrade]},
+    				{"Average Days Profit Trade",numForm[avgDaysProfitTrade]},
+    				{"Average Days Loss Trade",numForm[avgDaysLossTrade]},
+    				{"Average Eficiency",Row[{numForm[avgEficiency],"%"}]}
+    			},
+    			{
+    				{"Average MFE",Row[{numForm[avgMFE],"%"}]},
+    				{"Average Profit MFE",Row[{numForm[avgProfitMFE],"%"}]},
+    				{"Average Loss MFE",Row[{numForm[avgLossMFE],"%"}]},
+    				{"Average MAE",Row[{numForm[avgMAE],"%"}]},
+    				{"Average Profit MAE",Row[{numForm[avgProfitMAE],"%"}]},
+    				{"Average Loss MAE",Row[{numForm[avgLossMAE],"%"}]}
     			}
     		};
     		
@@ -315,6 +332,7 @@ Performance[period_List,positions_List, o : OptionsPattern[]] :=
     		avgTradeSlip = netProfitSlip/numberOfTrades;
     		avgTradeReturnSlip = (netReturnSlip+1)^(1/numberOfTrades)-1;
     		payoffRatioSlip = (grossProfitSlip/winningTradesSlip)/(grossLossSlip/lossingTradesSlip);
+    		avgEficiencySlip = 100 Mean[(#[[6]]-#[[3]])/(#[[9]]-#[[10]])&/@trades];
     		slippage = {
     			{
     				{"Net profit",Row[{numForm[netProfitSlip],"(",numForm[100 netReturnSlip],"%)"}]},
@@ -323,16 +341,18 @@ Performance[period_List,positions_List, o : OptionsPattern[]] :=
 	    			{"Recovery Factor",numForm[recoveryFactorSlip]},
 	    			{"Average Trade",  Row[{numForm[avgTradeSlip],"(",numForm[100 avgTradeReturnSlip],"%)"}]},
 	    			{"Winning Trades",Row[{winningTradesSlip,"(",numForm[100. winningTradesSlip/numberOfTrades],"%)"}]},
-	    			{"Payoff Ratio",numForm[payoffRatioSlip]}
+	    			{"Payoff Ratio",numForm[payoffRatioSlip]},
+	    			{"Average Eficiency",Row[{numForm[avgEficiencySlip],"%"}]}
     			}
     		};
     		
-    		{{performance,tradesPerformance,slippage},{Transpose@{daysEquity,equity},Transpose@{daysEquity,equitySlip}}}
-   			
-   			(*avgTrade = netReturn/numberOfTrades;
+    		mfe = (#[[9]]/#[[2]]-1)&/@trades; 
+    		mae = (#[[10]]/#[[2]]-1)&/@trades; 
+    		win = ReplaceAll[netTradeReturns,{x_ /; x >= 0 -> Blue, x_ /; x < 0 -> Red}];
+    		
+    		GenerateDocument["BTTemplate.nb",{{stock["Name"],strategy["Name"],strategy["Parameters"],period[[1]],period[[4]]},{performance,tradesPerformance,slippage},
+    			{Transpose@{daysEquity,equity},Transpose@{daysEquity,equitySlip},Transpose@{daysEquity,ddPath}},{numberOfDaysTrade,netTradeReturns,mfe,mae,win},stock["OHLCV"],trades}]
 
-            {numberOfTrades,daysInMarket,percentWinTrades,avgNumberOfDaysPerTrade,
-               avgTrade,annualizedNetReturn,profitFactor,maxDrawDown,recoveryFactor}*)
         ]
     ]
     

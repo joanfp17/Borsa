@@ -1,0 +1,646 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.4' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     24121,        638]
+NotebookOptionsPosition[     23265,        608]
+NotebookOutlinePosition[     23828,        628]
+CellTagsIndexPosition[     23785,        625]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Backtesting Report", "Section",
+ CellChangeTimes->{{3.688369145199092*^9, 3.688369152423396*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[TextData[Cell[BoxData[
+ FormBox[
+  TemplateBox[{RowBox[{
+      RowBox[{"DateString", "[", "]"}], " "}],"General",TextData},
+   "NotebookTemplateExpression"], TextForm]]]], "Subsubsection",
+ CellChangeTimes->{{3.68836920628688*^9, 3.6883692197575636`*^9}},
+ TextAlignment->Right],
+
+Cell[BoxData[
+ RowBox[{"Style", "[", 
+  RowBox[{
+   RowBox[{"Row", "[", 
+    RowBox[{"{", 
+     RowBox[{"\"\<Stock: \>\"", ",", 
+      RowBox[{Cell[BoxData[
+        FormBox[
+         TemplateBox[{1,1,"Positional",BoxData},
+          "NotebookTemplateSlot"], TextForm]]], "[", 
+       RowBox[{"[", "1", "]"}], "]"}], ",", "\"\< between \>\"", ",", 
+      RowBox[{"DateString", "[", 
+       RowBox[{Cell[BoxData[
+         FormBox[
+          TemplateBox[{1,1,"Positional",BoxData},
+           "NotebookTemplateSlot"], TextForm]]], "[", 
+        RowBox[{"[", "4", "]"}], "]"}], "]"}], ",", "\"\< and \>\"", ",", 
+      RowBox[{"DateString", "[", 
+       RowBox[{Cell[BoxData[
+         FormBox[
+          TemplateBox[{1,1,"Positional",BoxData},
+           "NotebookTemplateSlot"], TextForm]]], "[", 
+        RowBox[{"[", "5", "]"}], "]"}], "]"}]}], "}"}], "]"}], ",", 
+   "\"\<Subsection\>\""}], "]"}]], "Input",
+ CellFrameLabels->{{
+    Cell[
+     BoxData[
+      TemplateBox[{"EvaluateHideInput"}, "NotebookTemplateCellBehavior"]]], 
+    None}, {None, None}},
+ CellChangeTimes->{{3.6884664618823023`*^9, 3.6884666532723026`*^9}, {
+  3.6884667306233025`*^9, 3.6884667348303022`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Style", "[", 
+  RowBox[{
+   RowBox[{"Row", "[", 
+    RowBox[{"{", 
+     RowBox[{"\"\<Strategy: \>\"", ",", 
+      RowBox[{Cell[BoxData[
+        FormBox[
+         TemplateBox[{1,1,"Positional",BoxData},
+          "NotebookTemplateSlot"], TextForm]]], "[", 
+       RowBox[{"[", "2", "]"}], "]"}], ",", "\"\< parameters \>\"", ",", 
+      RowBox[{"ToString", "[", 
+       RowBox[{Cell[BoxData[
+         FormBox[
+          TemplateBox[{1,1,"Positional",BoxData},
+           "NotebookTemplateSlot"], TextForm]]], "[", 
+        RowBox[{"[", "3", "]"}], "]"}], "]"}]}], "}"}], "]"}], ",", 
+   "\"\<Subsection\>\""}], "]"}]], "Input",
+ CellFrameLabels->{{
+    Cell[
+     BoxData[
+      TemplateBox[{"EvaluateHideInput"}, "NotebookTemplateCellBehavior"]]], 
+    None}, {None, None}},
+ CellChangeTimes->{{3.6884667448523026`*^9, 3.6884668752203026`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"TabView", "[", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{
+    "\"\<Overall Performance\>\"", "\[Rule]", " ", "\[IndentingNewLine]", 
+     RowBox[{"Column", "[", 
+      RowBox[{
+       RowBox[{"{", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"Grid", "[", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"Transpose", "[", 
+            RowBox[{Cell[BoxData[
+              FormBox[
+               TemplateBox[{2,1,"Positional",BoxData},
+                "NotebookTemplateSlot"], TextForm]]], "[", 
+             RowBox[{"[", 
+              RowBox[{"1", ",", "1"}], "]"}], "]"}], "]"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Background", "\[Rule]", 
+            RowBox[{"Lighter", "[", 
+             RowBox[{"Gray", ",", " ", "0.9"}], "]"}]}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Frame", "->", "All"}]}], "]"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"Grid", "[", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"Transpose", "[", 
+            RowBox[{Cell[BoxData[
+              FormBox[
+               TemplateBox[{2,2,"Positional",BoxData},
+                "NotebookTemplateSlot"], TextForm]]], "[", 
+             RowBox[{"[", 
+              RowBox[{"1", ",", "2"}], "]"}], "]"}], "]"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Background", "\[Rule]", 
+            RowBox[{"Lighter", "[", 
+             RowBox[{"Gray", ",", " ", "0.9"}], "]"}]}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Frame", "->", "All"}]}], "]"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"Grid", "[", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"Transpose", "[", 
+            RowBox[{Cell[BoxData[
+              FormBox[
+               TemplateBox[{2,2,"Positional",BoxData},
+                "NotebookTemplateSlot"], TextForm]]], "[", 
+             RowBox[{"[", 
+              RowBox[{"1", ",", "3"}], "]"}], "]"}], "]"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Background", "\[Rule]", 
+            RowBox[{"Lighter", "[", 
+             RowBox[{"Gray", ",", " ", "0.9"}], "]"}]}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Frame", "->", "All"}]}], "]"}]}], "\[IndentingNewLine]", 
+        "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"Frame", "\[Rule]", "True"}], ",", " ", 
+       RowBox[{"Alignment", "\[Rule]", "Center"}], ",", 
+       RowBox[{"Background", "\[Rule]", 
+        RowBox[{"Lighter", "[", 
+         RowBox[{"Gray", ",", " ", "0.5"}], "]"}]}], ",", 
+       RowBox[{"BaseStyle", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{"FontFamily", "\[Rule]", "\"\<Arial\>\""}], "}"}]}]}], 
+      "\[IndentingNewLine]", "]"}]}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+    "\"\<Trades Performance\>\"", "\[Rule]", " ", "\[IndentingNewLine]", 
+     RowBox[{"Column", "[", 
+      RowBox[{
+       RowBox[{"{", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"Grid", "[", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"Transpose", "[", 
+            RowBox[{Cell[BoxData[
+              FormBox[
+               TemplateBox[{2,1,"Positional",BoxData},
+                "NotebookTemplateSlot"], TextForm]]], "[", 
+             RowBox[{"[", 
+              RowBox[{"2", ",", "1"}], "]"}], "]"}], "]"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Background", "\[Rule]", 
+            RowBox[{"Lighter", "[", 
+             RowBox[{"Gray", ",", " ", "0.9"}], "]"}]}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Frame", "->", "All"}]}], "]"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"Grid", "[", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"Transpose", "[", 
+            RowBox[{Cell[BoxData[
+              FormBox[
+               TemplateBox[{2,2,"Positional",BoxData},
+                "NotebookTemplateSlot"], TextForm]]], "[", 
+             RowBox[{"[", 
+              RowBox[{"2", ",", "2"}], "]"}], "]"}], "]"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Background", "\[Rule]", 
+            RowBox[{"Lighter", "[", 
+             RowBox[{"Gray", ",", " ", "0.9"}], "]"}]}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Frame", "->", "All"}]}], "]"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"Grid", "[", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"Transpose", "[", 
+            RowBox[{Cell[BoxData[
+              FormBox[
+               TemplateBox[{2,2,"Positional",BoxData},
+                "NotebookTemplateSlot"], TextForm]]], "[", 
+             RowBox[{"[", 
+              RowBox[{"2", ",", "3"}], "]"}], "]"}], "]"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Background", "\[Rule]", 
+            RowBox[{"Lighter", "[", 
+             RowBox[{"Gray", ",", " ", "0.9"}], "]"}]}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Frame", "->", "All"}]}], "]"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"Grid", "[", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"Transpose", "[", 
+            RowBox[{Cell[BoxData[
+              FormBox[
+               TemplateBox[{2,2,"Positional",BoxData},
+                "NotebookTemplateSlot"], TextForm]]], "[", 
+             RowBox[{"[", 
+              RowBox[{"2", ",", "4"}], "]"}], "]"}], "]"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Background", "\[Rule]", 
+            RowBox[{"Lighter", "[", 
+             RowBox[{"Gray", ",", " ", "0.9"}], "]"}]}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Frame", "->", "All"}]}], "]"}]}], "\[IndentingNewLine]", 
+        "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"Frame", "\[Rule]", "True"}], ",", " ", 
+       RowBox[{"Alignment", "\[Rule]", "Center"}], ",", 
+       RowBox[{"Background", "\[Rule]", 
+        RowBox[{"Lighter", "[", 
+         RowBox[{"Gray", ",", " ", "0.5"}], "]"}]}], ",", 
+       RowBox[{"BaseStyle", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{"FontFamily", "\[Rule]", "\"\<Arial\>\""}], "}"}]}]}], 
+      "\[IndentingNewLine]", "]"}]}], ",", "\[IndentingNewLine]", 
+    RowBox[{"\"\<Slippage\>\"", "\[Rule]", " ", "\[IndentingNewLine]", 
+     RowBox[{"Column", "[", 
+      RowBox[{
+       RowBox[{"{", "\[IndentingNewLine]", 
+        RowBox[{"Grid", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"Transpose", "@", 
+           RowBox[{Cell[BoxData[
+             FormBox[
+              TemplateBox[{2,2,"Positional",BoxData},
+               "NotebookTemplateSlot"], TextForm]]], "[", 
+            RowBox[{"[", 
+             RowBox[{"3", ",", "1"}], "]"}], "]"}]}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"Background", "\[Rule]", 
+           RowBox[{"Lighter", "[", 
+            RowBox[{"Gray", ",", " ", "0.9"}], "]"}]}], ",", 
+          RowBox[{"Frame", "->", "All"}]}], "\[IndentingNewLine]", "]"}], 
+        "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"Frame", "\[Rule]", "True"}], ",", " ", 
+       RowBox[{"Alignment", "\[Rule]", "Center"}], ",", 
+       RowBox[{"Background", "\[Rule]", 
+        RowBox[{"Lighter", "[", 
+         RowBox[{"Gray", ",", " ", "0.5"}], "]"}]}], ",", 
+       RowBox[{"BaseStyle", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{"FontFamily", "\[Rule]", "\"\<Arial\>\""}], "}"}]}]}], 
+      "\[IndentingNewLine]", "]"}]}]}], "\[IndentingNewLine]", "}"}], 
+  "\[IndentingNewLine]", "]"}]], "Input",
+ CellFrameLabels->{{
+    Cell[
+     BoxData[
+      TemplateBox[{"EvaluateHideInput"}, "NotebookTemplateCellBehavior"]]], 
+    None}, {None, None}},
+ CellChangeTimes->{{3.6884485455317025`*^9, 3.6884485999445024`*^9}, {
+   3.6884486371037025`*^9, 3.6884487754757023`*^9}, 3.6884490761033025`*^9, {
+   3.6884491442285023`*^9, 3.6884491520441027`*^9}, {3.6884539723011026`*^9, 
+   3.6884539947027025`*^9}, {3.6884541063363028`*^9, 
+   3.6884541250719023`*^9}, {3.6884541901395025`*^9, 
+   3.6884541947103024`*^9}, {3.688454246143502*^9, 3.688454312708702*^9}, {
+   3.6884543606319027`*^9, 3.6884544597387023`*^9}, 3.6884547790221024`*^9, {
+   3.6884548891311026`*^9, 3.688454968241102*^9}, {3.6884550887511024`*^9, 
+   3.6884551364661026`*^9}, {3.6884552587871027`*^9, 3.6884553123931026`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"DateListPlot", "[", Cell[BoxData[
+   FormBox[
+    TemplateBox[{3,3,"Positional",BoxData},
+     "NotebookTemplateSlot"], TextForm]]], "]"}]], "Input",
+ CellFrameLabels->{{
+    Cell[
+     BoxData[
+      TemplateBox[{"EvaluateHideInput"}, "NotebookTemplateCellBehavior"]]], 
+    None}, {None, None}},
+ CellChangeTimes->{{3.6884692898953023`*^9, 3.6884693611173024`*^9}, {
+   3.6884708960383024`*^9, 3.688470908997302*^9}, 3.688471359226302*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+    "daysTrade", ",", "netTradeReturns", ",", "mfe", ",", "mae", ",", "win"}],
+     "}"}], "=", Cell[BoxData[
+    FormBox[
+     TemplateBox[{4,3,"Positional",BoxData},
+      "NotebookTemplateSlot"], TextForm]]]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"TabView", "[", "\[IndentingNewLine]", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"\"\<MFE-MAE\>\"", "\[Rule]", " ", 
+     RowBox[{"ListPlot", "[", 
+      RowBox[{"Apply", "[", 
+       RowBox[{"Style", ",", 
+        RowBox[{"Transpose", "@", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"Transpose", "@", 
+            RowBox[{"{", 
+             RowBox[{"mfe", ",", 
+              RowBox[{"-", "mae"}]}], "}"}]}], ",", "win"}], "}"}]}], ",", 
+        "1"}], "]"}], "]"}]}], ",", "\[IndentingNewLine]", 
+    RowBox[{"\"\<Returns-ETD\>\"", "\[Rule]", " ", 
+     RowBox[{"ListPlot", "[", 
+      RowBox[{"Apply", "[", 
+       RowBox[{"Style", ",", 
+        RowBox[{"Transpose", "@", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"Transpose", "@", 
+            RowBox[{"{", 
+             RowBox[{"netTradeReturns", ",", 
+              RowBox[{"mfe", "-", "netTradeReturns"}]}], "}"}]}], ",", 
+           "win"}], "}"}]}], ",", "1"}], "]"}], "]"}]}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"\"\<Days-Eficiency\>\"", "\[Rule]", " ", 
+     RowBox[{"ListPlot", "[", 
+      RowBox[{"Apply", "[", 
+       RowBox[{"Style", ",", 
+        RowBox[{"Transpose", "@", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"Transpose", "@", 
+            RowBox[{"{", 
+             RowBox[{"daysTrade", ",", 
+              RowBox[{"netTradeReturns", "/", 
+               RowBox[{"(", 
+                RowBox[{"mfe", "-", "mae"}], ")"}]}]}], "}"}]}], ",", "win"}],
+           "}"}]}], ",", "1"}], "]"}], "]"}]}]}], "}"}], 
+  "\[IndentingNewLine]", "]"}]}], "Input",
+ CellFrameLabels->{{
+    Cell[
+     BoxData[
+      TemplateBox[{"EvaluateHideInput"}, "NotebookTemplateCellBehavior"]]], 
+    None}, {None, None}},
+ CellChangeTimes->{{3.6884673698473024`*^9, 3.6884674048313026`*^9}, {
+  3.6884685494753027`*^9, 3.6884685653533025`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"TradingChart", "[", 
+     RowBox[{"s", "[", 
+      RowBox[{"[", 
+       RowBox[{
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"index", "[", 
+             RowBox[{"[", 
+              RowBox[{"i", ",", "1"}], "]"}], "]"}], "-", "5"}], ">", "0"}], 
+          ",", 
+          RowBox[{
+           RowBox[{"index", "[", 
+            RowBox[{"[", 
+             RowBox[{"i", ",", "1"}], "]"}], "]"}], "-", "5"}], ",", "1"}], 
+         "]"}], ";;", 
+        RowBox[{
+         RowBox[{"index", "[", 
+          RowBox[{"[", 
+           RowBox[{"i", ",", "2"}], "]"}], "]"}], "+", "5"}]}], "]"}], "]"}], 
+     "]"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"i", ",", "3"}], "}"}], ",", 
+      RowBox[{"Range", "[", 
+       RowBox[{"Length", "[", "t", "]"}], "]"}]}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Initialization", "\[RuleDelayed]", " ", 
+     RowBox[{"(", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"s", "=", Cell[BoxData[
+         FormBox[
+          TemplateBox[{5,3,"Positional",BoxData},
+           "NotebookTemplateSlot"], TextForm]]]}], ";", " ", 
+       "\[IndentingNewLine]", 
+       RowBox[{"t", "=", Cell[BoxData[
+         FormBox[
+          TemplateBox[{6,3,"Positional",BoxData},
+           "NotebookTemplateSlot"], TextForm]]]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"index", "=", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"Flatten", "@", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"Position", "[", 
+               RowBox[{
+                RowBox[{"s", "[", 
+                 RowBox[{"[", 
+                  RowBox[{"All", ",", "1"}], "]"}], "]"}], ",", 
+                RowBox[{"t", "[", 
+                 RowBox[{"[", 
+                  RowBox[{"#", ",", "1"}], "]"}], "]"}]}], "]"}], ",", 
+              RowBox[{"Position", "[", 
+               RowBox[{
+                RowBox[{"s", "[", 
+                 RowBox[{"[", 
+                  RowBox[{"All", ",", "1"}], "]"}], "]"}], ",", 
+                RowBox[{"t", "[", 
+                 RowBox[{"[", 
+                  RowBox[{"#", ",", "4"}], "]"}], "]"}]}], "]"}]}], "}"}]}], 
+           ")"}], "&"}], "/@", 
+         RowBox[{"Range", "[", 
+          RowBox[{"Length", "[", "t", "]"}], "]"}]}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"For", "[", 
+        RowBox[{
+         RowBox[{"k", "=", "1"}], ",", 
+         RowBox[{"k", "\[LessEqual]", 
+          RowBox[{"Length", "[", "t", "]"}]}], ",", 
+         RowBox[{"k", "++"}], ",", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"s", "[", 
+            RowBox[{"[", 
+             RowBox[{"index", "[", 
+              RowBox[{"[", 
+               RowBox[{"k", ",", "1"}], "]"}], "]"}], "]"}], "]"}], "=", 
+           RowBox[{"Labeled", "[", 
+            RowBox[{
+             RowBox[{"s", "[", 
+              RowBox[{"[", 
+               RowBox[{"index", "[", 
+                RowBox[{"[", 
+                 RowBox[{"k", ",", "1"}], "]"}], "]"}], "]"}], "]"}], ",", 
+             RowBox[{"Column", "[", 
+              RowBox[{"{", 
+               RowBox[{"\"\<   \[UpArrow]\>\"", ",", "\"\<Entry\>\""}], "}"}],
+               "]"}], ",", "Below"}], "]"}]}], ";", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"s", "[", 
+            RowBox[{"[", 
+             RowBox[{"index", "[", 
+              RowBox[{"[", 
+               RowBox[{"k", ",", "2"}], "]"}], "]"}], "]"}], "]"}], "=", 
+           RowBox[{"Labeled", "[", 
+            RowBox[{
+             RowBox[{"s", "[", 
+              RowBox[{"[", 
+               RowBox[{"index", "[", 
+                RowBox[{"[", 
+                 RowBox[{"k", ",", "2"}], "]"}], "]"}], "]"}], "]"}], ",", 
+             RowBox[{"Column", "[", 
+              RowBox[{"{", 
+               RowBox[{"\"\<Exit\>\"", ",", "\"\<  \[DownArrow]\>\""}], "}"}],
+               "]"}], ",", "Above"}], "]"}]}]}]}], "\[IndentingNewLine]", 
+        "]"}]}], "\[IndentingNewLine]", ")"}]}]}], "\[IndentingNewLine]", 
+   "]"}], "\[IndentingNewLine]"}]], "Input",
+ CellFrameLabels->{{
+    Cell[
+     BoxData[
+      TemplateBox[{"ExcludeCell"}, "NotebookTemplateCellBehavior"]]], None}, {
+   None, None}},
+ CellChangeTimes->{{3.6884675315153027`*^9, 3.6884675663283024`*^9}, {
+   3.6884676262243023`*^9, 3.6884676795513024`*^9}, {3.6884680993343024`*^9, 
+   3.6884681193353024`*^9}, {3.688468578950302*^9, 3.6884686002493024`*^9}, 
+   3.6884688320033026`*^9, {3.6884689968713026`*^9, 3.688469040462302*^9}, {
+   3.6884708054193025`*^9, 3.6884708349443026`*^9}, {3.6884714683853025`*^9, 
+   3.6884714804893026`*^9}, {3.6884716266853027`*^9, 
+   3.6884716287973022`*^9}, {3.6884720160763025`*^9, 3.6884720323233023`*^9}, 
+   3.6884722640773025`*^9, {3.688472398370302*^9, 3.688472406858302*^9}, {
+   3.688485197462676*^9, 3.6884852579969635`*^9}, {3.6884856246696377`*^9, 
+   3.688485666220073*^9}, {3.6884859937311687`*^9, 3.688486012784067*^9}, {
+   3.688486625913988*^9, 3.688486626501009*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"s", "=", Cell[BoxData[
+    FormBox[
+     TemplateBox[{5,3,"Positional",BoxData},
+      "NotebookTemplateSlot"], TextForm]]]}], ";", " ", "\[IndentingNewLine]", 
+  RowBox[{"t", "=", Cell[BoxData[
+    FormBox[
+     TemplateBox[{6,3,"Positional",BoxData},
+      "NotebookTemplateSlot"], TextForm]]]}], ";", "\[IndentingNewLine]", 
+  RowBox[{"index", "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"Flatten", "@", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Position", "[", 
+          RowBox[{
+           RowBox[{"s", "[", 
+            RowBox[{"[", 
+             RowBox[{"All", ",", "1"}], "]"}], "]"}], ",", 
+           RowBox[{"t", "[", 
+            RowBox[{"[", 
+             RowBox[{"#", ",", "1"}], "]"}], "]"}]}], "]"}], ",", 
+         RowBox[{"Position", "[", 
+          RowBox[{
+           RowBox[{"s", "[", 
+            RowBox[{"[", 
+             RowBox[{"All", ",", "1"}], "]"}], "]"}], ",", 
+           RowBox[{"t", "[", 
+            RowBox[{"[", 
+             RowBox[{"#", ",", "4"}], "]"}], "]"}]}], "]"}]}], "}"}]}], ")"}],
+      "&"}], "/@", 
+    RowBox[{"Range", "[", 
+     RowBox[{"Length", "[", "t", "]"}], "]"}]}]}], ";", "\[IndentingNewLine]", 
+  RowBox[{"For", "[", 
+   RowBox[{
+    RowBox[{"k", "=", "1"}], ",", 
+    RowBox[{"k", "\[LessEqual]", 
+     RowBox[{"Length", "[", "t", "]"}]}], ",", 
+    RowBox[{"k", "++"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"s", "[", 
+       RowBox[{"[", 
+        RowBox[{"index", "[", 
+         RowBox[{"[", 
+          RowBox[{"k", ",", "1"}], "]"}], "]"}], "]"}], "]"}], "=", 
+      RowBox[{"Labeled", "[", 
+       RowBox[{
+        RowBox[{"s", "[", 
+         RowBox[{"[", 
+          RowBox[{"index", "[", 
+           RowBox[{"[", 
+            RowBox[{"k", ",", "1"}], "]"}], "]"}], "]"}], "]"}], ",", 
+        RowBox[{"Column", "[", 
+         RowBox[{"{", 
+          RowBox[{"\"\<   \[UpArrow]\>\"", ",", "\"\<Entry\>\""}], "}"}], 
+         "]"}], ",", "Below"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"s", "[", 
+       RowBox[{"[", 
+        RowBox[{"index", "[", 
+         RowBox[{"[", 
+          RowBox[{"k", ",", "2"}], "]"}], "]"}], "]"}], "]"}], "=", 
+      RowBox[{"Labeled", "[", 
+       RowBox[{
+        RowBox[{"s", "[", 
+         RowBox[{"[", 
+          RowBox[{"index", "[", 
+           RowBox[{"[", 
+            RowBox[{"k", ",", "2"}], "]"}], "]"}], "]"}], "]"}], ",", 
+        RowBox[{"Column", "[", 
+         RowBox[{"{", 
+          RowBox[{"\"\<Exit\>\"", ",", "\"\<  \[DownArrow]\>\""}], "}"}], 
+         "]"}], ",", "Above"}], "]"}]}]}]}], "\[IndentingNewLine]", 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Print", "[", "index", "]"}], ";", "\[IndentingNewLine]", 
+    RowBox[{"TradingChart", "[", 
+     RowBox[{"s", "[", 
+      RowBox[{"[", 
+       RowBox[{
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"index", "[", 
+             RowBox[{"[", 
+              RowBox[{"i", ",", "1"}], "]"}], "]"}], "-", "5"}], ">", "0"}], 
+          ",", 
+          RowBox[{
+           RowBox[{"index", "[", 
+            RowBox[{"[", 
+             RowBox[{"i", ",", "1"}], "]"}], "]"}], "-", "5"}], ",", "1"}], 
+         "]"}], ";;", 
+        RowBox[{
+         RowBox[{"index", "[", 
+          RowBox[{"[", 
+           RowBox[{"i", ",", "2"}], "]"}], "]"}], "+", "5"}]}], "]"}], "]"}], 
+     "]"}]}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"i", ",", "3"}], "}"}], ",", 
+     RowBox[{"Range", "[", 
+      RowBox[{"Length", "[", "t", "]"}], "]"}]}], "}"}]}], "]"}]}], "Input",
+ CellFrameLabels->{{
+    Cell[
+     BoxData[
+      TemplateBox[{"EvaluateHideInput"}, "NotebookTemplateCellBehavior"]]], 
+    None}, {None, None}},
+ CellChangeTimes->{{3.688486844113601*^9, 3.688486848679034*^9}, {
+  3.6884871241417294`*^9, 3.6884871373085947`*^9}}]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1053, 704},
+WindowMargins->{{77, Automatic}, {Automatic, 61}},
+DockedCells->FEPrivate`FrontEndResource[
+ "NotebookTemplatingExpressions", "AuthoringDockedCell"],
+TaggingRules->{"NotebookTemplateVersion" -> 1., "NotebookTemplate" -> True},
+CellContext->Notebook,
+ShowCellTags->True,
+FrontEndVersion->"10.4 for Microsoft Windows (64-bit) (April 11, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 103, 1, 70, "Section"],
+Cell[CellGroupData[{
+Cell[708, 27, 283, 6, 50, "Subsubsection"],
+Cell[994, 35, 1178, 30, 70, "Input"],
+Cell[2175, 67, 868, 23, 42, "Input"],
+Cell[3046, 92, 8310, 188, 1311, "Input"],
+Cell[11359, 282, 465, 11, 42, "Input"],
+Cell[11827, 295, 2181, 59, 164, "Input"],
+Cell[14011, 356, 5205, 130, 348, "Input"],
+Cell[19219, 488, 4018, 116, 256, "Input"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+

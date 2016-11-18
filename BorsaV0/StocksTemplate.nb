@@ -1,0 +1,283 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      9594,        275]
+NotebookOptionsPosition[      8838,        246]
+NotebookOutlinePosition[      9401,        266]
+CellTagsIndexPosition[      9358,        263]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Stock Report", "Title",
+ CellChangeTimes->{{3.6074362909489603`*^9, 3.607436298421707*^9}, {
+  3.60743683607279*^9, 3.607436843811633*^9}, {3.6074383254356337`*^9, 
+  3.6074383450436335`*^9}, {3.6074485153403454`*^9, 3.60744851658747*^9}}],
+
+Cell[TextData[{
+ "Generated: ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[{RowBox[{
+       RowBox[{"DateString", "[", "]"}], " "}],"General",TextData},
+    "NotebookTemplateExpression"], TextForm]]],
+ " / Start date: ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[{"\"Start\"","\"Start\"","Named",TextData},
+    "NotebookTemplateSlot"], TextForm]]]
+}], "Text",
+ CellChangeTimes->{{3.60743630254912*^9, 3.607436314662331*^9}, {
+  3.6074393283748946`*^9, 3.6074393462246795`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Summary", "Section",
+ CellChangeTimes->{{3.6074370706696334`*^9, 3.607437074917633*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"tickers", "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"#", "[", "\"\<Ticker\>\"", "]"}], "&"}], "/@", Cell[BoxData[
+     FormBox[
+      TemplateBox[{"\"Stocks\"","\"Stocks\"","Named",BoxData},
+       "NotebookTemplateSlot"], TextForm]]]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"properties", "=", 
+    RowBox[{"{", 
+     RowBox[{
+     "\"\<Name\>\"", ",", "\"\<Sector\>\"", ",", "\"\<FloatShares\>\"", ",", 
+      "\"\<EarningsPerShare\>\"", ",", "\"\<High52Week\>\"", ",", 
+      "\"\<Low52Week\>\""}], "}"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"dataOrig", "=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "f", "}"}], ",", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Thread", "[", 
+          RowBox[{"f", "[", 
+           RowBox[{"#", ",", "properties"}], "]"}], "]"}], "&"}], "/@", 
+        "tickers"}], ")"}], "/.", 
+      RowBox[{"f", "\[Rule]", "FinancialData"}]}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"data", "=", 
+   RowBox[{"Join", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Style", "[", 
+         RowBox[{"#", ",", "Bold"}], "]"}], "&"}], "/@", 
+       RowBox[{"Prepend", "[", 
+        RowBox[{"properties", ",", "\"\<Index\>\""}], "]"}]}], "}"}], ",", 
+     RowBox[{
+      RowBox[{"Join", "[", 
+       RowBox[{
+        RowBox[{"{", "tickers", "}"}], ",", 
+        RowBox[{"Transpose", "[", "dataOrig", "]"}]}], "]"}], "//", 
+      "Transpose"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Style", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Grid", "[", 
+    RowBox[{"data", ",", 
+     RowBox[{"Frame", "\[Rule]", "All"}], ",", 
+     RowBox[{"Alignment", "\[Rule]", "Left"}], ",", 
+     RowBox[{"Spacings", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"Automatic", ",", "1"}], "}"}]}], ",", 
+     RowBox[{"ItemSize", "\[Rule]", "Full"}]}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"FontFamily", "\[Rule]", "\"\<Verdana\>\""}]}], 
+  "\[IndentingNewLine]", "]"}]}], "Input",
+ CellFrameLabels->{{
+    Cell[
+     BoxData[
+      TemplateBox[{"EvaluateDeleteInput"}, "NotebookTemplateCellBehavior"]]], 
+    None}, {None, None}},
+ CellChangeTimes->{{3.607436895929633*^9, 3.6074369136226335`*^9}, {
+   3.6074374596216335`*^9, 3.607437530009633*^9}, {3.6074375632206335`*^9, 
+   3.6074375910776334`*^9}, {3.607437767764633*^9, 3.607437789509633*^9}, {
+   3.6074385718146334`*^9, 3.6074386282028847`*^9}, {3.607438738110874*^9, 
+   3.607438801335196*^9}, {3.6074424303186197`*^9, 3.6074424312406197`*^9}, {
+   3.60744262042962*^9, 3.6074426251086197`*^9}, 3.60744275579762*^9, {
+   3.6074428130566196`*^9, 3.60744281512062*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[Cell[BoxData[
+ FormBox[
+  TemplateBox[{"\"Name\"","\"\"","Named",TextData},
+   "NotebookTemplateSlot"], TextForm]]]], "Section",
+ CellBracketOptions->{"Color"->RGBColor[0.1574, 0.8708, 1.]},
+ CellFrameLabels->{{None, None}, {None, 
+    Cell[
+     BoxData[
+      TemplateBox[{"\"Stocks\"", "NotebookTemplateSlot", True}, 
+       "NotebookRepeatingBlock"]]]}},
+ CellChangeTimes->{
+  3.6074366112642736`*^9, {3.607436744635935*^9, 3.6074367477506237`*^9}, {
+   3.607438860642126*^9, 3.607438869628024*^9}, {3.6883076437868714`*^9, 
+   3.6883076461382713`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"With", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"metricToOpts", "=", 
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"\"\<High\>\"", ",", "\"\<Low\>\""}], "}"}], "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{"Filling", "\[Rule]", 
+          RowBox[{"{", 
+           RowBox[{"1", "\[Rule]", 
+            RowBox[{"{", "2", "}"}]}], "}"}]}], "}"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"\"\<Open\>\"", ",", "\"\<Close\>\""}], "}"}], "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{"Filling", "\[Rule]", 
+          RowBox[{"{", 
+           RowBox[{"1", "\[Rule]", 
+            RowBox[{"{", "2", "}"}]}], "}"}]}], "}"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"{", "\"\<Return\>\"", "}"}], "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{"Filling", "\[Rule]", "Axis"}], "}"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"{", "\"\<CumulativeFractionalChange\>\"", "}"}], "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{"Filling", "\[Rule]", "Axis"}], "}"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"_", "\[Rule]", 
+        RowBox[{"{", "}"}]}]}], "\[IndentingNewLine]", "}"}]}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"With", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"dat", "=", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"FinancialData", "[", 
+            RowBox[{Cell[BoxData[
+              FormBox[
+               TemplateBox[{"\"Ticker\"","\"AMZN\"","Named",BoxData},
+                "NotebookTemplateSlot"], TextForm]]], ",", "#", ",", Cell[
+             BoxData[
+              FormBox[
+               TemplateBox[{"\"Start\"","\"1 Jan 2014\"","Named",BoxData},
+                "NotebookTemplateSlot"], TextForm]]]}], "]"}], "&"}], "/@", 
+          "metric"}]}], "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"DateListPlot", "[", 
+        RowBox[{"dat", ",", "\[IndentingNewLine]", 
+         RowBox[{"ImageSize", "\[Rule]", "400"}], ",", 
+         RowBox[{"AspectRatio", "\[Rule]", 
+          RowBox[{"1", "/", "2"}]}], ",", 
+         RowBox[{"Sequence", "@@", 
+          RowBox[{"(", 
+           RowBox[{"metric", "/.", "metricToOpts"}], ")"}]}]}], 
+        "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "]"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"metric", ",", 
+         RowBox[{"{", "\"\<Price\>\"", "}"}], ",", "\"\<Property\>\""}], 
+        "}"}], ",", 
+       RowBox[{"{", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"{", "\"\<Price\>\"", "}"}], "->", "\"\<Stock Price\>\""}], 
+         "\[IndentingNewLine]", ",", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"\"\<High\>\"", ",", "\"\<Low\>\""}], "}"}], "\[Rule]", 
+          "\"\<High and Low\>\""}], "\[IndentingNewLine]", ",", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"\"\<Open\>\"", ",", "\"\<Close\>\""}], "}"}], "\[Rule]", 
+          "\"\<Open and Close\>\""}], "\[IndentingNewLine]", ",", 
+         RowBox[{
+          RowBox[{"{", "\"\<Return\>\"", "}"}], "\[Rule]", 
+          "\"\<Daily Return\>\""}], "\[IndentingNewLine]", ",", 
+         RowBox[{
+          RowBox[{"{", "\"\<CumulativeFractionalChange\>\"", "}"}], 
+          "\[Rule]", "\"\<Cumulative Fractional Change\>\""}]}], 
+        "\[IndentingNewLine]", "}"}]}], "}"}]}], "\[IndentingNewLine]", 
+    "]"}]}], "]"}]], "Input",
+ CellFrameLabels->{{
+    Cell[
+     BoxData[
+      TemplateBox[{"EvaluateDeleteInput"}, "NotebookTemplateCellBehavior"]]], 
+    None}, {None, None}},
+ CellChangeTimes->{{3.60744247801362*^9, 3.6074425273346195`*^9}, {
+  3.6074428194106197`*^9, 3.6074428206346197`*^9}, {3.6074428660886197`*^9, 
+  3.6074428740356197`*^9}}]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{824, 952},
+WindowMargins->{{228, Automatic}, {26, Automatic}},
+DockedCells->FEPrivate`FrontEndResource[
+ "NotebookTemplatingExpressions", "AuthoringDockedCell"],
+TaggingRules->{"NotebookTemplateVersion" -> 1., "NotebookTemplate" -> True},
+CellContext->Notebook,
+ShowCellTags->True,
+FrontEndVersion->"10.4 for Microsoft Windows (64-bit) (April 11, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 245, 3, 101, "Title"],
+Cell[828, 27, 474, 14, 40, "Text"],
+Cell[CellGroupData[{
+Cell[1327, 45, 94, 1, 70, "Section"],
+Cell[1424, 48, 2795, 74, 244, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4256, 127, 571, 13, 142, "Section"],
+Cell[4830, 142, 3980, 100, 475, "Input"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
