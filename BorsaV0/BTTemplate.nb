@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     24121,        638]
-NotebookOptionsPosition[     23265,        608]
-NotebookOutlinePosition[     23828,        628]
-CellTagsIndexPosition[     23785,        625]
+NotebookDataLength[     24885,        625]
+NotebookOptionsPosition[     24028,        595]
+NotebookOutlinePosition[     24592,        615]
+CellTagsIndexPosition[     24549,        612]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -28,10 +28,38 @@ Cell[CellGroupData[{
 Cell[TextData[Cell[BoxData[
  FormBox[
   TemplateBox[{RowBox[{
-      RowBox[{"DateString", "[", "]"}], " "}],"General",TextData},
+      RowBox[{"DateString", "[", "\"Date\"", "]"}], " "}],"General",TextData},
    "NotebookTemplateExpression"], TextForm]]]], "Subsubsection",
- CellChangeTimes->{{3.68836920628688*^9, 3.6883692197575636`*^9}},
+ CellChangeTimes->{{3.68836920628688*^9, 3.6883692197575636`*^9}, {
+  3.6885754285945206`*^9, 3.6885754315854173`*^9}},
  TextAlignment->Right],
+
+Cell[BoxData[
+ RowBox[{"Style", "[", 
+  RowBox[{
+   RowBox[{"Row", "[", 
+    RowBox[{"{", 
+     RowBox[{"\"\<Strategy: \>\"", ",", 
+      RowBox[{Cell[BoxData[
+        FormBox[
+         TemplateBox[{1,1,"Positional",BoxData},
+          "NotebookTemplateSlot"], TextForm]]], "[", 
+       RowBox[{"[", "2", "]"}], "]"}], ",", "\"\<     parameters \>\"", ",", 
+      RowBox[{"ToString", "[", 
+       RowBox[{Cell[BoxData[
+         FormBox[
+          TemplateBox[{1,1,"Positional",BoxData},
+           "NotebookTemplateSlot"], TextForm]]], "[", 
+        RowBox[{"[", "3", "]"}], "]"}], "]"}]}], "}"}], "]"}], ",", 
+   "\"\<Subsection\>\""}], "]"}]], "Input",
+ CellFrameLabels->{{
+    Cell[
+     BoxData[
+      TemplateBox[{"EvaluateHideInput"}, "NotebookTemplateCellBehavior"]]], 
+    None}, {None, None}},
+ CellChangeTimes->{{3.6884667448523026`*^9, 3.6884668752203026`*^9}, {
+  3.6885712506391783`*^9, 3.6885712511393137`*^9}, {3.6889053438768673`*^9, 
+  3.688905351507867*^9}}],
 
 Cell[BoxData[
  RowBox[{"Style", "[", 
@@ -45,50 +73,60 @@ Cell[BoxData[
           "NotebookTemplateSlot"], TextForm]]], "[", 
        RowBox[{"[", "1", "]"}], "]"}], ",", "\"\< between \>\"", ",", 
       RowBox[{"DateString", "[", 
-       RowBox[{Cell[BoxData[
-         FormBox[
-          TemplateBox[{1,1,"Positional",BoxData},
-           "NotebookTemplateSlot"], TextForm]]], "[", 
-        RowBox[{"[", "4", "]"}], "]"}], "]"}], ",", "\"\< and \>\"", ",", 
+       RowBox[{
+        RowBox[{Cell[BoxData[
+          FormBox[
+           TemplateBox[{1,1,"Positional",BoxData},
+            "NotebookTemplateSlot"], TextForm]]], "[", 
+         RowBox[{"[", "4", "]"}], "]"}], ",", "\"\<Date\>\""}], "]"}], ",", 
+      "\"\< and \>\"", ",", 
       RowBox[{"DateString", "[", 
-       RowBox[{Cell[BoxData[
-         FormBox[
-          TemplateBox[{1,1,"Positional",BoxData},
-           "NotebookTemplateSlot"], TextForm]]], "[", 
-        RowBox[{"[", "5", "]"}], "]"}], "]"}]}], "}"}], "]"}], ",", 
-   "\"\<Subsection\>\""}], "]"}]], "Input",
+       RowBox[{
+        RowBox[{Cell[BoxData[
+          FormBox[
+           TemplateBox[{1,1,"Positional",BoxData},
+            "NotebookTemplateSlot"], TextForm]]], "[", 
+         RowBox[{"[", "5", "]"}], "]"}], ",", "\"\<Date\>\""}], "]"}]}], 
+     "}"}], "]"}], ",", "\"\<Subsubsection\>\""}], "]"}]], "Input",
  CellFrameLabels->{{
     Cell[
      BoxData[
       TemplateBox[{"EvaluateHideInput"}, "NotebookTemplateCellBehavior"]]], 
     None}, {None, None}},
- CellChangeTimes->{{3.6884664618823023`*^9, 3.6884666532723026`*^9}, {
-  3.6884667306233025`*^9, 3.6884667348303022`*^9}}],
+ CellChangeTimes->{{3.688905356219867*^9, 3.6889053574198675`*^9}}],
 
 Cell[BoxData[
  RowBox[{"Style", "[", 
   RowBox[{
    RowBox[{"Row", "[", 
     RowBox[{"{", 
-     RowBox[{"\"\<Strategy: \>\"", ",", 
+     RowBox[{"\"\<Type of Deposit: \>\"", ",", 
       RowBox[{Cell[BoxData[
         FormBox[
          TemplateBox[{1,1,"Positional",BoxData},
           "NotebookTemplateSlot"], TextForm]]], "[", 
-       RowBox[{"[", "2", "]"}], "]"}], ",", "\"\< parameters \>\"", ",", 
-      RowBox[{"ToString", "[", 
+       RowBox[{"[", "7", "]"}], "]"}], ",", "\"\<  Principal: \>\"", ",", 
+      RowBox[{Cell[BoxData[
+        FormBox[
+         TemplateBox[{1,1,"Positional",BoxData},
+          "NotebookTemplateSlot"], TextForm]]], "[", 
+       RowBox[{"[", "8", "]"}], "]"}], ",", "\"\<   Brokerage: \>\"", ",", 
+      RowBox[{"100", " ", 
        RowBox[{Cell[BoxData[
          FormBox[
           TemplateBox[{1,1,"Positional",BoxData},
            "NotebookTemplateSlot"], TextForm]]], "[", 
-        RowBox[{"[", "3", "]"}], "]"}], "]"}]}], "}"}], "]"}], ",", 
-   "\"\<Subsection\>\""}], "]"}]], "Input",
+        RowBox[{"[", "6", "]"}], "]"}]}], ",", "\"\< %\>\""}], "}"}], "]"}], 
+   ",", "24"}], "]"}]], "Input",
  CellFrameLabels->{{
     Cell[
      BoxData[
       TemplateBox[{"EvaluateHideInput"}, "NotebookTemplateCellBehavior"]]], 
     None}, {None, None}},
- CellChangeTimes->{{3.6884667448523026`*^9, 3.6884668752203026`*^9}}],
+ CellChangeTimes->{{3.6889054062168674`*^9, 3.688905548951867*^9}, {
+  3.688905596398867*^9, 3.688905664747867*^9}, {3.688905716706867*^9, 
+  3.6889057192028675`*^9}, {3.688906188927867*^9, 3.688906199182867*^9}, {
+  3.688906259773867*^9, 3.688906264861867*^9}}],
 
 Cell[BoxData[
  RowBox[{"TabView", "[", 
@@ -281,17 +319,32 @@ Cell[BoxData[
    3.6884551364661026`*^9}, {3.6884552587871027`*^9, 3.6884553123931026`*^9}}],
 
 Cell[BoxData[
- RowBox[{"DateListPlot", "[", Cell[BoxData[
-   FormBox[
-    TemplateBox[{3,3,"Positional",BoxData},
-     "NotebookTemplateSlot"], TextForm]]], "]"}]], "Input",
+ RowBox[{"DateListPlot", "[", 
+  RowBox[{Cell[BoxData[
+    FormBox[
+     TemplateBox[{3,3,"Positional",BoxData},
+      "NotebookTemplateSlot"], TextForm]]], ",", 
+   RowBox[{"ImageSize", "\[Rule]", "Large"}], ",", 
+   RowBox[{"PlotLabel", "\[Rule]", " ", "\"\<Equity\>\""}], ",", 
+   RowBox[{"AxesLabel", "\[Rule]", " ", 
+    RowBox[{"{", 
+     RowBox[{"\"\<Time\>\"", ",", "\"\<\[Euro]\>\""}], "}"}]}], ",", 
+   RowBox[{"PlotLabels", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+     "\"\<Normal\>\"", ",", "\"\<Slippage\>\"", ",", "\"\<Drawdown\>\""}], 
+     "}"}]}]}], "]"}]], "Input",
  CellFrameLabels->{{
     Cell[
      BoxData[
       TemplateBox[{"EvaluateHideInput"}, "NotebookTemplateCellBehavior"]]], 
     None}, {None, None}},
  CellChangeTimes->{{3.6884692898953023`*^9, 3.6884693611173024`*^9}, {
-   3.6884708960383024`*^9, 3.688470908997302*^9}, 3.688471359226302*^9}],
+   3.6884708960383024`*^9, 3.688470908997302*^9}, 3.688471359226302*^9, 
+   3.6885731558329*^9, {3.6885731920995092`*^9, 3.688573216456787*^9}, {
+   3.688573416477872*^9, 3.688573478331597*^9}, {3.688573813218335*^9, 
+   3.6885738227505627`*^9}, {3.688573875048476*^9, 3.688573960779602*^9}, {
+   3.6885740007713585`*^9, 3.6885740194823647`*^9}}],
 
 Cell[BoxData[{
  RowBox[{
@@ -308,84 +361,132 @@ Cell[BoxData[{
    RowBox[{
     RowBox[{"\"\<MFE-MAE\>\"", "\[Rule]", " ", 
      RowBox[{"ListPlot", "[", 
-      RowBox[{"Apply", "[", 
-       RowBox[{"Style", ",", 
-        RowBox[{"Transpose", "@", 
-         RowBox[{"{", 
-          RowBox[{
-           RowBox[{"Transpose", "@", 
-            RowBox[{"{", 
-             RowBox[{"mfe", ",", 
-              RowBox[{"-", "mae"}]}], "}"}]}], ",", "win"}], "}"}]}], ",", 
-        "1"}], "]"}], "]"}]}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"Apply", "[", 
+        RowBox[{"Style", ",", 
+         RowBox[{"Transpose", "@", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"Transpose", "@", 
+             RowBox[{"{", 
+              RowBox[{"mfe", ",", 
+               RowBox[{"-", "mae"}]}], "}"}]}], ",", "win"}], "}"}]}], ",", 
+         "1"}], "]"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"ImageSize", "\[Rule]", "Large"}], ",", 
+       RowBox[{"PlotLabel", "\[Rule]", " ", "\"\<MFE-MAE\>\""}], ",", 
+       RowBox[{"AxesLabel", "\[Rule]", " ", 
+        RowBox[{"{", 
+         RowBox[{"\"\<MFE\>\"", ",", "\"\<MAE\>\""}], "}"}]}]}], "]"}]}], ",",
+     "\[IndentingNewLine]", 
     RowBox[{"\"\<Returns-ETD\>\"", "\[Rule]", " ", 
      RowBox[{"ListPlot", "[", 
-      RowBox[{"Apply", "[", 
-       RowBox[{"Style", ",", 
-        RowBox[{"Transpose", "@", 
-         RowBox[{"{", 
-          RowBox[{
-           RowBox[{"Transpose", "@", 
-            RowBox[{"{", 
-             RowBox[{"netTradeReturns", ",", 
-              RowBox[{"mfe", "-", "netTradeReturns"}]}], "}"}]}], ",", 
-           "win"}], "}"}]}], ",", "1"}], "]"}], "]"}]}], ",", 
-    "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"Apply", "[", 
+        RowBox[{"Style", ",", 
+         RowBox[{"Transpose", "@", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"Transpose", "@", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"Abs", "[", "netTradeReturns", "]"}], ",", 
+               RowBox[{"mfe", "-", "netTradeReturns"}]}], "}"}]}], ",", 
+            "win"}], "}"}]}], ",", "1"}], "]"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"ImageSize", "\[Rule]", "Large"}], ",", 
+       RowBox[{"PlotLabel", "\[Rule]", " ", "\"\<Returns-ETD\>\""}], ",", 
+       RowBox[{"AxesLabel", "\[Rule]", " ", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Returns\>\"", ",", "\"\<ETD\>\""}], "}"}]}]}], "]"}]}], 
+    ",", "\[IndentingNewLine]", 
     RowBox[{"\"\<Days-Eficiency\>\"", "\[Rule]", " ", 
      RowBox[{"ListPlot", "[", 
-      RowBox[{"Apply", "[", 
-       RowBox[{"Style", ",", 
-        RowBox[{"Transpose", "@", 
-         RowBox[{"{", 
-          RowBox[{
-           RowBox[{"Transpose", "@", 
-            RowBox[{"{", 
-             RowBox[{"daysTrade", ",", 
-              RowBox[{"netTradeReturns", "/", 
-               RowBox[{"(", 
-                RowBox[{"mfe", "-", "mae"}], ")"}]}]}], "}"}]}], ",", "win"}],
-           "}"}]}], ",", "1"}], "]"}], "]"}]}]}], "}"}], 
-  "\[IndentingNewLine]", "]"}]}], "Input",
+      RowBox[{
+       RowBox[{"Apply", "[", 
+        RowBox[{"Style", ",", 
+         RowBox[{"Transpose", "@", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"Transpose", "@", 
+             RowBox[{"{", 
+              RowBox[{"daysTrade", ",", 
+               RowBox[{"netTradeReturns", "/", 
+                RowBox[{"(", 
+                 RowBox[{"mfe", "-", "mae"}], ")"}]}]}], "}"}]}], ",", 
+            "win"}], "}"}]}], ",", "1"}], "]"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"ImageSize", "\[Rule]", "Large"}], ",", 
+       RowBox[{"PlotLabel", "\[Rule]", " ", "\"\<Days-Eficiency\>\""}], ",", 
+       RowBox[{"AxesLabel", "\[Rule]", " ", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Days\>\"", ",", "\"\<Eficiency\>\""}], "}"}]}]}], 
+      "]"}]}], ",", "\[IndentingNewLine]", 
+    RowBox[{"\"\<Returns-Eficiency\>\"", "\[Rule]", " ", 
+     RowBox[{"ListPlot", "[", 
+      RowBox[{
+       RowBox[{"Apply", "[", 
+        RowBox[{"Style", ",", 
+         RowBox[{"Transpose", "@", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"Transpose", "@", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"Abs", "[", "netTradeReturns", "]"}], ",", 
+               RowBox[{"netTradeReturns", "/", 
+                RowBox[{"(", 
+                 RowBox[{"mfe", "-", "mae"}], ")"}]}]}], "}"}]}], ",", 
+            "win"}], "}"}]}], ",", "1"}], "]"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"ImageSize", "\[Rule]", "Large"}], ",", 
+       RowBox[{"PlotLabel", "\[Rule]", " ", "\"\<Returs-Eficiency\>\""}], ",", 
+       RowBox[{"AxesLabel", "\[Rule]", " ", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Returns\>\"", ",", "\"\<Eficiency\>\""}], "}"}]}]}], 
+      "]"}]}]}], "\[IndentingNewLine]", "}"}], "\[IndentingNewLine]", 
+  "]"}]}], "Input",
  CellFrameLabels->{{
     Cell[
      BoxData[
       TemplateBox[{"EvaluateHideInput"}, "NotebookTemplateCellBehavior"]]], 
     None}, {None, None}},
  CellChangeTimes->{{3.6884673698473024`*^9, 3.6884674048313026`*^9}, {
-  3.6884685494753027`*^9, 3.6884685653533025`*^9}}],
+  3.6884685494753027`*^9, 3.6884685653533025`*^9}, {3.6885740772659087`*^9, 
+  3.6885742280567303`*^9}, {3.6885742781962185`*^9, 3.6885743247453074`*^9}, {
+  3.6889057719618673`*^9, 3.6889057858578672`*^9}, {3.688905818601867*^9, 
+  3.6889058817918673`*^9}, {3.688906297213867*^9, 3.688906308076867*^9}}],
 
 Cell[BoxData[
  RowBox[{
   RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{"TradingChart", "[", 
-     RowBox[{"s", "[", 
-      RowBox[{"[", 
-       RowBox[{
-        RowBox[{"If", "[", 
-         RowBox[{
+     RowBox[{
+      RowBox[{"s", "[", 
+       RowBox[{"[", 
+        RowBox[{
+         RowBox[{"If", "[", 
           RowBox[{
+           RowBox[{
+            RowBox[{
+             RowBox[{"index", "[", 
+              RowBox[{"[", 
+               RowBox[{"i", ",", "1"}], "]"}], "]"}], "-", "5"}], ">", "0"}], 
+           ",", 
            RowBox[{
             RowBox[{"index", "[", 
              RowBox[{"[", 
-              RowBox[{"i", ",", "1"}], "]"}], "]"}], "-", "5"}], ">", "0"}], 
-          ",", 
-          RowBox[{
-           RowBox[{"index", "[", 
-            RowBox[{"[", 
-             RowBox[{"i", ",", "1"}], "]"}], "]"}], "-", "5"}], ",", "1"}], 
-         "]"}], ";;", 
-        RowBox[{
-         RowBox[{"index", "[", 
-          RowBox[{"[", 
-           RowBox[{"i", ",", "2"}], "]"}], "]"}], "+", "5"}]}], "]"}], "]"}], 
-     "]"}], ",", "\[IndentingNewLine]", 
+              RowBox[{"i", ",", "1"}], "]"}], "]"}], "-", "5"}], ",", "1"}], 
+          "]"}], ";;", 
+         RowBox[{
+          RowBox[{"index", "[", 
+           RowBox[{"[", 
+            RowBox[{"i", ",", "2"}], "]"}], "]"}], "+", "5"}]}], "]"}], "]"}],
+       ",", 
+      RowBox[{"ImageSize", "\[Rule]", "Large"}]}], "]"}], ",", 
+    "\[IndentingNewLine]", 
     RowBox[{"{", 
      RowBox[{
       RowBox[{"{", 
        RowBox[{"i", ",", "3"}], "}"}], ",", 
-      RowBox[{"Range", "[", 
-       RowBox[{"Length", "[", "t", "]"}], "]"}]}], "}"}], ",", 
+      RowBox[{"Range", "[", "long", "]"}]}], "}"}], ",", 
     "\[IndentingNewLine]", 
     RowBox[{"Initialization", "\[RuleDelayed]", " ", 
      RowBox[{"(", "\[IndentingNewLine]", 
@@ -399,6 +500,8 @@ Cell[BoxData[
          FormBox[
           TemplateBox[{6,3,"Positional",BoxData},
            "NotebookTemplateSlot"], TextForm]]]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"long", "=", 
+        RowBox[{"Length", "[", "t", "]"}]}], ";", "\[IndentingNewLine]", 
        RowBox[{"index", "=", 
         RowBox[{
          RowBox[{
@@ -472,8 +575,8 @@ Cell[BoxData[
  CellFrameLabels->{{
     Cell[
      BoxData[
-      TemplateBox[{"ExcludeCell"}, "NotebookTemplateCellBehavior"]]], None}, {
-   None, None}},
+      TemplateBox[{"EvaluateHideInput"}, "NotebookTemplateCellBehavior"]]], 
+    None}, {None, None}},
  CellChangeTimes->{{3.6884675315153027`*^9, 3.6884675663283024`*^9}, {
    3.6884676262243023`*^9, 3.6884676795513024`*^9}, {3.6884680993343024`*^9, 
    3.6884681193353024`*^9}, {3.688468578950302*^9, 3.6884686002493024`*^9}, 
@@ -484,130 +587,14 @@ Cell[BoxData[
    3.6884722640773025`*^9, {3.688472398370302*^9, 3.688472406858302*^9}, {
    3.688485197462676*^9, 3.6884852579969635`*^9}, {3.6884856246696377`*^9, 
    3.688485666220073*^9}, {3.6884859937311687`*^9, 3.688486012784067*^9}, {
-   3.688486625913988*^9, 3.688486626501009*^9}}],
-
-Cell[BoxData[{
- RowBox[{
-  RowBox[{"s", "=", Cell[BoxData[
-    FormBox[
-     TemplateBox[{5,3,"Positional",BoxData},
-      "NotebookTemplateSlot"], TextForm]]]}], ";", " ", "\[IndentingNewLine]", 
-  RowBox[{"t", "=", Cell[BoxData[
-    FormBox[
-     TemplateBox[{6,3,"Positional",BoxData},
-      "NotebookTemplateSlot"], TextForm]]]}], ";", "\[IndentingNewLine]", 
-  RowBox[{"index", "=", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"(", 
-      RowBox[{"Flatten", "@", 
-       RowBox[{"{", 
-        RowBox[{
-         RowBox[{"Position", "[", 
-          RowBox[{
-           RowBox[{"s", "[", 
-            RowBox[{"[", 
-             RowBox[{"All", ",", "1"}], "]"}], "]"}], ",", 
-           RowBox[{"t", "[", 
-            RowBox[{"[", 
-             RowBox[{"#", ",", "1"}], "]"}], "]"}]}], "]"}], ",", 
-         RowBox[{"Position", "[", 
-          RowBox[{
-           RowBox[{"s", "[", 
-            RowBox[{"[", 
-             RowBox[{"All", ",", "1"}], "]"}], "]"}], ",", 
-           RowBox[{"t", "[", 
-            RowBox[{"[", 
-             RowBox[{"#", ",", "4"}], "]"}], "]"}]}], "]"}]}], "}"}]}], ")"}],
-      "&"}], "/@", 
-    RowBox[{"Range", "[", 
-     RowBox[{"Length", "[", "t", "]"}], "]"}]}]}], ";", "\[IndentingNewLine]", 
-  RowBox[{"For", "[", 
-   RowBox[{
-    RowBox[{"k", "=", "1"}], ",", 
-    RowBox[{"k", "\[LessEqual]", 
-     RowBox[{"Length", "[", "t", "]"}]}], ",", 
-    RowBox[{"k", "++"}], ",", "\[IndentingNewLine]", 
-    RowBox[{
-     RowBox[{
-      RowBox[{"s", "[", 
-       RowBox[{"[", 
-        RowBox[{"index", "[", 
-         RowBox[{"[", 
-          RowBox[{"k", ",", "1"}], "]"}], "]"}], "]"}], "]"}], "=", 
-      RowBox[{"Labeled", "[", 
-       RowBox[{
-        RowBox[{"s", "[", 
-         RowBox[{"[", 
-          RowBox[{"index", "[", 
-           RowBox[{"[", 
-            RowBox[{"k", ",", "1"}], "]"}], "]"}], "]"}], "]"}], ",", 
-        RowBox[{"Column", "[", 
-         RowBox[{"{", 
-          RowBox[{"\"\<   \[UpArrow]\>\"", ",", "\"\<Entry\>\""}], "}"}], 
-         "]"}], ",", "Below"}], "]"}]}], ";", "\[IndentingNewLine]", 
-     RowBox[{
-      RowBox[{"s", "[", 
-       RowBox[{"[", 
-        RowBox[{"index", "[", 
-         RowBox[{"[", 
-          RowBox[{"k", ",", "2"}], "]"}], "]"}], "]"}], "]"}], "=", 
-      RowBox[{"Labeled", "[", 
-       RowBox[{
-        RowBox[{"s", "[", 
-         RowBox[{"[", 
-          RowBox[{"index", "[", 
-           RowBox[{"[", 
-            RowBox[{"k", ",", "2"}], "]"}], "]"}], "]"}], "]"}], ",", 
-        RowBox[{"Column", "[", 
-         RowBox[{"{", 
-          RowBox[{"\"\<Exit\>\"", ",", "\"\<  \[DownArrow]\>\""}], "}"}], 
-         "]"}], ",", "Above"}], "]"}]}]}]}], "\[IndentingNewLine]", 
-   "]"}]}], "\[IndentingNewLine]", 
- RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
-  RowBox[{
-   RowBox[{
-    RowBox[{"Print", "[", "index", "]"}], ";", "\[IndentingNewLine]", 
-    RowBox[{"TradingChart", "[", 
-     RowBox[{"s", "[", 
-      RowBox[{"[", 
-       RowBox[{
-        RowBox[{"If", "[", 
-         RowBox[{
-          RowBox[{
-           RowBox[{
-            RowBox[{"index", "[", 
-             RowBox[{"[", 
-              RowBox[{"i", ",", "1"}], "]"}], "]"}], "-", "5"}], ">", "0"}], 
-          ",", 
-          RowBox[{
-           RowBox[{"index", "[", 
-            RowBox[{"[", 
-             RowBox[{"i", ",", "1"}], "]"}], "]"}], "-", "5"}], ",", "1"}], 
-         "]"}], ";;", 
-        RowBox[{
-         RowBox[{"index", "[", 
-          RowBox[{"[", 
-           RowBox[{"i", ",", "2"}], "]"}], "]"}], "+", "5"}]}], "]"}], "]"}], 
-     "]"}]}], ",", "\[IndentingNewLine]", 
-   RowBox[{"{", 
-    RowBox[{
-     RowBox[{"{", 
-      RowBox[{"i", ",", "3"}], "}"}], ",", 
-     RowBox[{"Range", "[", 
-      RowBox[{"Length", "[", "t", "]"}], "]"}]}], "}"}]}], "]"}]}], "Input",
- CellFrameLabels->{{
-    Cell[
-     BoxData[
-      TemplateBox[{"EvaluateHideInput"}, "NotebookTemplateCellBehavior"]]], 
-    None}, {None, None}},
- CellChangeTimes->{{3.688486844113601*^9, 3.688486848679034*^9}, {
-  3.6884871241417294`*^9, 3.6884871373085947`*^9}}]
+   3.688486625913988*^9, 3.688486626501009*^9}, {3.6885725187245016`*^9, 
+   3.6885725403572593`*^9}, {3.6885728984171095`*^9, 3.688572903651617*^9}, {
+   3.6885746277093573`*^9, 3.6885746356463146`*^9}}]
 }, Open  ]]
 }, Open  ]]
 },
-WindowSize->{1053, 704},
-WindowMargins->{{77, Automatic}, {Automatic, 61}},
+WindowSize->{1197, 888},
+WindowMargins->{{Automatic, 225}, {10, Automatic}},
 DockedCells->FEPrivate`FrontEndResource[
  "NotebookTemplatingExpressions", "AuthoringDockedCell"],
 TaggingRules->{"NotebookTemplateVersion" -> 1., "NotebookTemplate" -> True},
@@ -630,14 +617,14 @@ Notebook[{
 Cell[CellGroupData[{
 Cell[580, 22, 103, 1, 70, "Section"],
 Cell[CellGroupData[{
-Cell[708, 27, 283, 6, 50, "Subsubsection"],
-Cell[994, 35, 1178, 30, 70, "Input"],
-Cell[2175, 67, 868, 23, 42, "Input"],
-Cell[3046, 92, 8310, 188, 1311, "Input"],
-Cell[11359, 282, 465, 11, 42, "Input"],
-Cell[11827, 295, 2181, 59, 164, "Input"],
-Cell[14011, 356, 5205, 130, 348, "Input"],
-Cell[19219, 488, 4018, 116, 256, "Input"]
+Cell[708, 27, 348, 7, 50, "Subsubsection"],
+Cell[1059, 36, 976, 25, 42, "Input"],
+Cell[2038, 63, 1223, 32, 70, "Input"],
+Cell[3264, 97, 1286, 31, 42, "Input"],
+Cell[4553, 130, 8310, 188, 1311, "Input"],
+Cell[12866, 320, 1167, 26, 42, "Input"],
+Cell[14036, 348, 4428, 105, 284, "Input"],
+Cell[18467, 455, 5533, 136, 368, "Input"]
 }, Open  ]]
 }, Open  ]]
 }

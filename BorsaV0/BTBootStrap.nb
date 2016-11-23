@@ -1,0 +1,439 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.4' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     18130,        431]
+NotebookOptionsPosition[     17666,        413]
+NotebookOutlinePosition[     18229,        433]
+CellTagsIndexPosition[     18186,        430]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"netReturn", "=", 
+      RowBox[{"Table", "[", 
+       RowBox[{"0", ",", "n"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"profitFactor", "=", 
+      RowBox[{"Table", "[", 
+       RowBox[{"0", ",", "n"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"mDD", "=", 
+      RowBox[{"Table", "[", 
+       RowBox[{"0", ",", "n"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"mDDp", "=", 
+      RowBox[{"Table", "[", 
+       RowBox[{"0", ",", "n"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"recoveryFactor", "=", 
+      RowBox[{"Table", "[", 
+       RowBox[{"0", ",", "n"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"avgTradeReturn", "=", 
+      RowBox[{"Table", "[", 
+       RowBox[{"0", ",", "n"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"payoffRatio", "=", 
+      RowBox[{"Table", "[", 
+       RowBox[{"0", ",", "n"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"sharpeTrades", "=", 
+      RowBox[{"Table", "[", 
+       RowBox[{"0", ",", "n"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"percentWinningTrades", "=", 
+      RowBox[{"Table", "[", 
+       RowBox[{"0", ",", "n"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"For", "[", 
+      RowBox[{
+       RowBox[{"i", "=", "1"}], ",", 
+       RowBox[{"i", "\[LessEqual]", "n"}], ",", 
+       RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"trades", "=", 
+         RowBox[{"RandomChoice", "[", 
+          RowBox[{"trades2", ",", 
+           RowBox[{"Length", "[", "trades2", "]"}]}], "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"numberOfTrades", "=", 
+         RowBox[{"Length", "[", "trades", "]"}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{"netTradeReturns", "=", 
+         RowBox[{"Map", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"#", "[", 
+                   RowBox[{"[", "5", "]"}], "]"}], " ", 
+                  RowBox[{"(", 
+                   RowBox[{"1", "-", "commission"}], ")"}]}], "+", 
+                 RowBox[{"#", "[", 
+                  RowBox[{"[", "8", "]"}], "]"}]}], ")"}], "/", 
+               RowBox[{"(", 
+                RowBox[{
+                 RowBox[{"#", "[", 
+                  RowBox[{"[", "2", "]"}], "]"}], " ", 
+                 RowBox[{"(", 
+                  RowBox[{"1", "+", "commission"}], ")"}]}], ")"}]}], "-", 
+              "1"}], ")"}], "&"}], ",", "trades"}], "]"}]}], ";", " ", 
+        "\[IndentingNewLine]", 
+        RowBox[{"winningTrades", "=", 
+         RowBox[{"Count", "[", 
+          RowBox[{"netTradeReturns", ",", 
+           RowBox[{"x_", "/;", 
+            RowBox[{"x", ">", "0"}]}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"netReturn", "[", 
+          RowBox[{"[", "i", "]"}], "]"}], "=", 
+         RowBox[{
+          RowBox[{"Times", "@@", 
+           RowBox[{"(", 
+            RowBox[{"netTradeReturns", "+", "1"}], ")"}]}], "-", "1"}]}], ";",
+         "\[IndentingNewLine]", 
+        RowBox[{"equity", "=", 
+         RowBox[{"FoldList", "[", 
+          RowBox[{"Times", ",", "1", ",", 
+           RowBox[{"netTradeReturns", "+", "1"}]}], "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"equity", "=", 
+         RowBox[{"Delete", "[", 
+          RowBox[{
+           RowBox[{"Riffle", "[", 
+            RowBox[{"equity", ",", "equity"}], "]"}], ",", 
+           RowBox[{"-", "1"}]}], "]"}]}], ";", 
+        RowBox[{"(*", 
+         RowBox[{
+         "Dates", " ", "entry", " ", "and", " ", "exit", " ", "trades"}], 
+         "*)"}], "\[IndentingNewLine]", 
+        RowBox[{"netProfit", "=", 
+         RowBox[{"netReturn", "[", 
+          RowBox[{"[", "i", "]"}], "]"}]}], ";", 
+        RowBox[{"grossProfit", "=", 
+         RowBox[{"Plus", "@@", 
+          RowBox[{"Select", "[", 
+           RowBox[{
+            RowBox[{"Differences", "[", "equity", "]"}], ",", 
+            RowBox[{
+             RowBox[{"#", ">", "0"}], "&"}]}], "]"}]}]}], ";", 
+        RowBox[{"grossLoss", "=", 
+         RowBox[{"-", 
+          RowBox[{"Plus", "@@", 
+           RowBox[{"Select", "[", 
+            RowBox[{
+             RowBox[{"Differences", "[", "equity", "]"}], ",", 
+             RowBox[{
+              RowBox[{"#", "<", "0"}], "&"}]}], "]"}]}]}]}], ";", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"mDD", "[", 
+            RowBox[{"[", "i", "]"}], "]"}], ",", 
+           RowBox[{"mDDp", "[", 
+            RowBox[{"[", "i", "]"}], "]"}], ",", "ddPath"}], "}"}], "=", 
+         RowBox[{"drawDown", "[", "equity", "]"}]}], ";", 
+        RowBox[{
+         RowBox[{"profitFactor", "[", 
+          RowBox[{"[", "i", "]"}], "]"}], "=", 
+         RowBox[{"grossProfit", "/", "grossLoss"}]}], ";", 
+        RowBox[{
+         RowBox[{"recoveryFactor", "[", 
+          RowBox[{"[", "i", "]"}], "]"}], "=", 
+         RowBox[{"100", 
+          RowBox[{"netProfit", "/", 
+           RowBox[{"mDD", "[", 
+            RowBox[{"[", "i", "]"}], "]"}]}]}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"avgTradeReturn", "[", 
+          RowBox[{"[", "i", "]"}], "]"}], "=", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"netReturn", "[", 
+              RowBox[{"[", "i", "]"}], "]"}], "+", "1"}], ")"}], "^", 
+           RowBox[{"(", 
+            RowBox[{"1", "/", "numberOfTrades"}], ")"}]}], "-", "1"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"avgProfitTrade", "=", 
+         RowBox[{"grossProfit", "/", "winningTrades"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"avgLossTrade", "=", 
+         RowBox[{"grossLoss", "/", 
+          RowBox[{"(", 
+           RowBox[{"numberOfTrades", "-", "winningTrades"}], ")"}]}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"payoffRatio", "[", 
+          RowBox[{"[", "i", "]"}], "]"}], "=", 
+         RowBox[{"avgProfitTrade", "/", "avgLossTrade"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"(*", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"avgEficiency", "[", 
+            RowBox[{"[", "i", "]"}], "]"}], "=", 
+           RowBox[{"100", " ", 
+            RowBox[{"Mean", "[", 
+             RowBox[{
+              RowBox[{
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  RowBox[{"#", "[", 
+                   RowBox[{"[", "5", "]"}], "]"}], "-", 
+                  RowBox[{"#", "[", 
+                   RowBox[{"[", "2", "]"}], "]"}]}], ")"}], "/", 
+                RowBox[{"(", 
+                 RowBox[{
+                  RowBox[{"#", "[", 
+                   RowBox[{"[", "9", "]"}], "]"}], "-", 
+                  RowBox[{"#", "[", 
+                   RowBox[{"[", "10", "]"}], "]"}]}], ")"}]}], "&"}], "/@", 
+              "trades"}], "]"}]}]}], ";"}], "*)"}], 
+        RowBox[{
+         RowBox[{"sharpeTrades", "[", 
+          RowBox[{"[", "i", "]"}], "]"}], "=", 
+         RowBox[{
+          RowBox[{"Mean", "[", "netTradeReturns", "]"}], "/", 
+          RowBox[{"StandardDeviation", "[", "netTradeReturns", "]"}]}]}], ";",
+         "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"percentWinningTrades", "[", 
+          RowBox[{"[", "i", "]"}], "]"}], "=", 
+         RowBox[{"100", " ", 
+          RowBox[{"winningTrades", "/", "numberOfTrades"}]}]}], ";"}]}], 
+      "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"TabView", "[", 
+      RowBox[{"{", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"\"\<Net return\>\"", "\[Rule]", " ", 
+         RowBox[{"ListLinePlot", "[", 
+          RowBox[{
+           RowBox[{"Transpose", "@", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"100", " ", 
+               RowBox[{
+                RowBox[{"Range", "[", "n", "]"}], "/", "n"}]}], ",", 
+              RowBox[{"Sort", "[", "netReturn", "]"}]}], "}"}]}], ",", 
+           RowBox[{"ImageSize", "\[Rule]", "Large"}]}], "]"}]}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"\"\<Profit Factor\>\"", "\[Rule]", " ", 
+         RowBox[{"ListLinePlot", "[", 
+          RowBox[{
+           RowBox[{"Transpose", "@", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"100", " ", 
+               RowBox[{
+                RowBox[{"Range", "[", "n", "]"}], "/", "n"}]}], ",", 
+              RowBox[{"Sort", "[", "profitFactor", "]"}]}], "}"}]}], ",", 
+           RowBox[{"ImageSize", "\[Rule]", "Large"}]}], "]"}]}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"\"\<MDD\>\"", "\[Rule]", " ", 
+         RowBox[{"ListLinePlot", "[", 
+          RowBox[{
+           RowBox[{"Transpose", "@", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"100", " ", 
+               RowBox[{
+                RowBox[{"Range", "[", "n", "]"}], "/", "n"}]}], ",", 
+              RowBox[{"Sort", "[", "mDDp", "]"}]}], "}"}]}], ",", 
+           RowBox[{"ImageSize", "\[Rule]", "Large"}]}], "]"}]}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"\"\<Recovery Factor\>\"", "\[Rule]", " ", 
+         RowBox[{"ListLinePlot", "[", 
+          RowBox[{
+           RowBox[{"Transpose", "@", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"100", " ", 
+               RowBox[{
+                RowBox[{"Range", "[", "n", "]"}], "/", "n"}]}], ",", 
+              RowBox[{"Sort", "[", "recoveryFactor", "]"}]}], "}"}]}], ",", 
+           RowBox[{"ImageSize", "\[Rule]", "Large"}]}], "]"}]}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"\"\<Average Trade Return\>\"", "\[Rule]", " ", 
+         RowBox[{"ListLinePlot", "[", 
+          RowBox[{
+           RowBox[{"Transpose", "@", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"100", " ", 
+               RowBox[{
+                RowBox[{"Range", "[", "n", "]"}], "/", "n"}]}], ",", 
+              RowBox[{"100", " ", 
+               RowBox[{"Sort", "[", "avgTradeReturn", "]"}]}]}], "}"}]}], ",", 
+           RowBox[{"ImageSize", "\[Rule]", "Large"}]}], "]"}]}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"\"\<Payoff Ratio\>\"", "\[Rule]", " ", 
+         RowBox[{"ListLinePlot", "[", 
+          RowBox[{
+           RowBox[{"Transpose", "@", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"100", " ", 
+               RowBox[{
+                RowBox[{"Range", "[", "n", "]"}], "/", "n"}]}], ",", 
+              RowBox[{"Sort", "[", "payoffRatio", "]"}]}], "}"}]}], ",", 
+           RowBox[{"ImageSize", "\[Rule]", "Large"}]}], "]"}]}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"\"\<Sharpe Ratio Trades\>\"", "\[Rule]", " ", 
+         RowBox[{"ListLinePlot", "[", 
+          RowBox[{
+           RowBox[{"Transpose", "@", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"100", " ", 
+               RowBox[{
+                RowBox[{"Range", "[", "n", "]"}], "/", "n"}]}], ",", 
+              RowBox[{"Sort", "[", "sharpeTrades", "]"}]}], "}"}]}], ",", 
+           RowBox[{"ImageSize", "\[Rule]", "Large"}]}], "]"}]}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"\"\<Winning Trades (%)\>\"", "\[Rule]", " ", 
+         RowBox[{"ListLinePlot", "[", 
+          RowBox[{
+           RowBox[{"Transpose", "@", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"100", " ", 
+               RowBox[{
+                RowBox[{"Range", "[", "n", "]"}], "/", "n"}]}], ",", 
+              RowBox[{"Sort", "[", "percentWinningTrades", "]"}]}], "}"}]}], 
+           ",", 
+           RowBox[{"ImageSize", "\[Rule]", "Large"}]}], "]"}]}]}], 
+       "\[IndentingNewLine]", "}"}], "]"}]}], ",", "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{"n", ",", 
+      RowBox[{"{", 
+       RowBox[{"100", ",", "500", ",", "1000"}], "}"}]}], "}"}], ",", 
+    RowBox[{"TrackedSymbols", "\[Rule]", "True"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"Initialization", "\[RuleDelayed]", " ", 
+     RowBox[{"(", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"trades2", "=", 
+        RowBox[{"Delete", "[", 
+         RowBox[{Cell[BoxData[
+           FormBox[
+            TemplateBox[{"2","2","Positional",BoxData},
+             "NotebookTemplateSlot"], TextForm]]], ",", 
+          RowBox[{"-", "1"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"commission", "=", Cell[BoxData[
+         FormBox[
+          TemplateBox[{"1","1","Positional",BoxData},
+           "NotebookTemplateSlot"], TextForm]]]}], ";", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"drawDown", "[", "equity_List", "]"}], ":=", 
+        RowBox[{"Module", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+           "maxPath", ",", "ddPath", ",", "maxdd", ",", "pos", ",", 
+            "maxddpc"}], "}"}], ",", 
+          RowBox[{
+           RowBox[{"maxPath", "=", 
+            RowBox[{"Drop", "[", 
+             RowBox[{
+              RowBox[{"FoldList", "[", 
+               RowBox[{"Max", ",", "0", ",", "equity"}], "]"}], ",", "1"}], 
+             "]"}]}], ";", "\[IndentingNewLine]", 
+           RowBox[{"ddPath", "=", 
+            RowBox[{"maxPath", "-", "equity"}]}], ";", "\[IndentingNewLine]", 
+           RowBox[{"maxdd", "=", 
+            RowBox[{"Max", "[", "ddPath", "]"}]}], ";", "\[IndentingNewLine]", 
+           RowBox[{"pos", "=", 
+            RowBox[{"Flatten", "@", 
+             RowBox[{"Position", "[", 
+              RowBox[{"ddPath", ",", "maxdd"}], "]"}]}]}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"maxddpc", "=", 
+            RowBox[{"100", " ", 
+             RowBox[{"Max", "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{"maxdd", "/", 
+                  RowBox[{"maxPath", "[", 
+                   RowBox[{"[", "#", "]"}], "]"}]}], ")"}], "&"}], "/@", 
+               "pos"}], "]"}]}]}], ";", "\[IndentingNewLine]", 
+           RowBox[{"{", 
+            RowBox[{"maxdd", ",", "maxddpc", ",", "ddPath"}], "}"}]}]}], 
+         "]"}]}]}], ")"}]}]}], "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellFrameLabels->{{
+    Cell[
+     BoxData[
+      TemplateBox[{"EvaluateHideInput"}, "NotebookTemplateCellBehavior"]]], 
+    None}, {None, None}},
+ CellChangeTimes->{{3.688731978882682*^9, 3.6887320306606817`*^9}, {
+   3.688732072449682*^9, 3.6887320732596817`*^9}, {3.688732151871682*^9, 
+   3.688732175434682*^9}, {3.6887322265416822`*^9, 3.6887322273916817`*^9}, {
+   3.6887322589166822`*^9, 3.688732310230682*^9}, {3.6887324133296824`*^9, 
+   3.6887324525206823`*^9}, {3.688732519846682*^9, 3.688732592412682*^9}, 
+   3.688792302444081*^9, {3.6887923697230806`*^9, 3.6887923701310806`*^9}, {
+   3.688792417537081*^9, 3.6887924398170805`*^9}, {3.688792498311081*^9, 
+   3.688792506727081*^9}, {3.688792549710081*^9, 3.688792568581081*^9}, 
+   3.688792833175081*^9, {3.688792875830081*^9, 3.688792898950081*^9}, {
+   3.6887929886590805`*^9, 3.688793002323081*^9}, {3.6887930502020807`*^9, 
+   3.6887930926330805`*^9}, {3.688793182023081*^9, 3.6887931866950808`*^9}, {
+   3.6887932169980807`*^9, 3.688793244365081*^9}, {3.688793301420081*^9, 
+   3.688793323795081*^9}, {3.6887933571230807`*^9, 3.6887934017610807`*^9}, {
+   3.6887934587280807`*^9, 3.688793574581081*^9}, {3.688793655436081*^9, 
+   3.688793704378081*^9}, {3.6887937633360806`*^9, 3.688793795335081*^9}, {
+   3.688793931780081*^9, 3.6887939511310806`*^9}, {3.6887940667266808`*^9, 
+   3.6887941972518806`*^9}, {3.688794259729881*^9, 3.688794264019881*^9}, {
+   3.6887943179490805`*^9, 3.688794325873881*^9}, 3.688794364686681*^9, {
+   3.688794520920681*^9, 3.688794583445481*^9}, {3.6888009551436806`*^9, 
+   3.688800960416481*^9}, {3.6888011659308805`*^9, 3.6888011736372805`*^9}, {
+   3.688801495293681*^9, 3.6888015010032806`*^9}, {3.688801663586481*^9, 
+   3.688801690964481*^9}, {3.688801742304081*^9, 3.688801801708881*^9}, {
+   3.6888018587736807`*^9, 3.6888018616128807`*^9}, {3.6888019021416807`*^9, 
+   3.688801911486081*^9}, {3.688801993620081*^9, 3.6888020829924808`*^9}, {
+   3.6888021798372808`*^9, 3.688802528200881*^9}, 3.688802595780081*^9, {
+   3.688802646999881*^9, 3.688802686951481*^9}, {3.6888027191654806`*^9, 
+   3.688802753906681*^9}, {3.6888356501986694`*^9, 3.688835742358482*^9}, 
+   3.6888358756949244`*^9, {3.6888366523031263`*^9, 3.6888366719309683`*^9}, {
+   3.6888367781577673`*^9, 3.6888368667946825`*^9}, {3.6888369118494296`*^9, 
+   3.688836954290321*^9}, 3.6888371008632717`*^9, {3.688837346806593*^9, 
+   3.6888373793738937`*^9}, {3.688837412212841*^9, 3.688837412884161*^9}, {
+   3.688837595539562*^9, 3.6888375968982077`*^9}, 3.68883793794751*^9, {
+   3.688838077701114*^9, 3.6888380853287325`*^9}, 3.688910983200867*^9, {
+   3.688912098507867*^9, 3.688912134116867*^9}, {3.6889122619628673`*^9, 
+   3.688912298644867*^9}}]
+},
+WindowSize->{775, 875},
+WindowMargins->{{373, Automatic}, {19, Automatic}},
+DockedCells->FEPrivate`FrontEndResource[
+ "NotebookTemplatingExpressions", "AuthoringDockedCell"],
+TaggingRules->{"NotebookTemplateVersion" -> 1., "NotebookTemplate" -> True},
+CellContext->Notebook,
+ShowCellTags->True,
+FrontEndVersion->"10.4 for Microsoft Windows (64-bit) (April 11, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 17104, 391, 1487, "Input"]
+}
+]
+*)
+
