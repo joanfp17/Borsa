@@ -7,6 +7,8 @@ BackTest::usage = "BackTest[Stock, Strategy, Options] returns a BackTest Object 
 	{EntryDay,{EntryPrices},ExitDay,{ExitPrices}...}"
 BackTest::usage=" BackTest[\"Properties\"]"
 BackTest::arg= "The valid properties are `1`"
+Optimization::usage = "Optimization of Strategy parameters"
+Optimization::arg = "The valid options are `1`"
 
 Begin["`Private`"] (* Begin Private Context *) 
 
@@ -27,7 +29,7 @@ BackTest[stock_Stock, strategy_Strategy, o : OptionsPattern[]] :=
     	},
     	signal=strategy[stock];
     	dateStock = AbsoluteTime/@stock["Date"];
-    	dateSignal=AbsoluteTime/@signal[[1]];
+    	dateSignal=AbsoluteTime/@signal[[All,1]];
     	(* Adjust temporal coincidence between stock and signal *)
         initialDate=Max[dateStock[[1]],dateSignal[[1]]];
         finalDate=Min[dateStock[[-1]],dateSignal[[-1]]];
@@ -104,7 +106,7 @@ BackTest[stock_Stock, strategy_Strategy, o : OptionsPattern[]] :=
                  sellPrice, sellPriceSlip,finalIndex-initialIndex+1,dividend,Max[high[[initialIndex;;finalIndex]]],Min[low[[initialIndex;;finalIndex]]]};
                positions = Append[Delete[positions, -1], actualPosition]
            ]
-           ] &, (signal[[2]][[signalIndices[[1]];;signalIndices[[2]]]])
+           ] &, (signal[[All,2]][[signalIndices[[1]];;signalIndices[[2]]]])
          ];
         BackTest[stock,strategy,entryPrices,exitPrices,period,positions]
     ]
@@ -136,7 +138,8 @@ BackTest[stock_Stock,strategy_Strategy,entryPrices_List,exitPrices_List,period_L
 	];
 
 Format[BackTest[stock_Stock,strategy_Strategy,entryPrices_List,exitPrices_List,period_List,positionList_List]] := 
-	Panel[Column[{Row[{stock["Name"],"  with  ",strategy["Name"]}],Row[{ "from  ", DateObject[period[[1]]], "  to  ", DateObject[period[[4]]]}], Length[positionList] " trades"}],Style["BackTest Object",16]];
+	Panel[Column[{Row[{stock["Name"],"  with  ",strategy["Name"],"  ",strategy["Parameters"]}]
+		,Row[{ "from  ", DateObject[period[[1]]], "  to  ", DateObject[period[[4]]]}], Length[positionList] " trades"}],Style["BackTest Object",16]];
 
 Options[Bootstrap] = {
   "Brokerage" -> 0
@@ -201,6 +204,7 @@ Report[stock_Stock,strategy_Strategy,period_List,positions_List, o : OptionsPatt
     	deposit === "Simple",(* TODO repasar i contar correctament *)
     		netReturn = Plus@@netTradeReturns;
     		equity = Prepend[principal Accumulate[netTradeReturns],0];
+    		equity = equity + principal-Min[equity];
    		    totalCommissions = Plus@@(principal commissionTrade);
    		    equity = Delete[Riffle[equity,equity],-1]; (* Dates entry and exit trades *)
    		    daysEquity = Join[{period[[1]]},Flatten[{#[[1]],#[[4]]}&/@trades,1]];
@@ -210,7 +214,7 @@ Report[stock_Stock,strategy_Strategy,period_List,positions_List, o : OptionsPatt
 	        {mDD, mDDp,ddPath}= drawDown[equity];
 	        profitFactor = grossProfit/grossLoss;
 	        recoveryFactor = netProfit/mDD;
-	        annualizedNetReturn = 100 (principal netReturn)/(principal-Min[equity]) 365/totalNumberOfDays;
+	        annualizedNetReturn = 100 (principal netReturn)/(equity[[1]]) 365/totalNumberOfDays;
 	        marRatio = annualizedNetReturn/mDDp;
 	        BHProfit = principal netBHReturn;
     		
@@ -295,6 +299,7 @@ Report[stock_Stock,strategy_Strategy,period_List,positions_List, o : OptionsPatt
     		netTradeReturnsSlip = Map[((#[[6]] (1-commission)+#[[8]])/(#[[3]] (1+commission))-1) &, trades];
     		netReturnSlip = Plus@@netTradeReturnsSlip;
 	        equitySlip = Prepend[principal Accumulate[netTradeReturnsSlip],0];
+	        equitySlip = equitySlip + principal - Min[equitySlip];
 	        equitySlip = Delete[Riffle[equitySlip,equitySlip],-1];
 	        netProfitSlip = principal netReturnSlip;
 	        {mDDSlip, mDDpSlip,ddPathSlip}= drawDown[equitySlip];
@@ -511,7 +516,31 @@ Performance[period_List,positions_List, o : OptionsPattern[]] :=
             {netReturn, mDDp, profitFactor, recoveryFactor, avgTradeReturn, N@winningTrades/numberOfTrades, payoffRatio, sharpeRatio, avgEficiency}
         ]
     ]
+    
+Options[Optimization] = {"Variable" -> "Net Return"};
 
+Optimization[stock_Stock, strategy_Strategy, domain_List, o : OptionsPattern[]] :=
+    Module[ {p = OptionValue["Variable"], n, optima},
+        Which[
+         p === "Net Return", n = 1,
+         p === "Maximum Drawdown", n = 2,
+         p === "Profit Factor", n = 3,
+         p === "Recovery Factor", n = 4,
+         p === "Average trade Return", n = 5,
+         p === "Winning Trades", n = 6,
+         p === "Payoff Ratio", n = 7,
+         p === "Sharpe Ratio", n = 8,
+         p === "Average Efficiency", n = 9,
+         True,
+         Message[
+          Optimization::arg, {"Net Return", "Maximum Drawdown", 
+           "Profit Factor", "Recovery Factor", "Average trade Return", 
+           "Winning Trades", "Payoff Ratio", "Sharpe Ratio", 
+           "Average Efficiency"}]
+         ];
+        optima = BackTest[stock, #]["Performance"][[n]] & /@ (Strategy[strategy["Name"], #] & /@ domain);
+        MapIndexed[Append[#, optima[[First[#2]]]] &, domain]
+    ]
 
 End[] (* End Private Context *)
 

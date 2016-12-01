@@ -36,6 +36,17 @@ depureData::usage = "depureData[FD] Validation of imported financial data
 	Input:Financial Data obtained from Yahoo, {date,{open,high,low,close,volume},...}
 	Output:Depured data: in temporal order, H>=O,C>=L and volume>0"
 	
+IDateListPlot::usage ="\!\(\*
+StyleBox[\"interactiveDateListPlot\",\nFontFamily->\"Courier New Bold\
+\",\nFontSize->11,\nFontWeight->\"Plain\"]\)[\!\(\*
+StyleBox[\"data\",\nFontSlant->\"Italic\"]\)] generates a \!\(\*
+StyleBox[\"DateListPlot\",\nFontFamily->\"Courier New Bold\",\n\
+FontSize->11,\nFontWeight->\"Plain\"]\) of the data with interactive \
+sliders below the plot to enable the user to dynamically change the \
+plot range. Options are the same as for \!\(\*
+StyleBox[\"DateListPlot\",\nFontFamily->\"Courier New Bold\",\n\
+FontSize->11,\nFontWeight->\"Plain\"]\).";
+	
 (* ::Section:: *)
 
 kNNForecast::usage = "kNNForecast[ts,m,dt,k:1,opts]
@@ -125,6 +136,114 @@ depureData[histValues_] :=
     
 (* ::Section:: *)
 
+
+Options[IDateListPlot] = Options[DateListPlot];
+SetOptions[IDateListPlot, ImageSize -> 600];
+
+SyntaxInformation[
+   IDateListPlot] = {"ArgumentsPattern" -> {_, OptionsPattern[]}};
+
+IDateListPlot[data_List, opts : OptionsPattern[]] := 
+  DynamicModule[{x = 0.1, y = 0.9, z = 0.5, tmp = 0.8, d1,
+    d2, g, handle, opts1, temp, userPlotRange, yRange = Automatic, 
+    xAxisLength, imagesize = OptionValue[ImageSize], data1 = data},
+   
+   (* we're working with only the x axis length. 
+   control the y axis length via AspectRatio option *)
+   xAxisLength = If[ListQ[imagesize], First[imagesize], imagesize];
+   
+   (* make sure only DateListPlot options are entered *)
+   opts1 = FilterRules[Flatten[{opts}], Options[DateListPlot]];
+   
+   (* we ideally want to be able to extract user defined y axis \
+ranges *)
+   userPlotRange = PlotRange /. opts1;
+   
+   (* so if the user enters a specific y axis range then let's \
+extract that *)
+   Which[
+    ListQ[userPlotRange] && Length[userPlotRange] == 2 && 
+     Length[userPlotRange[[2]]] == 2, yRange = userPlotRange[[2]], 
+    ListQ[userPlotRange] && Length[userPlotRange] == 2 && 
+     userPlotRange[[2]] === All, yRange = All,
+    ListQ[userPlotRange] && Length[userPlotRange] == 2 && 
+     userPlotRange[[2]] === Automatic, yRange = Automatic,
+    ! ListQ[userPlotRange] && userPlotRange === All, yRange = All,
+    ! ListQ[userPlotRange] && userPlotRange === Automatic, 
+    yRange = Automatic
+    ];
+   
+   (* make a little Locator object *)
+   handle = 
+    Graphics[{EdgeForm[Directive[Thin, Gray]], GrayLevel[0.8], 
+      Rectangle[{0, 0}, {1, 4}], EdgeForm[None], White, 
+      Rectangle[{0.3, 0.3}, {.7, 3.7}]},
+     AspectRatio -> 4, ImageSize -> 7];
+   
+   (* make the small image of the plot to be used as the slider \
+background and also for extracting the plot range *)
+   g = DateListPlot[data1,
+     AspectRatio -> 40/xAxisLength,
+     Axes -> False,
+     Frame -> False,
+     (* if Joined\[Rule]False AbsoluteOptions fails however PlotRange\
+\[Rule]Full works regardless *)
+     Joined -> True,
+     ImageSize -> {xAxisLength, 40},
+     ImagePadding -> {{0, 0}, {0, 0}},
+     PlotRange -> All];
+   
+   (* extract the x axis plot ranges *)
+   {{d1, d2}, temp} = PlotRange /. AbsoluteOptions[g, PlotRange];
+   
+   (* Render the plot and sliders *)
+   Deploy@Column[{
+      
+      (* main plot *)
+      Dynamic[
+       DateListPlot[data1,
+        ImageSize -> xAxisLength,
+        ImagePadding -> {{50, 10}, {20, 10}},
+        PlotRange -> {{d1 + x*(d2 - d1), d1 + y*(d2 - d1)}, yRange},
+        opts1],
+       TrackedSymbols :> {d1, d2, x, y}],
+      
+      (* "Locator slider" *)
+      Row[{Spacer[{50, 0}],
+        Graphics[{White, EdgeForm[], Rectangle[{0, 0}, {1, 0.1}], 
+          Inset[g, Scaled[{0.5, 0.5}], Scaled[{0.5, 0.5}], 1], 
+          Opacity[0.15],
+          RGBColor[0, 0.5, 1], 
+          EdgeForm[Directive[Thin, GrayLevel[0.5]]], 
+          Rectangle[Dynamic[{x, 0}], Dynamic[{y, 0.1}]], 
+          Locator[Dynamic[{y, 
+             
+             0.05}, (y = Min[1, Max[0.05 + x, First@#1]]; 
+              z = 0.5*(x + y)) &], handle], 
+          Locator[Dynamic[{x, 
+             0.05}, (x = Max[0, Min[y - 0.05, First@#1]]; 
+              z = 0.5*(x + y)) &], handle]},
+         AspectRatio -> 40/xAxisLength,
+         Frame -> False,
+         ImageSize -> xAxisLength - 60,
+         ImagePadding -> {{0, 0}, {1, 1}},
+         PlotRangePadding -> 0], Spacer[{10, 0}]}],
+      
+      (* slider *)
+      Row[{Spacer[{50, 0}], 
+        Slider[Dynamic[
+          z, (tmp = y - x; z = #; 
+            y = Min[1, Max[0.05 + x, z + 0.5*tmp]]; 
+            x = Max[0, Min[y - 0.05, z - 0.5*tmp]]) &], 
+         Appearance -> "UpArrow", ImageSize -> xAxisLength - 60], 
+        Spacer[{10, 0}]}]
+      },
+     Alignment -> Right,
+     Spacings -> 0]
+   
+   ];
+
+SetAttributes[IDateListPlot, ReadProtected];
 
 Options[kNNForecast] = {Weighting->Mean,Options[Nearest]};
 

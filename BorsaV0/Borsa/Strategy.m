@@ -8,27 +8,34 @@ Strategy::arg = "Strategy `1` not defined"
 
 Begin["`Private`"] (* Begin Private Context *) 
 
-Strategy[strategyName_String,strategyParameters_List][p_String]:=
-	Which[
-     p === "Properties",
-     {"Name","Parameters"},
-     p === "Name",
-     strategyName,
-     p === "Parameters",
-     strategyParameters,
-     True,
-     Message[Strategy::arg,{"StrategyName","StrategyParameters"}]
-	];
+strategies = {"Ema Up Down","ParabolicStopAndReversal","maSF"};
 	
-Format[Strategy[strategyName_String,strategyParameters_List]]:=
-	Panel[Column[{Row[{strategyName,"  ",strategyParameters}]," "," "}],Style["Strategy Object",16]]
+Strategy[strategyName_String,strategyParameters_List][p_String] :=
+    Which[
+           p === "Properties",
+           {"Name","Parameters"},
+           p === "Name",
+           strategyName,
+           p === "Parameters",
+           strategyParameters,
+           True,
+           Message[Strategy::arg,{"StrategyName","StrategyParameters"}]
+          ];
+	
+Format[Strategy[strategyName_String,strategyParameters_List]] :=
+    If[ MemberQ[strategies,strategyName],
+        Panel[Column[{Row[{strategyName,"  ",strategyParameters}]," "," "}],Style["Strategy Object",16]],
+        Message[Strategy::arg,strategyName]
+    ]
 
 Strategy[strategyName_String,strategyParameters_List][s_Stock] :=
     Which[
         strategyName==="Ema Up Down",
         emaUpDown[s,strategyParameters],
         strategyName==="ParabolicStopAndReversal",
-        stochasticK[s,strategyParameters],
+        psr[s,strategyParameters],
+        strategyName==="maSF",
+        maSF[s,strategyParameters],
         True,
         Message[Strategy::arg,strategyName]
     ]
@@ -47,11 +54,12 @@ emaUpDown[s_Stock, p_List] :=
                 0
             ]
     	];
-    {s["Date"][[2;;]],Delete[MapThread[fi, {lows, closes, ema}], -1]}
-    (* Desplaso al dia seguent *)
+    (* Desplaso al dia seguent i retallo els n primers per tenir en compte el lag*)
+    Drop[Transpose@{s["Date"][[2;;]],Delete[MapThread[fi, {lows, closes, ema}], -1]},p[[1]]]
+        
     ]	
 
-stochasticK[s_Stock, p_List] := Module[
+psr[s_Stock, p_List] := Module[
   {PSAR = (Transpose@
        FinancialIndicator["ParabolicStopAndReversal",p[[1]],p[[2]]][s["OHLCV"]]
         ["Path"])[[2]],
@@ -60,10 +68,26 @@ stochasticK[s_Stock, p_List] := Module[
    fi
   },
   fi[o_, c_, e_] := If[e<c, 1, If[e>o,-1, 0]];
-  {s["Date"][[2;;]],
+  Transpose@{s["Date"][[2;;]],
   	Delete[MapThread[fi, {opens, closes, PSAR}], -1]}
    (* Desplaso al p[[1]] dies *)
-  ]	
+  ]
+  
+maSF[s_Stock, p_List] :=
+    Module[ 
+    {maS = (Transpose@FinancialIndicator["SimpleMovingAverage", p[[1]]][s["OHLCV"]]["Path"])[[2]],
+     maF = (Transpose@FinancialIndicator["SimpleMovingAverage", p[[2]]][s["OHLCV"]]["Path"])[[2]],
+     fi},
+    fi[slow_, fast_] :=
+    	If[fast >= slow,
+            1,
+            If[ fast < slow,
+               -1,
+                0
+            ]
+    	];
+   Drop[Transpose@{s["Date"][[2;;]],Delete[MapThread[fi, {maS,maF}], -1]},p[[1]]]
+]		
 
 End[] (* End Private Context *)
 

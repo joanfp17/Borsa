@@ -165,6 +165,28 @@ Stock[s_String,ohlcv_List,adjp_List,div_List,split_List][p_String] :=
      Message[Stock::arg,{"Name","Date","Open","Close","High","Low","Volume","OHLCV","Median Price","Intraday Range","Interday Range","Dividends","Splits","Adjusted"}]
     ]
 
+Stock[s_String,ohlcv_List,adjp_List,div_List,split_List][fd_List,ld_List] :=
+    Module[ {fdat = AbsoluteTime[fd],ldat = AbsoluteTime[ld]},
+        Stock[s,
+        If[ AbsoluteTime[#[[1]]] >= fdat && AbsoluteTime[#[[1]]] <= ldat,
+            #,
+            Nothing
+        ] & /@ ohlcv,
+        If[ AbsoluteTime[#[[1]]] >= fdat && AbsoluteTime[#[[1]]] <= ldat,
+            #,
+            Nothing
+        ] & /@ adjp,
+        If[ AbsoluteTime[#[[1]]] >= fdat && AbsoluteTime[#[[1]]] <= ldat,
+            #,
+            Nothing
+        ] & /@ div,
+        If[ AbsoluteTime[#[[1]]] >= fdat && AbsoluteTime[#[[1]]] <= ldat,
+            #,
+            Nothing
+        ] & /@ split
+        ]
+    ]
+
 Format[Stock[s_String,ohlcv_List,adjp_List,div_List,split_List]] := Panel[Column[{s,Row[{ "from  ", DateObject[ohlcv[[1,1]]], "  to  ", DateObject[ohlcv[[Length[ohlcv],1]]]}], Length[ohlcv] " bars"}],Style["Stock Object",16]]
 
 dayNumber[data_] :=
