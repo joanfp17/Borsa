@@ -187,7 +187,7 @@ Stock[s_String,ohlcv_List,adjp_List,div_List,split_List][fd_List,ld_List] :=
         ]
     ]
 
-Format[Stock[s_String,ohlcv_List,adjp_List,div_List,split_List]] := Panel[Column[{s,Row[{ "from  ", DateObject[ohlcv[[1,1]]], "  to  ", DateObject[ohlcv[[Length[ohlcv],1]]]}], Length[ohlcv] " bars"}],Style["Stock Object",16]]
+Format[Stock[s_String,ohlcv_List,adjp_List,div_List,split_List],StandardForm] := Panel[Column[{s,Row[{ "from  ", DateObject[ohlcv[[1,1]]], "  to  ", DateObject[ohlcv[[Length[ohlcv],1]]]}], Length[ohlcv] " bars"}],Style["Stock Object",16]]
 
 dayNumber[data_] :=
     Switch[
