@@ -41,23 +41,29 @@ Strategy[strategyName_String,strategyParameters_List][s_Stock] :=
     ]
 
 emaUpDown[s_Stock, p_List] :=
-    Module[ 
-    {ema = (Transpose@FinancialIndicator["ExponentialMovingAverage", p[[1]]][s["OHLCV"]]["Path"])[[2]], 
-    lows = s["Low"][[All,2]],
+    Module[ {
+    ema = (Transpose@
+    FinancialIndicator["ExponentialMovingAverage", p[[1]]][
+    s["OHLCV"]]["Path"])[[2]], lows = s["Low"][[All, 2]],
     closes = s["Close"][[All, 2]],
-    fi},
-    fi[l_, c_, e_] :=
-    	If[ l > e,
-            1,
-            If[ c < e,
-               -1,
-                0
-            ]
-    	];
-    (* Desplaso al dia seguent i retallo els n primers per tenir en compte el lag*)
-    Drop[Transpose@{s["Date"][[2;;]],Delete[MapThread[fi, {lows, closes, ema}], -1]},p[[1]]]
-        
-    ]	
+    fi, flag = 0
+    },
+        fi[l_, c_, e_] :=
+            If[ l > e &&  flag != 1,
+                flag = 1;
+                1,
+                If[ c < e && flag == 1,
+                    flag = -1;
+                    -1,
+                    0
+                ]
+            ];
+        (* Desplaso al dia seguent i retallo el primer per entrar/
+        sortir al dia seguent al senyal, 
+        elimino els p[[1]] primers pel lag *)
+        Drop[Transpose@{s["Date"][[2 ;;]], 
+           Delete[MapThread[fi, {lows, closes, ema}], -1]}, p[[1]]]
+ ]	
 
 psr[s_Stock, p_List] := Module[
   {PSAR = (Transpose@

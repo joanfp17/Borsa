@@ -179,7 +179,7 @@ Report[stock_Stock,strategy_Strategy,period_List,positions_List, o : OptionsPatt
     daysTradeReturns,commissionTrade,netTradeReturnsSlip,
     netProfit,grossProfit,grossLoss,performance, equity, daysEquity,
     slippage,winningTradesSlip,avgTradeSlip,avgTradeReturnSlip,lossingTradesSlip,payoffRatioSlip,
-    mfe,mae,win,
+    mfe,mae,win,avgProfitEficiency,avgLossEficiency,
     numForm = ToString@NumberForm[#,{10,2},ExponentFunction -> (If[-10 < # < 10, Null, #] &)]&
     },
     (* Eliminate the last trade if not closed *)
@@ -259,12 +259,24 @@ Report[stock_Stock,strategy_Strategy,period_List,positions_List, o : OptionsPatt
 			avgProfitMAE = 100 Mean[(#[[10]]/#[[2]]-1)&/@Extract[trades, Position[netTradeReturns, x_ /; x > 0]]];
 			avgLossMAE = 100 Mean[(#[[10]]/#[[2]]-1)&/@Extract[trades, Position[netTradeReturns, x_ /; x < 0]]];
 			avgEficiency = 100 Mean[(#[[5]]-#[[2]])/(#[[9]]-#[[10]])&/@trades];
+			avgProfitEficiency = 100 Mean[(#[[5]]-#[[2]])/(#[[9]]-#[[10]])&/@Extract[trades, Position[netTradeReturns, x_ /; x > 0]]];
+			avgLossEficiency = 100 Mean[(#[[5]]-#[[2]])/(#[[9]]-#[[10]])&/@Extract[trades, Position[netTradeReturns, x_ /; x < 0]]];
 			sharpeTrades = Mean[netTradeReturns]/StandardDeviation[netTradeReturns];
 			mcwt = Max@Differences@Flatten@Position[If[# <= 0, 1, 0] & /@ netTradeReturns, 1] - 1;
 			mclt = Max@Differences@Flatten@Position[If[# >= 0, 1, 0] & /@ netTradeReturns, 1] - 1;
     		tradesPerformance = {
-    			{
-	    			{"Number of Trades",numberOfTrades},
+    			(*{*)
+	    			{"", "Total", "Winning", "Lossing", "", SpanFromLeft},
+					{"Number",numberOfTrades, Row[{winningTrades,"(",numForm[100. winningTrades/numberOfTrades],"%)"}],Row[{lossingTrades,"(",numForm[100. lossingTrades/numberOfTrades],"%)"}], SpanFromAbove, SpanFromBoth},
+					{"Average Days",numForm[avgDaysTrade],numForm[avgDaysProfitTrade],numForm[avgDaysLossTrade], SpanFromAbove, SpanFromBoth},
+					{"Average P/L",Row[{numForm[avgTrade],"(",numForm[100 avgTradeReturn],"%)"}],Row[{avgProfitTrade,"(",numForm[100. avgProfitTradeReturn],"%)"}],Row[{avgLossTrade,"(",numForm[- 100. avgLossTradeReturn],"%)"}],"Payoff Ratio", numForm[payoffRatio]},
+	    			{"Average Eficiency",Row[{numForm[avgEficiency],"%"}],Row[{numForm[avgProfitEficiency],"%"}],Row[{numForm[avgLossEficiency],"%"}],"", SpanFromLeft},
+	    			{"Average MFE",Row[{numForm[avgMFE],"%"}],Row[{numForm[avgProfitMFE],"%"}],Row[{numForm[avgLossMFE],"%"}],SpanFromAbove, SpanFromBoth},
+	    			{"Average MAE",Row[{numForm[avgMAE],"%"}],Row[{numForm[avgProfitMAE],"%"}],Row[{numForm[avgLossMAE],"%"}],SpanFromAbove, SpanFromBoth},
+	    			{"Average Trades/Year",numForm[365. numberOfTrades/totalNumberOfDays],numForm[365. winningTrades/totalNumberOfDays],numForm[365. lossingTrades/totalNumberOfDays],SpanFromAbove, SpanFromBoth},
+	    			{"Max. consecutive","",mcwt,mclt,SpanFromAbove, SpanFromBoth},
+	    			{"Largest P/L","",Row[{numForm[100. Max[netTradeReturns]],"%"}],Row[{numForm[-100. Min[netTradeReturns]],"%"}],"Sharpe Ratio",numForm[sharpeTrades]}
+	    			(*{"Number of Trades",numberOfTrades},
 	    			{"Winning Trades",Row[{winningTrades,"(",numForm[100. winningTrades/numberOfTrades],"%)"}]},
 	    			{"Lossing Trades",Row[{lossingTrades,"(",numForm[100. lossingTrades/numberOfTrades],"%)"}]},
 	    			{"Average Trades/Year",numForm[365. numberOfTrades/totalNumberOfDays]},
@@ -282,7 +294,7 @@ Report[stock_Stock,strategy_Strategy,period_List,positions_List, o : OptionsPatt
     				{"Average Days Trade",numForm[avgDaysTrade]},
     				{"Average Days Profit Trade",numForm[avgDaysProfitTrade]},
     				{"Average Days Loss Trade",numForm[avgDaysLossTrade]},
-    				{"Average Eficiency",Row[{numForm[avgEficiency],"%"}]},
+    				{"Average Eficiency",Row[{numForm[avgEficiency],"%"}]}, (*Profit & Loss *)
     				{"Max. consecutive win trades",mcwt},
     				{"Max. consecutive loss trades",mclt}
     			},
@@ -293,7 +305,7 @@ Report[stock_Stock,strategy_Strategy,period_List,positions_List, o : OptionsPatt
     				{"Average MAE",Row[{numForm[avgMAE],"%"}]},
     				{"Average Profit MAE",Row[{numForm[avgProfitMAE],"%"}]},
     				{"Average Loss MAE",Row[{numForm[avgLossMAE],"%"}]}
-    			}
+    			}*)
     		};	        
 
     		netTradeReturnsSlip = Map[((#[[6]] (1-commission)+#[[8]])/(#[[3]] (1+commission))-1) &, trades];
@@ -390,12 +402,24 @@ Report[stock_Stock,strategy_Strategy,period_List,positions_List, o : OptionsPatt
 			avgProfitMAE = 100 Mean[(#[[10]]/#[[2]]-1)&/@Extract[trades, Position[netTradeReturns, x_ /; x > 0]]];
 			avgLossMAE = 100 Mean[(#[[10]]/#[[2]]-1)&/@Extract[trades, Position[netTradeReturns, x_ /; x < 0]]];
 			avgEficiency = 100 Mean[(#[[5]]-#[[2]])/(#[[9]]-#[[10]])&/@trades];
+			avgProfitEficiency = 100 Mean[(#[[5]]-#[[2]])/(#[[9]]-#[[10]])&/@Extract[trades, Position[netTradeReturns, x_ /; x > 0]]];
+			avgLossEficiency = 100 Mean[(#[[5]]-#[[2]])/(#[[9]]-#[[10]])&/@Extract[trades, Position[netTradeReturns, x_ /; x < 0]]];
 			sharpeTrades = Mean[netTradeReturns]/StandardDeviation[netTradeReturns];
 			mcwt = Max@Differences@Flatten@Position[If[# <= 0, 1, 0] & /@ netTradeReturns, 1] - 1;
 			mclt = Max@Differences@Flatten@Position[If[# >= 0, 1, 0] & /@ netTradeReturns, 1] - 1;
     		tradesPerformance = {
-    			{
-	    			{"Number of Trades",numberOfTrades},
+    			(*{*)
+	    			{"", "Total", "Winning", "Lossing", "", SpanFromLeft},
+					{"Number",numberOfTrades, Row[{winningTrades,"(",numForm[100. winningTrades/numberOfTrades],"%)"}],Row[{lossingTrades,"(",numForm[100. lossingTrades/numberOfTrades],"%)"}], SpanFromAbove, SpanFromBoth},
+					{"Average Days",numForm[avgDaysTrade],numForm[avgDaysProfitTrade],numForm[avgDaysLossTrade], SpanFromAbove, SpanFromBoth},
+					{"Average P/L",Row[{numForm[avgTrade],"(",numForm[100 avgTradeReturn],"%)"}],Row[{avgProfitTrade,"(",numForm[100. avgProfitTradeReturn],"%)"}],Row[{avgLossTrade,"(",numForm[- 100. avgLossTradeReturn],"%)"}],"Payoff Ratio", numForm[payoffRatio]},
+	    			{"Average Eficiency",Row[{numForm[avgEficiency],"%"}],Row[{numForm[avgProfitEficiency],"%"}],Row[{numForm[avgLossEficiency],"%"}],"", SpanFromLeft},
+	    			{"Average MFE",Row[{numForm[avgMFE],"%"}],Row[{numForm[avgProfitMFE],"%"}],Row[{numForm[avgLossMFE],"%"}],SpanFromAbove, SpanFromBoth},
+	    			{"Average MAE",Row[{numForm[avgMAE],"%"}],Row[{numForm[avgProfitMAE],"%"}],Row[{numForm[avgLossMAE],"%"}],SpanFromAbove, SpanFromBoth},
+	    			{"Average Trades/Year",numForm[365. numberOfTrades/totalNumberOfDays],numForm[365. winningTrades/totalNumberOfDays],numForm[365. lossingTrades/totalNumberOfDays],SpanFromAbove, SpanFromBoth},
+	    			{"Max. consecutive","",mcwt,mclt,SpanFromAbove, SpanFromBoth},
+	    			{"Largest P/L","",Row[{numForm[100. Max[netTradeReturns]],"%"}],Row[{numForm[-100. Min[netTradeReturns]],"%"}],"Sharpe Ratio",numForm[sharpeTrades]}
+	    			(*{"Number of Trades",numberOfTrades},
 	    			{"Winning Trades",Row[{winningTrades,"(",numForm[100. winningTrades/numberOfTrades],"%)"}]},
 	    			{"Lossing Trades",Row[{lossingTrades,"(",numForm[100. lossingTrades/numberOfTrades],"%)"}]},
 	    			{"Average Trades/Year",numForm[365. numberOfTrades/totalNumberOfDays]},
@@ -413,7 +437,7 @@ Report[stock_Stock,strategy_Strategy,period_List,positions_List, o : OptionsPatt
     				{"Average Days Trade",numForm[avgDaysTrade]},
     				{"Average Days Profit Trade",numForm[avgDaysProfitTrade]},
     				{"Average Days Loss Trade",numForm[avgDaysLossTrade]},
-    				{"Average Eficiency",Row[{numForm[avgEficiency],"%"}]},
+    				{"Average Eficiency",Row[{numForm[avgEficiency],"%"}]}, (*Profit & Loss *)
     				{"Max. consecutive win trades",mcwt},
     				{"Max. consecutive loss trades",mclt}
     			},
@@ -424,7 +448,7 @@ Report[stock_Stock,strategy_Strategy,period_List,positions_List, o : OptionsPatt
     				{"Average MAE",Row[{numForm[avgMAE],"%"}]},
     				{"Average Profit MAE",Row[{numForm[avgProfitMAE],"%"}]},
     				{"Average Loss MAE",Row[{numForm[avgLossMAE],"%"}]}
-    			}
+    			}*)
     		};
     		
     		netTradeReturnsSlip = Map[((#[[6]] (1-commission)+#[[8]])/(#[[3]] (1+commission))-1) &, trades];

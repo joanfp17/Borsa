@@ -10,9 +10,9 @@ Stock::usage = "Stock[s_String] obtains an Stock object, Stock[s,OHLCV,Adj,Divid
 	Stock[s_String, from_List, to_List] obtains an Stock object with the financial information from {year,month,day} to {year,month,day} of ticker s in yahoo.
 	Stock[][Properties]"
 Stock::arg = "The valid properties are `1`"
-weekPrices::usage = "WeekPrices[FD] Returns the temporal series of week prices
+(*weekPrices::usage = "WeekPrices[FD] Returns the temporal series of week prices
 	Input: Diary financial data obtained from Yahoo, {date,{open,high,low,close,volume},...}
-	Output: Weekly financial data,  {last date week,{open,high,low,close,volume},...}"
+	Output: Weekly financial data,  {last date week,{open,high,low,close,volume},...}"*)
 
 Begin["`Private`"] (* Begin Private Context *) 
 
@@ -128,7 +128,7 @@ Stock[s_String, from_List, to_List] :=
 Stock[s_String,ohlcv_List,adjp_List,div_List,split_List][p_String] :=
     Which[
      p === "Properties",
-     {"Name","Date","Open","Close","High","Low","Volume","OHLCV","Median Price","Intraday Range","Interday Range","Dividends","Splits","Adjusted"},
+     {"Name","Date","Open","Close","High","Low","Volume","OHLCV","Median Price","Intraday Range","Interday Range","Dividends","Splits","Adjusted","Weekly Prices","Monthly Prices"},
      p === "Name",
      s,
      p === "Date",
@@ -161,8 +161,58 @@ Stock[s_String,ohlcv_List,adjp_List,div_List,split_List][p_String] :=
 	 split,
 	 p === "Adjusted",
 	 adjp,
+	 p === "Monthly Prices",
+	 Module[ {d = Map[#[[1]] &, ohlcv], c,  mprices = {},i,j,pos,x},
+         For[i = 1, i <= (d[[-1, 1]] - d[[1, 1]]) + 1, i++,
+          For[j = If[ i == 1,
+                      d[[1, 2]],
+                      1
+                  ], 
+           j <= If[ i == (d[[-1, 1]] - d[[1, 1]]) + 1,
+                    d[[-1, 2]],
+                    12
+                ], j++,
+           pos = Flatten@Position[d, {d[[1, 1]] + i - 1, j, x_}];
+           c = ohlcv[[pos, 2]];
+           mprices = Append[mprices, {d[[pos[[1]]]], {c[[1, 1]], Max[c[[All, 2]]], 
+               Min[c[[All, 3]]], c[[-1, 4]], Plus @@ c[[All, 5]]}}]
+           ]
+          ];
+         mprices
+     ],
+     p === "Quarterly Prices",
+     Module[{d = Map[#[[1]] &, ohlcv], c, mprices = {}, i, pos1, pos2,pos3, pos4},
+ 		For[i = 1, i <= (d[[-1, 1]] - d[[1, 1]]) + 1, i++,(* Recorro anys *)
+  			pos1 = Flatten@
+    Position[d, {d[[1, 1]] + i - 1, m_, x_} /; (m == 1 || m == 2 || m == 3)];
+  pos2 = Flatten@
+    Position[d, {d[[1, 1]] + i - 1, m_, x_} /; (m == 4 || m == 5 || m == 6)];
+  pos3 = Flatten@
+    Position[d, {d[[1, 1]] + i - 1, m_, x_} /; (m == 7 || m == 8 || m == 9)];
+  pos4 = Flatten@
+    Position[d, {d[[1, 1]] + i - 1, m_, x_} /; (m == 10 || m == 11 || m == 12)];
+  If[Length[pos1] != 0, c = ohlcv[[pos1, 2]];
+   mprices = 
+    Append[mprices, {d[[pos1[[1]]]], {c[[1, 1]], Max[c[[All, 2]]], 
+       Min[c[[All, 3]]], c[[-1, 4]], Plus @@ c[[All, 5]]}}]];
+  If[Length[pos2] != 0, c = ohlcv[[pos2, 2]];
+   mprices = 
+    Append[mprices, {d[[pos2[[1]]]], {c[[1, 1]], Max[c[[All, 2]]], 
+       Min[c[[All, 3]]], c[[-1, 4]], Plus @@ c[[All, 5]]}}]];
+  If[Length[pos3] != 0, c = ohlcv[[pos3, 2]];
+   mprices = 
+    Append[mprices, {d[[pos3[[1]]]], {c[[1, 1]], Max[c[[All, 2]]], 
+       Min[c[[All, 3]]], c[[-1, 4]], Plus @@ c[[All, 5]]}}]];
+  If[Length[pos4] != 0, c = ohlcv[[pos4, 2]];
+   mprices = 
+    Append[mprices, {d[[pos4[[1]]]], {c[[1, 1]], Max[c[[All, 2]]], 
+       Min[c[[All, 3]]], c[[-1, 4]], Plus @@ c[[All, 5]]}}]]
+  ];
+ mprices],
+     p === "Weekly Prices",
+     weekPrices[ohlcv],
      True,
-     Message[Stock::arg,{"Name","Date","Open","Close","High","Low","Volume","OHLCV","Median Price","Intraday Range","Interday Range","Dividends","Splits","Adjusted"}]
+     Message[Stock::arg,{"Name","Date","Open","Close","High","Low","Volume","OHLCV","Median Price","Intraday Range","Interday Range","Dividends","Splits","Adjusted","Weekly Prices","Monthly Prices"}]
     ]
 
 Stock[s_String,ohlcv_List,adjp_List,div_List,split_List][fd_List,ld_List] :=
@@ -202,18 +252,18 @@ dayNumber[data_] :=
     ]
 
 oneWeekPrices[datelist_] :=
-    Module[ {firstday, weekdays = {}, prices = {}, i, ii},
-        firstday = dayNumber[datelist[[1, 1]]];
+    Module[ {actualday, weekdays = {}, prices, i, ii},
+        actualday = dayNumber[datelist[[1, 1]]];
         i = 1;
-        While[(i <= Length[datelist] && dayNumber[datelist[[i, 1]]] >= 1 && 
-           dayNumber[datelist[[i, 1]]] <= firstday && Length[weekdays] < 5),
-                 weekdays = Append[weekdays, datelist[[i]]];
-                 i++];
-        prices = Append[prices, weekdays[[Length[weekdays]]][[2, 1]]];
-        prices = Append[prices, Max[Map[#[[2, 2]] &, weekdays]]];
-        prices = Append[prices, Min[Map[#[[2, 3]] &, weekdays]]];
-        prices = Append[prices, weekdays[[1, 2, 4]]];
-        prices = Append[prices, Sum[weekdays[[ii, 2, 5]], {ii, Length[weekdays]}]];
+        While[(i <= Length[datelist] && 
+           dayNumber[datelist[[i, 1]]] == actualday && Length[weekdays] <= 5),
+         actualday++;
+         weekdays = Append[weekdays, datelist[[i]]];
+         i++];
+        prices = {weekdays[[1, 2, 1]], Max[Map[#[[2, 2]] &, weekdays]], 
+          Min[Map[#[[2, 3]] &, weekdays]], 
+          weekdays[[Length[weekdays], 2, 4]], 
+          Sum[weekdays[[ii, 2, 5]], {ii, Length[weekdays]}]};
         {Length[weekdays], {weekdays[[Length[weekdays], 1]], prices}}
     ]
 
