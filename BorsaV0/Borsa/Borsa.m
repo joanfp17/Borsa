@@ -40,9 +40,10 @@ MPPredictions::usage = "MPPredictions[p,ts,m,opts]
 	Input: prediction function, step series, embedding dimension
 	opts: Options[PredictorFunction]
 	Output: predictor measurements"
-smoothDCT::usage = "smoothDCT[fd,n]
-	Input: financial data {{date,price},...} and smoothing days number
+smoothDCT::usage = "smoothDCT[s_Stock,n_,opts:OptionsPattern[]]
+	Input: financial data and smoothing days number
 	Output: smoothed DCT step series"
+smoothDCT1::usage = "smoothDCT1[data_List,n_Integer]"
 
 emd::usage = "emd[ts] computes the Empirical Mode Decomposition of ts."
 
@@ -271,7 +272,7 @@ PlotRange\[Rule]Full works regardless*)ImageSize -> {xAxisLength, 40},
 SetAttributes[ISTradingChart, ReadProtected];
 
 
-Options[kNNForecast] = {Weighting->Mean,Options[Nearest]};
+Options[kNNForecast] = {"Weighting"->Mean,Options[Nearest]};
 
 kNNForecast[s_List,m_Integer,dt_Integer,k_Integer:1,opts:OptionsPattern[]] :=
     Module[ {s1 = s,embN,punts,valors,posicions,x0,x0N,p},
@@ -283,7 +284,7 @@ kNNForecast[s_List,m_Integer,dt_Integer,k_Integer:1,opts:OptionsPattern[]] :=
             x0 = s1[[-m;;]];
             x0N = Rest[x0/x0[[1]] ];
             p = Nearest[punts-> posicions,x0N,k,FilterRules[{opts},Options[Nearest]]];
-            s1 = Append[s1,OptionValue[Weighting][x0[[1]] valors[[#]]&/@p]],
+            s1 = Append[s1,OptionValue["Weighting"][x0[[1]] valors[[#]]&/@p]],
             dt
         ];
         s1
@@ -333,8 +334,10 @@ smoothDCT1[data_,n_] :=
         3
     ]
 
-smoothDCT[fd_,n_] :=
-    Transpose[MapAt[smoothDCT1[#,n]&,Transpose[FDClose[fd]],2]];
+Options[smoothDCT]:={"Property"->"Close"};
+
+smoothDCT[s_Stock,n_,opts:OptionsPattern[]] :=
+    Transpose[MapAt[smoothDCT1[#,n]&,Transpose[s[OptionValue["Property"]]],2]];
     
 isMonotonic[x_List] :=
     Length[findPeaks[x]] Length[findPeaks[-x]] == 0;

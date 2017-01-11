@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    293540,       5766]
-NotebookOptionsPosition[    291583,       5695]
-NotebookOutlinePosition[    291926,       5710]
-CellTagsIndexPosition[    291883,       5707]
+NotebookDataLength[    315668,       6338]
+NotebookOptionsPosition[    312324,       6221]
+NotebookOutlinePosition[    312667,       6236]
+CellTagsIndexPosition[    312624,       6233]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -37,7 +37,7 @@ Cell[BoxData[
    ",", "\<\"datasets\"\>", ",", "\<\"methods\"\>", ",", "\<\"base\"\>"}], 
   "}"}]], "Output",
  CellChangeTimes->{3.6901008881612935`*^9, 3.6901029588362937`*^9, 
-  3.6901090185482936`*^9, 3.690115879255294*^9}]
+  3.6901090185482936`*^9, 3.690115879255294*^9, 3.6907787235728827`*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -52,7 +52,7 @@ Cell[BoxData["\<\"C:\\\\Users\\\\fabregas.TCMM\\\\Google \
 Drive\\\\Borsa\\\\Ticker\"\>"], "Output",
  CellChangeTimes->{3.6901200941332936`*^9, 3.690120889946294*^9, 
   3.6901210237822933`*^9, 3.690522936266282*^9, 3.690525152403682*^9, 
-  3.690541397120882*^9}]
+  3.690541397120882*^9, 3.69072273103168*^9, 3.6907787238878827`*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -295,12 +295,12 @@ Cell[BoxData[
                 RowBox[{"2000", ",", "1", ",", "3"}], "}"}], "]"}]}, 
            "DateObject", Editable -> False], "\"  to  \"", 
           TemplateBox[{
-            RowBox[{"\"Tue 6 Dec 2016\""}], 
+            RowBox[{"\"Tue 13 Dec 2016\""}], 
             RowBox[{"DateObject", "[", 
               RowBox[{"{", 
-                RowBox[{"2016", ",", "12", ",", "6"}], "}"}], "]"}]}, 
+                RowBox[{"2016", ",", "12", ",", "13"}], "}"}], "]"}]}, 
            "DateObject", Editable -> False]}, "RowDefault"]}, {
-        RowBox[{"4397", " ", "\" bars\""}]}}, 
+        RowBox[{"4402", " ", "\" bars\""}]}}, 
       GridBoxAlignment -> {"Columns" -> {{Left}}}, DefaultBaseStyle -> 
       "Column", 
       GridBoxItemSize -> {
@@ -333,7 +333,8 @@ Cell[BoxData[
        RowBox[{"Spacings", "\[Rule]", "Automatic"}]}], "]"}]& )]], "Output",
  CellChangeTimes->{
   3.690522965640282*^9, {3.690525143615682*^9, 3.6905251559096823`*^9}, 
-   3.690541407632882*^9}]
+   3.690541407632882*^9, {3.69072272097068*^9, 3.69072273580968*^9}, 
+   3.6907787294598827`*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -348,9 +349,11 @@ Cell[BoxData[
    ",", "\<\"Close\"\>", ",", "\<\"High\"\>", ",", "\<\"Low\"\>", 
    ",", "\<\"Volume\"\>", ",", "\<\"OHLCV\"\>", ",", "\<\"Median Price\"\>", 
    ",", "\<\"Intraday Range\"\>", ",", "\<\"Interday Range\"\>", 
-   ",", "\<\"Dividends\"\>", ",", "\<\"Splits\"\>", ",", "\<\"Adjusted\"\>"}],
-   "}"}]], "Output",
- CellChangeTimes->{3.6901208427402935`*^9, 3.6901210520842934`*^9}]
+   ",", "\<\"Dividends\"\>", ",", "\<\"Splits\"\>", ",", "\<\"Adjusted\"\>", 
+   ",", "\<\"Weekly Prices\"\>", ",", "\<\"Monthly Prices\"\>", 
+   ",", "\<\"Actualize\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{3.6901208427402935`*^9, 3.6901210520842934`*^9, 
+  3.6907787473268824`*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -3000,8 +3003,8 @@ SBT2ot8BGMTRRw==
           Clip[System`TradingChartDump`$fastpos$46035, {0, 100}] - 0.5; 
          System`TradingChartDump`$fastpos$46035 = (
              Floor[System`TradingChartDump`$controlmax$46035] - Floor[
-             System`TradingChartDump`$controlmin$46035]) 
-            System`TradingChartDump`$fastpos$46035/100 + 
+             System`TradingChartDump`$controlmin$46035]) (
+             System`TradingChartDump`$fastpos$46035/100) + 
            Floor[System`TradingChartDump`$controlmin$46035]; Clip[
            Ceiling[System`TradingChartDump`$fastpos$46035], {
            Floor[System`TradingChartDump`$controlmin$46035] + 1, 
@@ -3589,12 +3592,12 @@ SBT2ot8BGMTRRw==
            Offset[{0, 
              (If[Head[#] === Offset, -First[#], 0]& )[
              System`TradingChartDump`$dateaxisgap$46035]}, {0.5, 
-             ((-System`TradingChartDump`$aspectratio$46035 100/4 - 
+             (((-System`TradingChartDump`$aspectratio$46035) (100/4) - 
                System`TradingChartDump`$subplotgap$46035) (
                System`TradingChartDump`i$ - 1) + 
              If[Head[#] === Offset, 0, -#]& )[
              System`TradingChartDump`$dateaxisgap$46035]}], {Left, Top}, {
-           100, System`TradingChartDump`$aspectratio$46035 100/4}]], 
+           100, System`TradingChartDump`$aspectratio$46035 (100/4)}]], 
          Deploy[
           Inset[
            Graphics[
@@ -3671,7 +3674,7 @@ SBT2ot8BGMTRRw==
              Switch[System`TradingChartDump`$axesorigin$46035, Left, 0.5, 
               Alternatives[Right, Automatic, 
                Blank[]], 100.5], 
-             ((-System`TradingChartDump`$aspectratio$46035 100/4 - 
+             (((-System`TradingChartDump`$aspectratio$46035) (100/4) - 
                System`TradingChartDump`$subplotgap$46035) (
                System`TradingChartDump`i$ - 1) + 
              If[Head[#] === Offset, 0, -#]& )[
@@ -3679,7 +3682,8 @@ SBT2ot8BGMTRRw==
            Switch[
            System`TradingChartDump`$axesorigin$46035, Left, {Right, Top}, 
             Blank[], {Left, Top}], {
-           Automatic, System`TradingChartDump`$aspectratio$46035 100/4}]]}], {
+           Automatic, 
+            System`TradingChartDump`$aspectratio$46035 (100/4)}]]}], {
        System`TradingChartDump`i, 
         Length[
          System`TradingChartDump`$layoutData$46035[
@@ -3692,7 +3696,7 @@ SBT2ot8BGMTRRw==
         Opacity[0], 
         Point[
          Offset[{0, -15}, {
-          0, -System`TradingChartDump`$aspectratio$46035 100 4^(-1) Length[
+          0, (((-System`TradingChartDump`$aspectratio$46035) 100)/4) Length[
              System`TradingChartDump`$layoutData$46035[
              "SubplotIndicatorNames"]]}]]}, StandardForm, Graphics],
       ImageSizeCache->{{12.418367346938776`, 15.418367346938776`}, {
@@ -4549,8 +4553,8 @@ kPBCqIfxAUP6nGE=
           Clip[System`TradingChartDump`$fastpos$18955, {0, 100}] - 0.5; 
          System`TradingChartDump`$fastpos$18955 = (
              Floor[System`TradingChartDump`$controlmax$18955] - Floor[
-             System`TradingChartDump`$controlmin$18955]) 
-            System`TradingChartDump`$fastpos$18955/100 + 
+             System`TradingChartDump`$controlmin$18955]) (
+             System`TradingChartDump`$fastpos$18955/100) + 
            Floor[System`TradingChartDump`$controlmin$18955]; Clip[
            Ceiling[System`TradingChartDump`$fastpos$18955], {
            Floor[System`TradingChartDump`$controlmin$18955] + 1, 
@@ -5139,12 +5143,12 @@ kPBCqIfxAUP6nGE=
            Offset[{0, 
              (If[Head[#] === Offset, -First[#], 0]& )[
              System`TradingChartDump`$dateaxisgap$18955]}, {0.5, 
-             ((-System`TradingChartDump`$aspectratio$18955 100/4 - 
+             (((-System`TradingChartDump`$aspectratio$18955) (100/4) - 
                System`TradingChartDump`$subplotgap$18955) (
                System`TradingChartDump`i$ - 1) + 
              If[Head[#] === Offset, 0, -#]& )[
              System`TradingChartDump`$dateaxisgap$18955]}], {Left, Top}, {
-           100, System`TradingChartDump`$aspectratio$18955 100/4}]], 
+           100, System`TradingChartDump`$aspectratio$18955 (100/4)}]], 
          Deploy[
           Inset[
            Graphics[
@@ -5222,7 +5226,7 @@ kPBCqIfxAUP6nGE=
              Switch[System`TradingChartDump`$axesorigin$18955, Left, 0.5, 
               Alternatives[Right, Automatic, 
                Blank[]], 100.5], 
-             ((-System`TradingChartDump`$aspectratio$18955 100/4 - 
+             (((-System`TradingChartDump`$aspectratio$18955) (100/4) - 
                System`TradingChartDump`$subplotgap$18955) (
                System`TradingChartDump`i$ - 1) + 
              If[Head[#] === Offset, 0, -#]& )[
@@ -5230,7 +5234,8 @@ kPBCqIfxAUP6nGE=
            Switch[
            System`TradingChartDump`$axesorigin$18955, Left, {Right, Top}, 
             Blank[], {Left, Top}], {
-           Automatic, System`TradingChartDump`$aspectratio$18955 100/4}]]}], {
+           Automatic, 
+            System`TradingChartDump`$aspectratio$18955 (100/4)}]]}], {
        System`TradingChartDump`i, 
         Length[
          System`TradingChartDump`$layoutData$18955[
@@ -5243,7 +5248,7 @@ kPBCqIfxAUP6nGE=
         Opacity[0], 
         Point[
          Offset[{0, -15}, {
-          0, -System`TradingChartDump`$aspectratio$18955 100 4^(-1) Length[
+          0, (((-System`TradingChartDump`$aspectratio$18955) 100)/4) Length[
              System`TradingChartDump`$layoutData$18955[
              "SubplotIndicatorNames"]]}]]}, StandardForm, Graphics],
       ImageSizeCache->{{10.091836734693876`, 13.091836734693876`}, {
@@ -5690,8 +5695,529 @@ fqgeWT2YDwC5O7dX
 }, Open  ]]
 }, Open  ]],
 
+Cell[CellGroupData[{
+
 Cell["Actualize Stocks", "Section",
- CellChangeTimes->{{3.6901218633292933`*^9, 3.6901218686972933`*^9}}]
+ CellChangeTimes->{{3.6901218633292933`*^9, 3.6901218686972933`*^9}}],
+
+Cell["\<\
+Hem d\[CloseCurlyQuote]actualitzar almenys un any endarrere per assegurar-nos \
+que els preus ajustats per splits i dividents s\[OAcute]n correctes.\
+\>", "Text",
+ CellChangeTimes->{{3.6907220861416802`*^9, 3.69072215672468*^9}}],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.69072197156468*^9, 3.69072197676068*^9}, {
+   3.69072217076468*^9, 3.6907221829076805`*^9}, {3.6907223087046804`*^9, 
+   3.6907223701676803`*^9}, {3.6907224217096806`*^9, 3.69072246474868*^9}, {
+   3.69072251011568*^9, 3.69072252782768*^9}, {3.69072258364968*^9, 
+   3.69072266590368*^9}, 3.69072269742268*^9, 3.6907227697896805`*^9, 
+   3.6907228675066805`*^9, 3.6907231856906805`*^9, {3.69072327017668*^9, 
+   3.6907232782566805`*^9}, {3.69072332149868*^9, 3.6907233910296803`*^9}, {
+   3.6907251872096806`*^9, 3.6907251889366803`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"actualizeStock", "[", "bbva", "]"}]], "Input",
+ CellChangeTimes->{{3.69072274934768*^9, 3.6907227564696803`*^9}}],
+
+Cell[BoxData[
+ TemplateBox[{PanelBox[
+    TagBox[
+     GridBox[{{"\"BBVA.MC\""}, {
+        TemplateBox[{"\"from  \"", 
+          TemplateBox[{
+            RowBox[{"\"Mon 3 Jan 2000\""}], 
+            RowBox[{"DateObject", "[", 
+              RowBox[{"{", 
+                RowBox[{"2000", ",", "1", ",", "3"}], "}"}], "]"}]}, 
+           "DateObject", Editable -> False], "\"  to  \"", 
+          TemplateBox[{
+            RowBox[{"\"Fri 4 Dec 2015\""}], 
+            RowBox[{"DateObject", "[", 
+              RowBox[{"{", 
+                RowBox[{"2015", ",", "12", ",", "4"}], "}"}], "]"}]}, 
+           "DateObject", Editable -> False]}, "RowDefault"]}, {
+        RowBox[{"4135", " ", "\" bars\""}]}}, 
+      GridBoxAlignment -> {"Columns" -> {{Left}}}, DefaultBaseStyle -> 
+      "Column", 
+      GridBoxItemSize -> {
+       "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Column"]],
+   StyleBox["\"Stock Object\"", 16, StripOnInput -> False]},
+  "Labeled",
+  DisplayFunction->(GridBox[{{
+      ItemBox[#2, Alignment -> {Left, Inherited}, DefaultBaseStyle -> 
+       "PanelLabel"]}, {
+      TagBox[
+       ItemBox[
+        PaneBox[
+         TagBox[#, "SkipImageSizeLevel"], Alignment -> {Center, Baseline}, 
+         BaselinePosition -> Baseline], DefaultBaseStyle -> "Labeled"], 
+       "SkipImageSizeLevel"]}}, 
+    GridBoxAlignment -> {"Columns" -> {{Center}}, "Rows" -> {{Center}}}, 
+    AutoDelete -> False, 
+    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+    BaselinePosition -> {2, 1}]& ),
+  InterpretationFunction->(RowBox[{"Labeled", "[", 
+     RowBox[{#, ",", 
+       RowBox[{"{", #2, "}"}], ",", 
+       RowBox[{"{", 
+         RowBox[{"{", 
+           RowBox[{"Top", ",", "Left"}], "}"}], "}"}], ",", 
+       RowBox[{"DefaultLabelStyle", "\[Rule]", "\"PanelLabel\""}], ",", 
+       RowBox[{"LabelStyle", "\[Rule]", 
+         RowBox[{"{", "}"}]}], ",", 
+       RowBox[{"RotateLabel", "\[Rule]", "False"}], ",", 
+       RowBox[{"Spacings", "\[Rule]", "Automatic"}]}], "]"}]& )]], "Output",
+ CellChangeTimes->{{3.69072277423668*^9, 3.69072277587568*^9}, 
+   3.69072337561668*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"bbva", "[", 
+  RowBox[{"{", 
+   RowBox[{"2015", ",", "12", ",", "6"}], "}"}], "]"}]], "Input",
+ CellChangeTimes->{{3.69072313195368*^9, 3.69072316001168*^9}}],
+
+Cell[BoxData[
+ TemplateBox[{PanelBox[
+    TagBox[
+     GridBox[{{"\"BBVA.MC\""}, {
+        TemplateBox[{"\"from  \"", 
+          TemplateBox[{
+            RowBox[{"\"Mon 3 Jan 2000\""}], 
+            RowBox[{"DateObject", "[", 
+              RowBox[{"{", 
+                RowBox[{"2000", ",", "1", ",", "3"}], "}"}], "]"}]}, 
+           "DateObject", Editable -> False], "\"  to  \"", 
+          TemplateBox[{
+            RowBox[{"\"Fri 4 Dec 2015\""}], 
+            RowBox[{"DateObject", "[", 
+              RowBox[{"{", 
+                RowBox[{"2015", ",", "12", ",", "4"}], "}"}], "]"}]}, 
+           "DateObject", Editable -> False]}, "RowDefault"]}, {
+        RowBox[{"4135", " ", "\" bars\""}]}}, 
+      GridBoxAlignment -> {"Columns" -> {{Left}}}, DefaultBaseStyle -> 
+      "Column", 
+      GridBoxItemSize -> {
+       "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Column"]],
+   StyleBox["\"Stock Object\"", 16, StripOnInput -> False]},
+  "Labeled",
+  DisplayFunction->(GridBox[{{
+      ItemBox[#2, Alignment -> {Left, Inherited}, DefaultBaseStyle -> 
+       "PanelLabel"]}, {
+      TagBox[
+       ItemBox[
+        PaneBox[
+         TagBox[#, "SkipImageSizeLevel"], Alignment -> {Center, Baseline}, 
+         BaselinePosition -> Baseline], DefaultBaseStyle -> "Labeled"], 
+       "SkipImageSizeLevel"]}}, 
+    GridBoxAlignment -> {"Columns" -> {{Center}}, "Rows" -> {{Center}}}, 
+    AutoDelete -> False, 
+    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+    BaselinePosition -> {2, 1}]& ),
+  InterpretationFunction->(RowBox[{"Labeled", "[", 
+     RowBox[{#, ",", 
+       RowBox[{"{", #2, "}"}], ",", 
+       RowBox[{"{", 
+         RowBox[{"{", 
+           RowBox[{"Top", ",", "Left"}], "}"}], "}"}], ",", 
+       RowBox[{"DefaultLabelStyle", "\[Rule]", "\"PanelLabel\""}], ",", 
+       RowBox[{"LabelStyle", "\[Rule]", 
+         RowBox[{"{", "}"}]}], ",", 
+       RowBox[{"RotateLabel", "\[Rule]", "False"}], ",", 
+       RowBox[{"Spacings", "\[Rule]", "Automatic"}]}], "]"}]& )]], "Output",
+ CellChangeTimes->{3.69072316366968*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"connectDB", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.6907250365936804`*^9, 3.69072504094868*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"quantmod\"\>", ",", "\<\"TTR\"\>", ",", "\<\"xts\"\>", 
+   ",", "\<\"zoo\"\>", ",", "\<\"Defaults\"\>", ",", "\<\"stats\"\>", 
+   ",", "\<\"graphics\"\>", ",", "\<\"grDevices\"\>", ",", "\<\"utils\"\>", 
+   ",", "\<\"datasets\"\>", ",", "\<\"methods\"\>", ",", "\<\"base\"\>"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{3.69072504626068*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"bbva", "[", "\"\<Actualize\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.69072437527168*^9, 3.69072437795768*^9}, {
+  3.69072449869868*^9, 3.6907245192186804`*^9}, {3.69072463647968*^9, 
+  3.69072464118268*^9}}],
+
+Cell[BoxData[
+ TemplateBox[{PanelBox[
+    TagBox[
+     GridBox[{{"\"BBVA.MC\""}, {
+        TemplateBox[{"\"from  \"", 
+          TemplateBox[{
+            RowBox[{"\"Mon 3 Jan 2000\""}], 
+            RowBox[{"DateObject", "[", 
+              RowBox[{"{", 
+                RowBox[{"2000", ",", "1", ",", "3"}], "}"}], "]"}]}, 
+           "DateObject", Editable -> False], "\"  to  \"", 
+          TemplateBox[{
+            RowBox[{"\"Tue 13 Dec 2016\""}], 
+            RowBox[{"DateObject", "[", 
+              RowBox[{"{", 
+                RowBox[{"2016", ",", "12", ",", "13"}], "}"}], "]"}]}, 
+           "DateObject", Editable -> False]}, "RowDefault"]}, {
+        RowBox[{"4402", " ", "\" bars\""}]}}, 
+      GridBoxAlignment -> {"Columns" -> {{Left}}}, DefaultBaseStyle -> 
+      "Column", 
+      GridBoxItemSize -> {
+       "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Column"]],
+   StyleBox["\"Stock Object\"", 16, StripOnInput -> False]},
+  "Labeled",
+  DisplayFunction->(GridBox[{{
+      ItemBox[#2, Alignment -> {Left, Inherited}, DefaultBaseStyle -> 
+       "PanelLabel"]}, {
+      TagBox[
+       ItemBox[
+        PaneBox[
+         TagBox[#, "SkipImageSizeLevel"], Alignment -> {Center, Baseline}, 
+         BaselinePosition -> Baseline], DefaultBaseStyle -> "Labeled"], 
+       "SkipImageSizeLevel"]}}, 
+    GridBoxAlignment -> {"Columns" -> {{Center}}, "Rows" -> {{Center}}}, 
+    AutoDelete -> False, 
+    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+    BaselinePosition -> {2, 1}]& ),
+  InterpretationFunction->(RowBox[{"Labeled", "[", 
+     RowBox[{#, ",", 
+       RowBox[{"{", #2, "}"}], ",", 
+       RowBox[{"{", 
+         RowBox[{"{", 
+           RowBox[{"Top", ",", "Left"}], "}"}], "}"}], ",", 
+       RowBox[{"DefaultLabelStyle", "\[Rule]", "\"PanelLabel\""}], ",", 
+       RowBox[{"LabelStyle", "\[Rule]", 
+         RowBox[{"{", "}"}]}], ",", 
+       RowBox[{"RotateLabel", "\[Rule]", "False"}], ",", 
+       RowBox[{"Spacings", "\[Rule]", "Automatic"}]}], "]"}]& )]], "Output",
+ CellChangeTimes->{3.69072464489968*^9, 3.69072496169168*^9, 
+  3.6907249958586802`*^9, 3.69072505162568*^9}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"noubbva", "=", 
+  RowBox[{"<<", "BBVA.MC"}]}]], "Input",
+ CellChangeTimes->{{3.69072508099768*^9, 3.69072510820268*^9}, 
+   3.6907791258908825`*^9}],
+
+Cell[BoxData[
+ TemplateBox[{PanelBox[
+    TagBox[
+     GridBox[{{"\"BBVA.MC\""}, {
+        TemplateBox[{"\"from  \"", 
+          TemplateBox[{
+            RowBox[{"\"Mon 3 Jan 2000\""}], 
+            RowBox[{"DateObject", "[", 
+              RowBox[{"{", 
+                RowBox[{"2000", ",", "1", ",", "3"}], "}"}], "]"}]}, 
+           "DateObject", Editable -> False], "\"  to  \"", 
+          TemplateBox[{
+            RowBox[{"\"Tue 13 Dec 2016\""}], 
+            RowBox[{"DateObject", "[", 
+              RowBox[{"{", 
+                RowBox[{"2016", ",", "12", ",", "13"}], "}"}], "]"}]}, 
+           "DateObject", Editable -> False]}, "RowDefault"]}, {
+        RowBox[{"4402", " ", "\" bars\""}]}}, 
+      GridBoxAlignment -> {"Columns" -> {{Left}}}, DefaultBaseStyle -> 
+      "Column", 
+      GridBoxItemSize -> {
+       "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Column"]],
+   StyleBox["\"Stock Object\"", 16, StripOnInput -> False]},
+  "Labeled",
+  DisplayFunction->(GridBox[{{
+      ItemBox[#2, Alignment -> {Left, Inherited}, DefaultBaseStyle -> 
+       "PanelLabel"]}, {
+      TagBox[
+       ItemBox[
+        PaneBox[
+         TagBox[#, "SkipImageSizeLevel"], Alignment -> {Center, Baseline}, 
+         BaselinePosition -> Baseline], DefaultBaseStyle -> "Labeled"], 
+       "SkipImageSizeLevel"]}}, 
+    GridBoxAlignment -> {"Columns" -> {{Center}}, "Rows" -> {{Center}}}, 
+    AutoDelete -> False, 
+    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+    BaselinePosition -> {2, 1}]& ),
+  InterpretationFunction->(RowBox[{"Labeled", "[", 
+     RowBox[{#, ",", 
+       RowBox[{"{", #2, "}"}], ",", 
+       RowBox[{"{", 
+         RowBox[{"{", 
+           RowBox[{"Top", ",", "Left"}], "}"}], "}"}], ",", 
+       RowBox[{"DefaultLabelStyle", "\[Rule]", "\"PanelLabel\""}], ",", 
+       RowBox[{"LabelStyle", "\[Rule]", 
+         RowBox[{"{", "}"}]}], ",", 
+       RowBox[{"RotateLabel", "\[Rule]", "False"}], ",", 
+       RowBox[{"Spacings", "\[Rule]", "Automatic"}]}], "]"}]& )]], "Input",
+ CellChangeTimes->{{3.6907791388828826`*^9, 3.6907791388978825`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["bbva"], "Input",
+ CellChangeTimes->{{3.69072519331468*^9, 3.69072519404068*^9}}],
+
+Cell[BoxData[
+ TemplateBox[{PanelBox[
+    TagBox[
+     GridBox[{{"\"BBVA.MC\""}, {
+        TemplateBox[{"\"from  \"", 
+          TemplateBox[{
+            RowBox[{"\"Mon 3 Jan 2000\""}], 
+            RowBox[{"DateObject", "[", 
+              RowBox[{"{", 
+                RowBox[{"2000", ",", "1", ",", "3"}], "}"}], "]"}]}, 
+           "DateObject", Editable -> False], "\"  to  \"", 
+          TemplateBox[{
+            RowBox[{"\"Tue 6 Dec 2016\""}], 
+            RowBox[{"DateObject", "[", 
+              RowBox[{"{", 
+                RowBox[{"2016", ",", "12", ",", "6"}], "}"}], "]"}]}, 
+           "DateObject", Editable -> False]}, "RowDefault"]}, {
+        RowBox[{"4397", " ", "\" bars\""}]}}, 
+      GridBoxAlignment -> {"Columns" -> {{Left}}}, DefaultBaseStyle -> 
+      "Column", 
+      GridBoxItemSize -> {
+       "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Column"]],
+   StyleBox["\"Stock Object\"", 16, StripOnInput -> False]},
+  "Labeled",
+  DisplayFunction->(GridBox[{{
+      ItemBox[#2, Alignment -> {Left, Inherited}, DefaultBaseStyle -> 
+       "PanelLabel"]}, {
+      TagBox[
+       ItemBox[
+        PaneBox[
+         TagBox[#, "SkipImageSizeLevel"], Alignment -> {Center, Baseline}, 
+         BaselinePosition -> Baseline], DefaultBaseStyle -> "Labeled"], 
+       "SkipImageSizeLevel"]}}, 
+    GridBoxAlignment -> {"Columns" -> {{Center}}, "Rows" -> {{Center}}}, 
+    AutoDelete -> False, 
+    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+    BaselinePosition -> {2, 1}]& ),
+  InterpretationFunction->(RowBox[{"Labeled", "[", 
+     RowBox[{#, ",", 
+       RowBox[{"{", #2, "}"}], ",", 
+       RowBox[{"{", 
+         RowBox[{"{", 
+           RowBox[{"Top", ",", "Left"}], "}"}], "}"}], ",", 
+       RowBox[{"DefaultLabelStyle", "\[Rule]", "\"PanelLabel\""}], ",", 
+       RowBox[{"LabelStyle", "\[Rule]", 
+         RowBox[{"{", "}"}]}], ",", 
+       RowBox[{"RotateLabel", "\[Rule]", "False"}], ",", 
+       RowBox[{"Spacings", "\[Rule]", "Automatic"}]}], "]"}]& )]], "Output",
+ CellChangeTimes->{3.6907251949666805`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"newbbva", "=", 
+  RowBox[{"bbva", "[", "\"\<Actualize\>\"", "]"}]}]], "Input",
+ CellChangeTimes->{{3.690778763582883*^9, 3.6907787860918827`*^9}}],
+
+Cell[BoxData[
+ TemplateBox[{PanelBox[
+    TagBox[
+     GridBox[{{"\"BBVA.MC\""}, {
+        TemplateBox[{"\"from  \"", 
+          TemplateBox[{
+            RowBox[{"\"Mon 3 Jan 2000\""}], 
+            RowBox[{"DateObject", "[", 
+              RowBox[{"{", 
+                RowBox[{"2000", ",", "1", ",", "3"}], "}"}], "]"}]}, 
+           "DateObject", Editable -> False], "\"  to  \"", 
+          TemplateBox[{
+            RowBox[{"\"Wed 14 Dec 2016\""}], 
+            RowBox[{"DateObject", "[", 
+              RowBox[{"{", 
+                RowBox[{"2016", ",", "12", ",", "14"}], "}"}], "]"}]}, 
+           "DateObject", Editable -> False]}, "RowDefault"]}, {
+        RowBox[{"4403", " ", "\" bars\""}]}}, 
+      GridBoxAlignment -> {"Columns" -> {{Left}}}, DefaultBaseStyle -> 
+      "Column", 
+      GridBoxItemSize -> {
+       "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Column"]],
+   StyleBox["\"Stock Object\"", 16, StripOnInput -> False]},
+  "Labeled",
+  DisplayFunction->(GridBox[{{
+      ItemBox[#2, Alignment -> {Left, Inherited}, DefaultBaseStyle -> 
+       "PanelLabel"]}, {
+      TagBox[
+       ItemBox[
+        PaneBox[
+         TagBox[#, "SkipImageSizeLevel"], Alignment -> {Center, Baseline}, 
+         BaselinePosition -> Baseline], DefaultBaseStyle -> "Labeled"], 
+       "SkipImageSizeLevel"]}}, 
+    GridBoxAlignment -> {"Columns" -> {{Center}}, "Rows" -> {{Center}}}, 
+    AutoDelete -> False, 
+    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+    BaselinePosition -> {2, 1}]& ),
+  InterpretationFunction->(RowBox[{"Labeled", "[", 
+     RowBox[{#, ",", 
+       RowBox[{"{", #2, "}"}], ",", 
+       RowBox[{"{", 
+         RowBox[{"{", 
+           RowBox[{"Top", ",", "Left"}], "}"}], "}"}], ",", 
+       RowBox[{"DefaultLabelStyle", "\[Rule]", "\"PanelLabel\""}], ",", 
+       RowBox[{"LabelStyle", "\[Rule]", 
+         RowBox[{"{", "}"}]}], ",", 
+       RowBox[{"RotateLabel", "\[Rule]", "False"}], ",", 
+       RowBox[{"Spacings", "\[Rule]", "Automatic"}]}], "]"}]& )]], "Output",
+ CellChangeTimes->{3.690778790839883*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"bbva2", "=", 
+  RowBox[{"Stock", "[", 
+   RowBox[{"\"\<BBVA.MC\>\"", ",", 
+    RowBox[{"{", 
+     RowBox[{"2000", ",", "1", ",", "1"}], "}"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.6907788555978823`*^9, 3.6907788810808825`*^9}}],
+
+Cell[BoxData[
+ TemplateBox[{PanelBox[
+    TagBox[
+     GridBox[{{"\"BBVA.MC\""}, {
+        TemplateBox[{"\"from  \"", 
+          TemplateBox[{
+            RowBox[{"\"Mon 3 Jan 2000\""}], 
+            RowBox[{"DateObject", "[", 
+              RowBox[{"{", 
+                RowBox[{"2000", ",", "1", ",", "3"}], "}"}], "]"}]}, 
+           "DateObject", Editable -> False], "\"  to  \"", 
+          TemplateBox[{
+            RowBox[{"\"Wed 14 Dec 2016\""}], 
+            RowBox[{"DateObject", "[", 
+              RowBox[{"{", 
+                RowBox[{"2016", ",", "12", ",", "14"}], "}"}], "]"}]}, 
+           "DateObject", Editable -> False]}, "RowDefault"]}, {
+        RowBox[{"4403", " ", "\" bars\""}]}}, 
+      GridBoxAlignment -> {"Columns" -> {{Left}}}, DefaultBaseStyle -> 
+      "Column", 
+      GridBoxItemSize -> {
+       "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Column"]],
+   StyleBox["\"Stock Object\"", 16, StripOnInput -> False]},
+  "Labeled",
+  DisplayFunction->(GridBox[{{
+      ItemBox[#2, Alignment -> {Left, Inherited}, DefaultBaseStyle -> 
+       "PanelLabel"]}, {
+      TagBox[
+       ItemBox[
+        PaneBox[
+         TagBox[#, "SkipImageSizeLevel"], Alignment -> {Center, Baseline}, 
+         BaselinePosition -> Baseline], DefaultBaseStyle -> "Labeled"], 
+       "SkipImageSizeLevel"]}}, 
+    GridBoxAlignment -> {"Columns" -> {{Center}}, "Rows" -> {{Center}}}, 
+    AutoDelete -> False, 
+    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+    BaselinePosition -> {2, 1}]& ),
+  InterpretationFunction->(RowBox[{"Labeled", "[", 
+     RowBox[{#, ",", 
+       RowBox[{"{", #2, "}"}], ",", 
+       RowBox[{"{", 
+         RowBox[{"{", 
+           RowBox[{"Top", ",", "Left"}], "}"}], "}"}], ",", 
+       RowBox[{"DefaultLabelStyle", "\[Rule]", "\"PanelLabel\""}], ",", 
+       RowBox[{"LabelStyle", "\[Rule]", 
+         RowBox[{"{", "}"}]}], ",", 
+       RowBox[{"RotateLabel", "\[Rule]", "False"}], ",", 
+       RowBox[{"Spacings", "\[Rule]", "Automatic"}]}], "]"}]& )]], "Output",
+ CellChangeTimes->{3.6907788865798826`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"newbbva", "===", "bbva2"}]], "Input",
+ CellChangeTimes->{{3.6907788921478825`*^9, 3.6907788991128826`*^9}}],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{3.6907789007168827`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"actualizeStocks", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.6907792397868824`*^9, 3.6907792448958826`*^9}}],
+
+Cell[BoxData["\<\"Done\"\>"], "Print",
+ CellChangeTimes->{3.6907799596998825`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"bbva", "=", 
+  RowBox[{"<<", "\"\<BBVA.MC\>\""}]}]], "Input",
+ CellChangeTimes->{{3.690779967391883*^9, 3.6907799868298826`*^9}}],
+
+Cell[BoxData[
+ TemplateBox[{PanelBox[
+    TagBox[
+     GridBox[{{"\"BBVA.MC\""}, {
+        TemplateBox[{"\"from  \"", 
+          TemplateBox[{
+            RowBox[{"\"Mon 3 Jan 2000\""}], 
+            RowBox[{"DateObject", "[", 
+              RowBox[{"{", 
+                RowBox[{"2000", ",", "1", ",", "3"}], "}"}], "]"}]}, 
+           "DateObject", Editable -> False], "\"  to  \"", 
+          TemplateBox[{
+            RowBox[{"\"Wed 14 Dec 2016\""}], 
+            RowBox[{"DateObject", "[", 
+              RowBox[{"{", 
+                RowBox[{"2016", ",", "12", ",", "14"}], "}"}], "]"}]}, 
+           "DateObject", Editable -> False]}, "RowDefault"]}, {
+        RowBox[{"4403", " ", "\" bars\""}]}}, 
+      GridBoxAlignment -> {"Columns" -> {{Left}}}, DefaultBaseStyle -> 
+      "Column", 
+      GridBoxItemSize -> {
+       "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Column"]],
+   StyleBox["\"Stock Object\"", 16, StripOnInput -> False]},
+  "Labeled",
+  DisplayFunction->(GridBox[{{
+      ItemBox[#2, Alignment -> {Left, Inherited}, DefaultBaseStyle -> 
+       "PanelLabel"]}, {
+      TagBox[
+       ItemBox[
+        PaneBox[
+         TagBox[#, "SkipImageSizeLevel"], Alignment -> {Center, Baseline}, 
+         BaselinePosition -> Baseline], DefaultBaseStyle -> "Labeled"], 
+       "SkipImageSizeLevel"]}}, 
+    GridBoxAlignment -> {"Columns" -> {{Center}}, "Rows" -> {{Center}}}, 
+    AutoDelete -> False, 
+    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+    BaselinePosition -> {2, 1}]& ),
+  InterpretationFunction->(RowBox[{"Labeled", "[", 
+     RowBox[{#, ",", 
+       RowBox[{"{", #2, "}"}], ",", 
+       RowBox[{"{", 
+         RowBox[{"{", 
+           RowBox[{"Top", ",", "Left"}], "}"}], "}"}], ",", 
+       RowBox[{"DefaultLabelStyle", "\[Rule]", "\"PanelLabel\""}], ",", 
+       RowBox[{"LabelStyle", "\[Rule]", 
+         RowBox[{"{", "}"}]}], ",", 
+       RowBox[{"RotateLabel", "\[Rule]", "False"}], ",", 
+       RowBox[{"Spacings", "\[Rule]", "Automatic"}]}], "]"}]& )]], "Output",
+ CellChangeTimes->{3.6907799884188824`*^9}]
+}, Open  ]]
+}, Open  ]]
 },
 WindowSize->{1456, 733},
 WindowMargins->{{Automatic, 56}, {Automatic, 3}},
@@ -5712,62 +6238,108 @@ Notebook[{
 Cell[558, 20, 120, 2, 31, "Input"],
 Cell[CellGroupData[{
 Cell[703, 26, 151, 3, 31, "Input"],
-Cell[857, 31, 460, 8, 31, "Output"]
+Cell[857, 31, 484, 8, 31, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1354, 44, 214, 4, 31, "Input"],
-Cell[1571, 50, 262, 4, 31, "Output"]
+Cell[1378, 44, 214, 4, 31, "Input"],
+Cell[1595, 50, 307, 4, 31, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1870, 59, 432, 9, 31, "Input"],
-Cell[2305, 70, 1152, 17, 52, "Output"]
+Cell[1939, 59, 432, 9, 31, "Input"],
+Cell[2374, 70, 1152, 17, 52, "Output"]
 }, Open  ]],
-Cell[3472, 90, 294, 7, 31, "Input"],
-Cell[3769, 99, 662, 17, 31, "Input"],
-Cell[4434, 118, 303, 10, 31, "Input"],
-Cell[4740, 130, 737, 12, 31, "Input"],
-Cell[5480, 144, 354, 10, 31, "Input"],
-Cell[5837, 156, 120, 2, 31, "Input"],
-Cell[5960, 160, 471, 12, 31, "Input"],
+Cell[3541, 90, 294, 7, 31, "Input"],
+Cell[3838, 99, 662, 17, 31, "Input"],
+Cell[4503, 118, 303, 10, 31, "Input"],
+Cell[4809, 130, 737, 12, 31, "Input"],
+Cell[5549, 144, 354, 10, 31, "Input"],
+Cell[5906, 156, 120, 2, 31, "Input"],
+Cell[6029, 160, 471, 12, 31, "Input"],
 Cell[CellGroupData[{
-Cell[6456, 176, 177, 4, 31, "Input"],
-Cell[6636, 182, 2184, 49, 118, "Output"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[8857, 236, 207, 4, 31, "Input"],
-Cell[9067, 242, 1051, 15, 52, "Output"]
-}, Open  ]],
-Cell[10133, 260, 369, 10, 31, "Input"],
-Cell[CellGroupData[{
-Cell[10527, 274, 154, 2, 70, "Section"],
-Cell[CellGroupData[{
-Cell[10706, 280, 145, 3, 31, "Input"],
-Cell[10854, 285, 2160, 50, 118, "Output"]
+Cell[6525, 176, 177, 4, 31, "Input"],
+Cell[6705, 182, 2184, 49, 118, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[13051, 340, 144, 2, 31, "Input"],
-Cell[13198, 344, 476, 8, 31, "Output"]
+Cell[8926, 236, 207, 4, 31, "Input"],
+Cell[9136, 242, 1051, 15, 52, "Output"]
+}, Open  ]],
+Cell[10202, 260, 369, 10, 31, "Input"],
+Cell[CellGroupData[{
+Cell[10596, 274, 154, 2, 70, "Section"],
+Cell[CellGroupData[{
+Cell[10775, 280, 145, 3, 31, "Input"],
+Cell[10923, 285, 2234, 51, 118, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[13711, 357, 480, 12, 31, "Input"],
-Cell[14194, 371, 112237, 2069, 597, "Output"]
+Cell[13194, 341, 144, 2, 31, "Input"],
+Cell[13341, 345, 595, 10, 31, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[13973, 360, 480, 12, 31, "Input"],
+Cell[14456, 374, 112237, 2069, 597, "Output"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[126480, 2446, 129, 2, 70, "Section"],
+Cell[126742, 2449, 129, 2, 70, "Section"],
 Cell[CellGroupData[{
-Cell[126634, 2452, 211, 4, 31, "Input"],
-Cell[126848, 2458, 92715, 1783, 546, "Output"]
+Cell[126896, 2455, 211, 4, 31, "Input"],
+Cell[127110, 2461, 92744, 1784, 546, "Output"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[219612, 4247, 153, 2, 70, "Section"],
+Cell[219903, 4251, 153, 2, 70, "Section"],
 Cell[CellGroupData[{
-Cell[219790, 4253, 553, 13, 31, "Input"],
-Cell[220346, 4268, 71101, 1420, 460, "Output"]
+Cell[220081, 4257, 553, 13, 31, "Input"],
+Cell[220637, 4272, 71130, 1421, 460, "Output"]
 }, Open  ]]
 }, Open  ]],
-Cell[291474, 5692, 105, 1, 70, "Section"]
+Cell[CellGroupData[{
+Cell[291816, 5699, 105, 1, 70, "Section"],
+Cell[291924, 5702, 239, 4, 30, "Text"],
+Cell[292166, 5708, 587, 8, 31, "Input"],
+Cell[CellGroupData[{
+Cell[292778, 5720, 137, 2, 31, "Input"],
+Cell[292918, 5724, 2130, 49, 118, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[295085, 5778, 182, 4, 31, "Input"],
+Cell[295270, 5784, 2082, 48, 118, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[297389, 5837, 124, 2, 31, "Input"],
+Cell[297516, 5841, 384, 7, 31, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[297937, 5853, 234, 4, 31, "Input"],
+Cell[298174, 5859, 2153, 49, 118, "Output"]
+}, Open  ]],
+Cell[300342, 5911, 172, 4, 31, "Input"],
+Cell[300517, 5917, 2112, 48, 118, InheritFromParent],
+Cell[CellGroupData[{
+Cell[302654, 5969, 94, 1, 31, "Input"],
+Cell[302751, 5972, 2085, 48, 118, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[304873, 6025, 170, 3, 31, "Input"],
+Cell[305046, 6030, 2085, 48, 118, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[307168, 6083, 257, 6, 31, "Input"],
+Cell[307428, 6091, 2087, 48, 118, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[309552, 6144, 131, 2, 31, "Input"],
+Cell[309686, 6148, 75, 1, 31, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[309798, 6154, 133, 2, 31, "Input"],
+Cell[309934, 6158, 82, 1, 23, "Print"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[310053, 6164, 153, 3, 31, "Input"],
+Cell[310209, 6169, 2087, 48, 118, "Output"]
+}, Open  ]]
+}, Open  ]]
 }
 ]
 *)

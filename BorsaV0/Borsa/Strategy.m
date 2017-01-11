@@ -1,6 +1,6 @@
 (* Mathematica Package *)
 
-BeginPackage["Strategy`" , { "Stock`"} ]
+BeginPackage["Strategy`" , { "Stock`","EmbeddingAnalysis`"} ]
 (* Exported symbols added here with SymbolName::usage *) 
 
 Strategy::usage="Strategy[strategyName,strategyParameters] returns the Strategy Object"
@@ -8,7 +8,7 @@ Strategy::arg = "Strategy `1` not defined"
 
 Begin["`Private`"] (* Begin Private Context *) 
 
-strategies = {"Ema Up Down","ParabolicStopAndReversal","maSF"};
+strategies = {"Ema Up Down","ParabolicStopAndReversal","maSF","slopeZeroLag"};
 	
 Strategy[strategyName_String,strategyParameters_List][p_String] :=
     Which[
@@ -36,6 +36,8 @@ Strategy[strategyName_String,strategyParameters_List][s_Stock] :=
         psr[s,strategyParameters],
         strategyName==="maSF",
         maSF[s,strategyParameters],
+        strategyName==="slopeZeroLag",
+        slopeZLEMA[s, strategyParameters],
         True,
         Message[Strategy::arg,strategyName]
     ]
@@ -93,7 +95,34 @@ maSF[s_Stock, p_List] :=
             ]
     	];
    Drop[Transpose@{s["Date"][[2;;]],Delete[MapThread[fi, {maS,maF}], -1]},p[[1]]]
-]		
+]	
+
+zeroLagEMA[s_Stock, n_Integer, g_Real] :=
+ Module[{k = 2.0/(n + 1), price = s["Close"][[All, 2]], dates, zlema},
+  dates = Drop[s["Close"][[All, 1]], n];
+  zlema = Drop[FoldList[
+     (#1 + (g + k - g k) (#2 - #1)) &, price
+     ], n];
+  Transpose@{dates, zlema}
+  ]
+
+slopeZLEMA[s_Stock, p_List] :=
+  Module[{zlEMA, indices, flag},
+   flag = 0;
+   zlEMA = zeroLagEMA[s, p[[1]], p[[2]]];
+   indices =
+    If[# > 0 ,
+       If[ flag != 1,
+        flag = 1; 1,
+        0
+        ],
+       If[flag == 1,
+        flag = -1; -1
+        , 0
+        ]
+       ] & /@ Differences[zlEMA[[All, 2]]];
+   Transpose@{zlEMA[[3 ;;, 1]], indices[[;;-2]]}
+   ];	
 
 End[] (* End Private Context *)
 
