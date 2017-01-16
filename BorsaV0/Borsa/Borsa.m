@@ -2,7 +2,7 @@
 
 (* Created by the Wolfram Workbench 05/09/2014 *)
 
-BeginPackage["Borsa`",{"Stock`","BackTest`","EmbeddingAnalysis`","Strategy`"}]
+BeginPackage["Borsa`",{"Stock`","BackTest`","EmbeddingAnalysis`","Strategy`","PlotCalendar`"}]
  
 
 (* ::Section:: *)
@@ -54,6 +54,7 @@ Begin["`Private`"]
 <<"BackTest`"
 <<"Strategy`"
 <<"EmbeddingAnalysis`"
+<<"PlotCalendar`"
 
 (* ::Section:: *)
 (* Financial Data (FD) prices from Yahoo *)
