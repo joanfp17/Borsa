@@ -1,8 +1,11 @@
 (* Wolfram Language Package *)
 
-BeginPackage["HilbertHuangTransform`"]
+BeginPackage["HilbertHuangTransform`"] 
 (* Exported symbols added here with SymbolName::usage *)  
 emd::usage = "emd[ts] computes the Empirical Mode Decomposition of ts."
+hilbert::usage = "hilbert[x_List]"
+unwrap::usage = "unwrap[arg_List, tol_Real: N[Pi]] argument of Hilbert Transform"
+differenceArgs::usage = "differenceArgs[x_List]"
 
 Begin["`Private`"] (* Begin Private Context *) 
 
@@ -49,6 +52,35 @@ emd[x_List] :=
                                  xt = xt - x1;];
         Append[imf, xt]
     ]
+
+hilbert[data_?VectorQ] := 
+ Module[{fopts = FourierParameters -> {1, -1}, e, n}, 
+   e = Boole[EvenQ[n = Length[data]]];
+   Im[InverseFourier[
+     Fourier[data, fopts]*
+      PadRight[
+       ArrayPad[ConstantArray[2, Quotient[n, 2] - e], {1, e}, 1], n], 
+     fopts]]] /; And @@ Thread[Im[data] == 0]
+
+differenceArgs = 
+  Function[l, 
+   If[# <= -Pi, # + 2 Pi, If[# > Pi, # - 2 Pi, #]] & /@ 
+    Differences@l];
+
+unwrap[arg_List, tol_Real: N[Pi]] := Module[
+   {k = 0., alpha = tol, out = Table[0, Length[arg]]},
+   For[i = 1, i <= Length[arg] - 1, i++,
+    out[[i]] = arg[[i]] + 2.*k*N[Pi];
+    If[Abs[arg[[i + 1]] - arg[[i]]] > Abs[alpha],
+     If[arg[[i + 1]] < arg[[i]],
+      k = k + 1,
+      k = k - 1
+      ]
+     ]
+    ];
+   out[[-1]] = arg[[-1]] + 2.*k*N[Pi];
+   out
+   ];
 
 End[] (* End Private Context *)
 
