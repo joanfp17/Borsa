@@ -156,7 +156,7 @@ Stock[s_String, from_List, to_List] :=
 Stock[s_String,ohlcv_List,adjp_List,div_List,split_List][p_String] :=
     Which[
      p === "Properties",
-     {"Name","Date","Open","Close","High","Low","Volume","OHLCV","Median Price","Intraday Range","Interday Range","Dividends","Splits","Adjusted","Weekly Prices","Monthly Prices","Actualize"},
+     {"Name","Date","Open","Close","High","Low","Volume","OHLCV","Median Price","Intraday Range","Interday Range","Dividends","Splits","Adjusted","Weekly Prices","Monthly Prices","Quarterly Prices","Actualize"},
      p === "Name",
      s,
      p === "Date",
@@ -182,7 +182,9 @@ Stock[s_String,ohlcv_List,adjp_List,div_List,split_List][p_String] :=
             #[[2, 3]]-#[[2, 2]]
         ]} &, ohlcv],
      p === "Interday Range",
-     Transpose@{Map[{#[[1]],#[[2, 1]]-#[[2, 4]]}&, ohlcv]},
+     MapIndexed[If[First[#2]==1,
+     	Nothing,
+     	{#[[1]],#[[2, 1]]-ohlcv[[First[#2]-1]][[2, 4]]}]&, ohlcv],
      p === "Dividends",
      div,
      p === "Splits",
