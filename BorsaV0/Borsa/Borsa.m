@@ -338,6 +338,9 @@ Options[smoothDCT]:={"Property"->"Close"};
 
 smoothDCT[s_Stock,n_,opts:OptionsPattern[]] :=
     Transpose[MapAt[smoothDCT1[#,n]&,Transpose[s[OptionValue["Property"]]],2]];
+
+smoothDCT[s_List,n_]:=
+	Transpose[MapAt[smoothDCT1[#,n]&,Transpose[s],2]];
     
 End[]
 

@@ -67,6 +67,7 @@ emaUpDown[s_Stock, p_List] :=
            Delete[MapThread[fi, {lows, closes, ema}], -1]}, p[[1]]]
  ]	
 
+(* Parabolic Stop & Reversal *)
 psr[s_Stock, p_List] := Module[
   {PSAR = (Transpose@
        FinancialIndicator["ParabolicStopAndReversal",p[[1]],p[[2]]][s["OHLCV"]]
@@ -80,7 +81,8 @@ psr[s_Stock, p_List] := Module[
   	Delete[MapThread[fi, {opens, closes, PSAR}], -1]}
    (* Desplaso al p[[1]] dies *)
   ]
-  
+
+(* Slow and Fast Moving Averages *)  
 maSF[s_Stock, p_List] :=
     Module[ 
     {maS = (Transpose@FinancialIndicator["SimpleMovingAverage", p[[1]]][s["OHLCV"]]["Path"])[[2]],
@@ -105,7 +107,7 @@ zeroLagEMA[s_Stock, n_Integer, g_Real] :=
      ], n];
   Transpose@{dates, zlema}
   ]
-
+(* Slope of the zerLagEMA *)
 slopeZLEMA[s_Stock, p_List] :=
   Module[{zlEMA, indices, flag},
    flag = 0;
